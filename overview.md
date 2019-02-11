@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-06"
+lastupdated: "2019-02-11"
 
 ---
 
@@ -93,8 +93,6 @@ These Unix commands each perform distinctly different tasks, and you can chain t
 Polyglot is a frequently cited benefit of microservice-based architectures. On one hand, the ability to choose the appropriate language or data store for the function a service is providing can be very powerful, and can bring a lot of efficiency. On the other hand, the use of obscure technologies can complicate long-term maintenance and inhibit the movement of developers between teams. 
 
 Create a balance between the two by creating a list of supported technologies to choose from at the outset, with a defined policy for extending the list with new technologies over time. Ensure that non-functional or regulatory requirements like maintainability, auditability, and data security can be satisfied, while preserving agility and supporting innovation through experimentation.
-
-<!-- ... :FIXME: unpack? Language table here?:... -->
 
 ## REST and JSON
 {: #rest-json}
