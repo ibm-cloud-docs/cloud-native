@@ -2,7 +2,7 @@
 {:topicgroup: .topicgroup}
 
 {: .toc subcollection="cloud-native" audience="platform" href="/docs/cloud-native/overview.html" path="cloud-native"}
-Cloud Native Development
+Cloud-native development
 
     {: .navgroup id="learn"}
     {: .topicgroup}
