@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-06"
+lastupdated: "2019-02-11"
 
 ---
 
@@ -40,7 +40,7 @@ The key principle of configuration is that **cloud-native applications must be p
 * Cloud Foundry stores configuration attributes and service binding details in stringified JSON objects that are passed to the application as an environment variable, for example, `VCAP_APPLICATION` and `VCAP_SERVICES`.
 * Using a backing service, like etcd, hashicorp Vault, Netflix Archaius, or Spring Cloud config, to store and retrieve environment-specific configuration attributes is also an option in any environment.
 
-**Tip:** In most cases, an application processes environment-specific configuration at start time. The value of environment variables, for example, cannot be changed after a process has started. Kubernetes and backing configuration services, however, provide mechanisms for applications to dynamically respond to configuration updates. This is an optional capability. In the case of stateless, transient processes, restarting the service is often sufficient.
+In most cases, an application processes environment-specific configuration at start time. The value of environment variables, for example, cannot be changed after a process has started. Kubernetes and backing configuration services, however, provide mechanisms for applications to dynamically respond to configuration updates. This is an optional capability. In the case of stateless, transient processes, restarting the service is often sufficient.
 {: tip}
 
 Many languages and frameworks provide standard libraries to aid applications in both application-specific and environment-specific configuration so that you can focus on the core logic of your application and abstract these foundational capabilities.
@@ -52,7 +52,7 @@ Management of service configuration and credentials (service bindings) varies be
 
 In Cloud Foundry and Kubernetes environments, [service brokers](https://www.openservicebrokerapi.org/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") may be used to manage binding to a backing service and injecting the associated credentials into the application's environment. This can impact application portability as credentials may not be provided to the application the same way in different environments.
 
-IBM has several open-source libraries that work with a `mappings.json` file to map the key the application uses to retrieve credential information to an ordered list of possible sources. It supports three search pattern types:
+{{site.data.keyword.IBM}} has several open-source libraries that work with a `mappings.json` file to map the key the application uses to retrieve credential information to an ordered list of possible sources. It supports three search pattern types:
 
 * **`cloudfoundry`** - A pattern type used to search for a value in Cloud Foundry's services environment variable (`VCAP_SERVICES`).
 * **`env`** - A pattern type used to search for a value that is mapped to an environment variable.
@@ -172,8 +172,8 @@ spec:
 ```
 {:screen}
 
-**Tip:** There is a minor difference between the first example and this one. In the first example and the sample `values.yaml` file, a human added quotation marks. Quotation marks aren't required for strings in YAML. When Helm rendered the template, the quotation marks were left out.
-{: tip}
+There is a minor difference between these examples. In the first example and the sample `values.yaml` file, a human added quotation marks. Quotation marks aren't required for strings in YAML. When Helm rendered the template, the quotation marks were left out.
+{: note}
 
 ### ConfigMap
 {: #kubernetes-configmap}
@@ -281,5 +281,3 @@ Kubernetes does the base64 decoding for you. The container running in the Pod re
 As with ConfigMaps, Secrets can be created and manipulated from the command line, which comes in handy when dealing with SSL certificates.
 
 For more information, see [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
-
-<!-- SSL EXAMPLE -->
