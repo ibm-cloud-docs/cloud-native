@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-02-08"
 
 ---
 
@@ -18,47 +18,46 @@ lastupdated: "2019-02-11"
 # Configuration
 {: #configuration}
 
-Cloud-native systems are highly automated by design.  This includes the abstraction of environment-specific logic from the core application.  Applications might be developed on local hardware or vetted in a staging environment before being released into production. Such applications need to be environment-agnostic, as these different environments have unique properties and protocols for accessing information about the underlying infrastructure. Effective abstraction and automation are critical to ensuring cloud-native applications and microservices function properly regardless of where they are running.
+Cloud-native systems are highly automated by design. Part of the automation includes the abstraction of environment-specific logic from the core application. Applications might be developed on local hardware or vetted in a staging environment before they are deployed to production. The applications need to be environment-agnostic, as these different environments have unique properties and protocols for accessing information about the underlying infrastructure. Effective abstraction and automation are critical to ensuring cloud-native applications and microservices function properly regardless of where they run.
 {:shortdesc}
 
-The key principle of configuration is that **cloud-native applications must be portable**. You should be able to use the same immutable artifact to deploy to multiple environments, local hardware, and cloud-based test and production environments, for example, without changing code or exercising otherwise untested code paths. Three factors from the [twelve factor approach](https://12factor.net/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") directly relate to this best practice:
+The key principle of configuration is that cloud-native applications must be portable. You should be able to use the same fixed artifact to deploy to multiple environments, for example, local hardware and cloud-based test and production environments, without changing code or exercising otherwise untested code paths. Three factors from the [twelve factor approach](https://12factor.net/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") directly relate to this best practice:
 
-* The first factor recommends a 1-to-1 correlation between a running service and a versioned codebase. In practice, this means creating an immutable deployment artifact, like a Docker image, from a versioned codebase that can be deployed, unchanged, to multiple environments.
-* The third factor recommends a separation between application-specific configuration, which should be part of the immutable artifact, and environment-specific configuration, which should be provided to (or injected into) the service at run time.
+* The first factor recommends a 1-to-1 correlation between a running service and a versioned codebase. This means creating a fixed deployment artifact, like a Docker image, from a versioned codebase that can be deployed, unchanged, to multiple environments.
+* The third factor recommends a separation between application-specific configuration, which should be part of the fixed artifact, and environment-specific configuration, which should be provided to, or injected into, the service at run time.
 * The tenth factor recommends keeping all environments as similar as possible. Environment-specific code paths are difficult to test, and increase the risk of failures as you deploy to different environments. This also applies to backing services. If you develop and test with an in-memory database, unexpected failures might occur in test, staging, or production environments because they use a database that has different behavior.
 
-
-## Environment Configuration
+## Environment configuration
 {: #config-inject}
 
-**Application-specific configuration** should be part of the immutable artifact. For example, applications that run on WebSphere Liberty define a list of installed features which control the binaries and services that are active in the runtime. This configuration is specific to the application, and should be included in the Docker image. Docker images also define the listening, or exposed, port as the execution environment handles the port mapping when starting the container.
+Application-specific configuration should be part of the fixed artifact. For example, applications that run on WebSphere Liberty define a list of installed features that control the binaries and services that are active in the runtime. This configuration is specific to the application, and should be included in the Docker image. Docker images also define the listening, or exposed, port as the execution environment handles the port mapping when starting the container.
 
-**Environment-specific configuration**, like the host and port used to communicate with other services, database users, or resource utilization constraints, are provided to the container by the deployment environment. The management of service configuration and credentials can vary significantly:
+Environment-specific configuration, like the host and port used to communicate with other services, database users, or resource utilization constraints, are provided to the container by the deployment environment. The management of service configuration and credentials can vary significantly:
 
 * Kubernetes stores configuration values (stringified JSON or flat attributes) in either ConfigMaps or Secrets. These can be passed to the containerized application as environment variables or virtual file system mounts. The mechansim used by a service is specified in the deployment metadata, either in Kubernetes YAML or the helm chart).
 * Local development environments are often simplified variants that use simple key-value environment variables.
 * Cloud Foundry stores configuration attributes and service binding details in stringified JSON objects that are passed to the application as an environment variable, for example, `VCAP_APPLICATION` and `VCAP_SERVICES`.
 * Using a backing service, like etcd, hashicorp Vault, Netflix Archaius, or Spring Cloud config, to store and retrieve environment-specific configuration attributes is also an option in any environment.
 
-In most cases, an application processes environment-specific configuration at start time. The value of environment variables, for example, cannot be changed after a process has started. Kubernetes and backing configuration services, however, provide mechanisms for applications to dynamically respond to configuration updates. This is an optional capability. In the case of stateless, transient processes, restarting the service is often sufficient.
-{: tip}
+In most cases, an application processes an environment-specific configuration at start time. The value of environment variables, for example, cannot be changed after a process has started. Kubernetes and backing configuration services, however, provide mechanisms for applications to dynamically respond to configuration updates. This is an optional capability. In the case of stateless, transient processes, restarting the service is often sufficient.
+{: note}
 
-Many languages and frameworks provide standard libraries to aid applications in both application-specific and environment-specific configuration so that you can focus on the core logic of your application and abstract these foundational capabilities.
+Many languages and frameworks provide standard libraries to aid applications in both application-specific and environment-specific configurations so that you can focus on the core logic of your application and abstract these foundational capabilities.
 
-### Working with injected service credentials
+### Working with service credentials
 {: #portable-credentials}
 
-Management of service configuration and credentials (service bindings) varies between platforms. Cloud Foundry stores service binding details in a stringified JSON object that is passed to the application as an environment variable `VCAP_SERVICES`. Kubernetes stores service bindings as stringified JSON or flat attributes in `ConfigMaps` or `Secrets`, which can be passed to the containerized application as environment variables or mounted as a temporary volume. Compare that to local development, which has its own configuration, as local testing is often a simplified version of whatever is running in the cloud. Working across these variations in a portable way without having environment-specific code paths can be challenging.
+The management of service configuration and credentials (service bindings) varies between platforms. Cloud Foundry stores service binding details in a stringified JSON object that is passed to the application as a `VCAP_SERVICES` environment variable. Kubernetes stores service bindings as stringified JSON or flat `ConfigMaps` or `Secrets` attributes in, which can be passed to the containerized application as environment variables or mounted as a temporary volume. In the case of local development, which has its own configuration, local testing is often a simplified version of whatever is running in the cloud. Working across these variations in a portable way without having environment-specific code paths can be challenging.
 
-In Cloud Foundry and Kubernetes environments, [service brokers](https://www.openservicebrokerapi.org/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") may be used to manage binding to a backing service and injecting the associated credentials into the application's environment. This can impact application portability as credentials may not be provided to the application the same way in different environments.
+In Cloud Foundry and Kubernetes environments, you can use [service brokers](https://cloud.ibm.com/apidocs/ibm-cloud-osb-api){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to manage binding to a backing service and injecting the associated credentials into the application's environment. This can impact application portability as credentials might not be provided to the application the same way in different environments.
 
-{{site.data.keyword.IBM}} has several open-source libraries that work with a `mappings.json` file to map the key the application uses to retrieve credential information to an ordered list of possible sources. It supports three search pattern types:
+{{site.data.keyword.IBM}} has several open source libraries that work with a `mappings.json` file to map the key that the application uses to retrieve credential information to an ordered list of possible sources. It supports three search pattern types:
 
-* **`cloudfoundry`** - A pattern type used to search for a value in Cloud Foundry's services environment variable (`VCAP_SERVICES`).
-* **`env`** - A pattern type used to search for a value that is mapped to an environment variable.
-* **`file`** - A pattern type used to search for a value in a JSON file.
+* `cloudfoundry`: Search for a value in Cloud Foundry's services (VCAP_SERVICES) environment variable.
+* `env`: Search for a value that is mapped to an environment variable.
+* `file`: Search for a value in a JSON file.
 
-The following shows an example of a `mappings.json` file:
+In the following example `mappings.json` file, `cloudant-password` is the key that application code uses to look up the password credential. A language-specific library iterates through the `searchPatterns` array in a specific order until a match is found.
 
 ```json
 {
@@ -73,17 +72,17 @@ The following shows an example of a `mappings.json` file:
 ```
 {: codeblock}
 
-In this example, `cloudant-password` is the key that application code uses to look up the password credential. A language-specific library iterates through the `searchPatterns` array in order until a match is found. Using the above example, the library would look in the following places for the cloudant password:
+The library searches the following places for the cloudant password:
 
-1. The JSON path **`['cloudant'][0].credentials.password`** in the Cloud Foundry `VCAP_SERVICES` environment variable
-2. A case-insensitive environment variable named **`cloudant_password`**
-3. A JSON field **`cloudant_password`** in a **`localdev-config.json`** file kept in a language-specific resource location.
+* The `['cloudant'][0].credentials.password` JSON path in the Cloud Foundry `VCAP_SERVICES` environment variable.
+* A case-insensitive environment variable named cloudant_password`.
+* A **cloudant_password** JSON field in a **`localdev-config.json`** file that is kept in a language-specific resource location.
 
 For more information, see:
 
-* [IBM Cloud Environment for Go](https://github.com/ibm-developer/ibm-cloud-env-golang){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon")
-* [IBM Cloud Environment for Node](https://github.com/ibm-developer/ibm-cloud-env){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon")
-* [IBM Cloud Service Bindings For Spring Boot](https://github.com/ibm-developer/ibm-cloud-spring-bind){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon")
+* [{{site.data.keyword.Bluemix}} Environment for Go](https://github.com/ibm-developer/ibm-cloud-env-golang){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon")
+* [{{site.data.keyword.Bluemix_notm}} Environment for Node](https://github.com/ibm-developer/ibm-cloud-env){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon")
+* [{{site.data.keyword.Bluemix_notm}} Service Bindings For Spring Boot](https://github.com/ibm-developer/ibm-cloud-spring-bind){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon")
 
 ## Configuration values in Kubernetes
 {: #config-kubernetes}
@@ -93,7 +92,7 @@ Kubernetes provides a few different ways to define environment variables and ass
 ### Literal values
 {: #config-literal}
 
-The most straightforward way to define an environment variable is to include it directly in the `deployment.yaml` file for the service. To use a [basic Kubernetes example](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"):
+The most straightforward way to define an environment variable is to include it directly in the `deployment.yaml` file for the service. In the following [basic Kubernetes example](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), the direct specification works well when the value is consistent across environments:
 
 ```yaml
 apiVersion: v1
@@ -114,12 +113,10 @@ spec:
 ```
 {: codeblock}
 
-This direct specification works well when the value is consistent across environments.
-
 ### Helm variables
 {: #config-helm}
 
-As previously mentioned, Helm uses templates to create charts. This allows for values to be substituted later. You can achieve the same result as in the preceding example, with more flexibility across environments, by using the following example in the chart template (`mychart/templates/pod.yaml`):
+As previously mentioned, Helm uses templates to create charts so that values can be substituted later. You can achieve the same result as in the preceding example, with more flexibility across environments, by using the following example in the `mychart/templates/pod.yaml` file template:
 
 ```yaml
 apiVersion: v1
@@ -172,8 +169,8 @@ spec:
 ```
 {:screen}
 
-There is a minor difference between these examples. In the first example and the sample `values.yaml` file, a human added quotation marks. Quotation marks aren't required for strings in YAML. When Helm rendered the template, the quotation marks were left out.
-{: note}
+  There is a minor difference between these two examples. In the first example and the sample `values.yaml` file, a human added quotation marks. Quotation marks aren't required for strings in YAML. When Helm renders the template, the quotation marks are left out.
+  {: note}
 
 ### ConfigMap
 {: #kubernetes-configmap}
@@ -212,7 +209,7 @@ spec:
 ```
 {: codeblock}
 
-The ConfigMap is now a completely separate artifact from the Pod. It can have a completely different lifecycle. You can update or change the values in the ConfigMap without having to redeploy the Pod in this case. ConfigMaps can also be manipulated and updated directly from the command line, which can be useful in the dev/test/debug cycle.
+The ConfigMap is now a completely separate artifact from the Pod. It can have a completely different lifecycle. You can update or change the values in the ConfigMap without having to redeploy the Pod in this case. You can also update and manipulate a ConfigMap directly from the command line, which can be useful in the dev/test/debug cycle.
 
 When used with Helm, you can use variables in your ConfigMap declaration. Those variables are resolved as usual when the chart is deployed.
 
@@ -281,3 +278,5 @@ Kubernetes does the base64 decoding for you. The container running in the Pod re
 As with ConfigMaps, Secrets can be created and manipulated from the command line, which comes in handy when dealing with SSL certificates.
 
 For more information, see [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+
+<!-- SSL EXAMPLE -->
