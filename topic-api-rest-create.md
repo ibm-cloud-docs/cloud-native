@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-06"
+lastupdated: "2019-02-11"
 
 ---
 
@@ -69,8 +69,6 @@ Relationships are modeled using hierarchical URIs, for example, ` /accounts/16/c
 
 There is less agreement about what should happen with operations associated with the resource that don't fit within this usual structure. There is no single correct way to manage these operations: do what works best for the consumer of the API.
 
-<!-- FIXME: Operation example -->
-
 ### Robustness and RESTful APIs
 {: #robust-api}
 
@@ -89,11 +87,10 @@ When providing an API to external clients there are two things you must do when 
 #### Consuming APIs
 {: #robust-consumer}
 
-As a guideline:
-
-* Only validate the request against the variables or attributes that you need.
+Only validate the request against the variables or attributes that you need.
     > Do not validate against variables just because they are provided. If you are not using them as part of your request, do not rely on them being there.
-* Accept unknown attributes as part of the response.
+
+Accept unknown attributes as part of the response.
     > Do not issue an exception if you receive an unexpected variable. As long as the response contains the information you need, it does not matter what else comes along for the ride.
 
 These guidelines are especially relevant for strongly-typed languages like Java, where JSON serialization and deserialization often occurs indirectly, for example, by way of the Jackson libraries, or JSON-P/JSON-B. Look for language mechanisms that allow you to specify more generous behavior like ignoring unknown attributes, or to define or filter which attributes should be serialized.
@@ -160,7 +157,7 @@ There are also a variety of browser-based, live-parsing editors that you can use
 ### Generating the API implementation
 {: #code-first}
 
-you can use the open-source [OpenAPI generator](https://github.com/OpenAPITools/openapi-generator){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to create a skeleton project for your service implementation from an OpenAPI definition. You can specify the language or framework for the skeleton from the command line. For example, to create a Java project for the sample PetStore API that uses generic JAX-RS method annotations, you specify the following:
+You can use the open-source [OpenAPI generator](https://github.com/OpenAPITools/openapi-generator){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to create a skeleton project for your service implementation from an OpenAPI definition. You can specify the language or framework for the skeleton from the command line. For example, to create a Java project for the sample PetStore API that uses generic JAX-RS method annotations, you specify the following:
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore
