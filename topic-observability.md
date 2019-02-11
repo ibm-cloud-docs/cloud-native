@@ -18,7 +18,7 @@ lastupdated: "2019-02-06"
 # Observability, telemetry, and monitoring
 {: #observability-cn}
 
-There is a culture change around monitoring that comes with a shift to cloud native. Although applications in both on-premises and cloud-native environments are expected to be highly available and resilient to failure, the methods used to achieve those goals are very different. As a result, the purpose of monitoring shifts: As a result, the purpose of monitoring shifts: instead of monitoring to avoid failure, monitor to manage failure. 
+There is a culture change around monitoring that comes with a shift to cloud native. Although applications in both on-premises and cloud-native environments are expected to be highly available and resilient to failure, the methods used to achieve those goals are very different. As a result, the purpose of monitoring shifts: instead of monitoring to avoid failure, monitor to manage failure. 
 {:shortdesc}
 
 In on-premises environments, infrastructure and middleware is provisioned based on planned capacity and high availability patterns, for example, active-active or active-passive. Unexpected failures can be complex in this environment, requiring significant effort for problem determination and recovery. External monitoring is performed by agents that examine resource utilization to avoid known classes of failures. As an example, consider the tuning of heap size, timeouts, and garbage collection policies for Java applications.
