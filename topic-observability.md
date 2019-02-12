@@ -32,7 +32,7 @@ Monitoring this fluid system requires each service instance to be observable. Ea
 
 What kinds of data should a service produce to be observable?
 
-* Health checks (often custom HTTP endpoints) help orchestrators, like Kubernetes or Cloud Foundry, perform automated actions to maintain overall system health.
+* Health checks (often custom HTTP endpoints) help orchestrators, like Kubernetes or Cloud Foundry, perform automated actions to maintain overall system health and also enable simple deep-dive understanding of the behaviour of the systems and sub-systems.
 * Metrics are a numeric representation of data collected at intervals into a time series. Numerical time series data is easy to store and query, which helps when looking for historical trends. Over a longer series of time, numerical data can be compressed into less granular aggregates, for example, daily, weekly, and so on.
 * Log entries represent discrete events that have happened over time. Log entries are essential for debugging, as they often include stack traces and other contextual information that can help identify the root cause of observed failures.
 * Distributed, request, or end-to-end tracing captures the end-to-end flow of a request through the system. Tracing essentially captures both relationships between services (the services the request touched), and the structure of work flowing through the system (synchronous or asynchronous processing, child-of or follows-from relationships).
