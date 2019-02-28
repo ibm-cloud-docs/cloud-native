@@ -58,16 +58,16 @@ The [twelve-factor application](http://12factor.net){: new_window} ![External li
 9. Processes are disposable: fast startup and graceful shutdown behaviors lead to a more robust and resilient system.
 10. All environments, from local development to production, are as similar as possible.
 11. Applications produce logs as event streams, for example, writing to `stdout` and `stderr`, and trust the execution environment to aggregate streams.
-12. If one-off admin tasks are needed, they are kept in source control and packaged alongside the application to ensure they are ran with the same environment as the application.
+12. If one-off admin tasks are needed, they are kept in source control and packaged alongside the application to ensure they are run with the same environment as the application.
 
 You don't have to strictly follow these factors to achieve a quality microservice environment; however, keeping them in mind enables you to build and maintain portable applications or services in continuous delivery environments.
 
 ## Microservices
 {: #microservices}
 
-A *microservice* is a set of small, independent architectural components, each with a single purpose, that communicate over a common lightweight API. Each microservice in the following simple example is a twelve factor application that uses replaceable backing services to store data and pass messages.
+A *microservice* is a set of small, independent architectural components, each with a single purpose, that communicate over a common lightweight API. Each microservice in the following simple example is a twelve factor application that uses replaceable backing services to store data and pass messages:
 
-![A microservices application](images/microservice.png "A microservices application") A microservices application
+![A microservices application](images/microservice.png "A microservices application")
 
 Microservices are independent. Agility is one of the benefits of microservice architectures, but it only exists when services are capable of being completely re-written without disturbing other services. That isn't likely to happen often, but it explains the requirement. Clear API boundaries give the team working on a service the most flexibility to evolve the implementation. This characteristic is what enables polyglot programming and persistence.
 
