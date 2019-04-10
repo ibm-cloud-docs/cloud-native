@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-04-08"
 
 ---
 
@@ -67,7 +67,7 @@ You don't have to strictly follow these factors to achieve a quality microservic
 
 A *microservice* is a set of small, independent architectural components, each with a single purpose, that communicate over a common lightweight API. Each microservice in the following simple example is a twelve factor application that uses replaceable backing services to store data and pass messages.
 
-![A microservices application](images/microservice.png "A microservices application") A microservices application
+![A microservices application](images/microservice.png "A microservices application"){: caption="Figure 1. A microservices application" caption-side="bottom"}
 
 Microservices are independent. Agility is one of the benefits of microservice architectures, but it only exists when services are capable of being completely re-written without disturbing other services. That isn't likely to happen often, but it explains the requirement. Clear API boundaries give the team working on a service the most flexibility to evolve the implementation. This characteristic is what enables polyglot programming and persistence.
 
@@ -104,14 +104,14 @@ JSON has emerged in microservices architectures as the wire format of choice for
   ```json
 {
   "name": "Marley Cassin",
-  "birthDate": "1971-06-14",
-  "gender": "Male",
+  "serial": 228264,
+  "title": "Senior Software Engineer",
   "address": {
     "office": "501-B101",
     "street": "3858 Kuvalis Pass",
     "city": "East Craig",
     "state": "NC",
-    "zip": 64519
+    "zip": "64519-8934"
   }
 }
 ```
@@ -122,17 +122,17 @@ And the following example is the same employee record in XML:
 ```xml
 <person>
   <name>Marley Cassin</name>
-  <birthDate>1971-06-14</birthdate>
-  <gender>Male</gender>
+  <serial>228264</serial>
+  <title>Senior Software Engineer</title>
   <address>
     <office>501-B101</office>
     <street>3858 Kuvalis Pass</street>
     <city>East Craig</city>
     <state>NC</state>
-    <zip>64519</zip>
+    <zip>64519-8934</zip>
   </address>
 </person>
 ```
 {: codeblock}
 
-JSON uses attribute-value pairs to represent data objects in a concise syntax that preserves information about a few basic types, such as numbers, strings, arrays, and objects. Both JSON and XML clearly represent the nested address object in the previous examples, but you need the associated XML schema to understand what the type is for the zip element. In JSON, the syntax makes it clear that the value of zip is a number and not a string.
+JSON uses attribute-value pairs to represent data objects in a concise syntax that preserves information about a few basic types, such as numbers, strings, arrays, and objects. Both JSON and XML clearly represent the nested address object in the previous examples, but you need the associated XML schema to determine  the type of the `serial` element. In JSON, the syntax makes it clear that the value of `serial` is a number and not a string.
