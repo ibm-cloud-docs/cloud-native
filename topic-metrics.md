@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-03-26"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -94,4 +94,4 @@ When collecting your metrics, remember that a failure path is often wildly diffe
 
 A distributed system has natural variations in certain measurements. Occasional errors are normal, as requests might be directed to processes in the middle of starting up or shutting down. Filter the raw data to catch when this natural variation begins to exceed a valid range. For example, split metrics into buckets. Categorize request duration into categories like 'smallest/quickest', 'medium/normal', and 'longest/largest', as observed within a sliding time window. If request durations are consistently landing in the "longest/largest" butcket, you can identify a problem. Histogram or summary metrics are usually used for this kind of data. For more information, see [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
 
-As an application developer, ensure that your applications or services are emitting metrics with names and labels that follow organization-wide conventions to support monitoring efforts that are focused on end-to-end paths central to your business. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+As an application developer, ensure that your applications or services are emitting metrics with names and labels that follow organization-wide conventions to support monitoring efforts that are focused on end-to-end paths central to your business. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").

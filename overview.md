@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-08"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-04-08"
 Cloud computing environments are dynamic, with on-demand allocation and release of resources from a virtualized, shared pool. These elastic environments enable more flexible scaling options when compared to the up-front resource allocation that is typically used in traditional on-premises data centers.
 {:shortdesc}
 
-According to the [Cloud Native Computing Foundation](https://cncf.io/about/charter){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), cloud-native systems have the following attributes:
+According to the [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), cloud-native systems have the following attributes:
 
 - Applications or processes are run in software containers as isolated units.
 - Processes are managed by central orchestration processes to improve resource utilization and reduce maintenance costs.
@@ -45,7 +45,7 @@ Cloud technologies like Kubernetes and Istio aim to address these concerns in th
 ## Twelve factors
 {: #twelve-factors}
 
-The [twelve-factor application](http://12factor.net){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") methodology was drafted by developers at Heroku. The characteristics mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service applications). The twelve factors are provided in the following list:
+The [twelve-factor application](https://12factor.net){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") methodology was drafted by developers at Heroku. The characteristics mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service applications). The twelve factors are provided in the following list:
 
 1. There is a one-to-one association between a versioned codebase, for example, a git repository, and a deployed service. The same codebase is used for many deployments.
 2. Services explicitly declare all dependencies, and do not rely on the presence of system-level tools or libraries.
@@ -101,7 +101,7 @@ Polyglot applications are only possible with language-agnostic protocols. REST a
 
 JSON has emerged in microservices architectures as the wire format of choice for text-based data, displacing XML with its comparative simplicity and conciseness. As a comparison, the following example is a basic record that contains data about an employee in JSON:
 
-  ```json
+```json
 {
   "name": "Marley Cassin",
   "serial": 228264,
