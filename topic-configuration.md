@@ -75,7 +75,7 @@ In the following example `mappings.json` file, `cloudant-password` is the key th
 The library searches the following places for the cloudant password:
 
 * The `['cloudant'][0].credentials.password` JSON path in the Cloud Foundry `VCAP_SERVICES` environment variable.
-* A case-insensitive environment variable named cloudant_password`.
+* A case-insensitive environment variable named `cloudant_password`.
 * A **cloudant_password** JSON field in a **`localdev-config.json`** file that is kept in a language-specific resource location.
 
 For more information, see:
