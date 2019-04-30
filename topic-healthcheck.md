@@ -54,7 +54,7 @@ When implementing a health probe by using HTTP, consider the following HTTP stat
 | Stopping | 503 - Unavailable     | 200 - OK              |
 | Down     | 503 - Unavailable     | 503 - Unavailable     |
 | Errored  | 500 - Server Error    | 500 - Server Error    |
-{: caption="Table 1. HTTP status codes" caption-side="top"}
+{: caption="Table 1. HTTP status codes" caption-side="bottom"}
 
 Health check endpoints must not require authorization or authentication. Since these protections are not put into place on health probe endpoints, restrict any HTTP probe implementations to GET requests that do not modify any data. Never return data that identifies specifics about the environment, like the operating system, implementation language, or software versions, as these can be used to establish an attack vector.
 

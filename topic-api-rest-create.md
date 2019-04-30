@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -88,9 +88,11 @@ When providing an API to external clients there are two things you must do when 
 {: #robust-consumer}
 
 Only validate the request against the variables or attributes that you need.
+
     > Do not validate against variables just because they are provided. If you are not using them as part of your request, do not rely on them being there.
 
 Accept unknown attributes as part of the response.
+
     > Do not issue an exception if you receive an unexpected variable. As long as the response contains the information you need, it does not matter what else comes along for the ride.
 
 These guidelines are especially relevant for strongly-typed languages like Java, where JSON serialization and deserialization often occurs indirectly, for example, by way of the Jackson libraries, or JSON-P/JSON-B. Look for language mechanisms that allow you to specify more generous behavior like ignoring unknown attributes, or to define or filter which attributes should be serialized.
@@ -115,7 +117,7 @@ After you determine how to manage the changes, the much easier problem to solve 
 
 The easiest way to specify a version is to include it in the path of the URI. There are advantages to this approach: it's obvious, it's easy to achieve when building the services in your application, and it's compatible with API browsing tools like Swagger and command-line tools like `curl`, and so on.
 
-If you're going to include the version in the path of the URI, the version should apply to your application as a whole, for example, `/api/v1/accounts` instead of `/api/accounts/v1`. Hypermedia as the Engine of Application State (HATEOAS) is one way of providing URIs to API consumers so they are not responsible for constructing URIs themselves. GitHub, for example, provides [hypermedia URLs](https://developer.github.com/v3/\#hypermedia){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") in the responses for this reason. HATEOAS becomes difficult, if not impossible, to achieve if different backend services can have independently varying versions in their URIs.
+If you're going to include the version in the path of the URI, the version should apply to your application as a whole, for example, `/api/v1/accounts` instead of `/api/accounts/v1`. Hypermedia as the Engine of Application State (HATEOAS) is one way of providing URIs to API consumers so they are not responsible for constructing URIs themselves. GitHub, for example, provides [hypermedia URLs](https://developer.github.com/v3/#hypermedia){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") in the responses for this reason. HATEOAS becomes difficult, if not impossible, to achieve if different backend services can have independently varying versions in their URIs.
 
 #### Modifying the Accept header to include the version
 {: #version-accept}
@@ -146,7 +148,7 @@ In either case, working with an OpenAPI definition can help identify areas where
 
 You can author your OpenAPI YAML file in whatever tool you choose. Using a plain text editor, however, can be error prone. Some editors have basic support for YAML, and some might have additional extensions to support OpenAPI definitions. For example, you can use Visual Studio Code extensions like [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") or [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to validate your OpenAPI definition against a specified spec version and render a web view in the preview pane:
 
-![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview") Figure 1. OpenAPI Preview 
+![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview"){: caption="Figure 1. OpenAPI Preview" caption-side="bottom"} 
 
 There are also a variety of browser-based, live-parsing editors that you can use either online or locally. Some examples include:
 
