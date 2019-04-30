@@ -67,7 +67,7 @@ You don't have to strictly follow these factors to achieve a quality microservic
 
 A *microservice* is a set of small, independent architectural components, each with a single purpose, that communicate over a common lightweight API. Each microservice in the following simple example is a twelve factor application that uses replaceable backing services to store data and pass messages:
 
-![A microservices application](images/microservice.png "A microservices application")
+![A microservices application](images/microservice.png "A microservices application"){: caption="Figure 1. A microservices application" caption-side="bottom"}
 
 Microservices are independent. Agility is one of the benefits of microservice architectures, but it only exists when services are capable of being completely re-written without disturbing other services. That isn't likely to happen often, but it explains the requirement. Clear API boundaries give the team working on a service the most flexibility to evolve the implementation. This characteristic is what enables polyglot programming and persistence.
 

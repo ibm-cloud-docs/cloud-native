@@ -147,7 +147,7 @@ In either case, working with an OpenAPI definition can help identify areas where
 
 You can author your OpenAPI YAML file in whatever tool you choose. Using a plain text editor, however, can be error prone. Some editors have basic support for YAML, and some might have additional extensions to support OpenAPI definitions. For example, you can use Visual Studio Code extensions like [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") or [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to validate your OpenAPI definition against a specified spec version and render a web view in the preview pane:
 
-![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview")
+![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview"){: caption="Figure 1. OpenAPI Preview" caption-side="bottom"} 
 
 There are also a variety of browser-based, live-parsing editors that you can use either online or locally. Some examples include:
 
