@@ -130,7 +130,7 @@ spec:
 ```
 {: codeblock}
 
-This configuration puts constraints on requests that other services are making to the stock quote service. The specified `outlierDetection` traffic policy is applied to each individual instance. To phrase the preceding configuration as a sentence, "Eject any stock-quote-service instance that fails 3 times in 5 seconds for at least 5 minutes; futher, all instances can be ejected". The latter `maxEjectionPercent` setting is related to load-balancing. Istio maintains a load-balancing pool, and ejects failing instances from that pool. By default, it ejects a maximum of 10% of all available instance from the load balancing pool.
+This configuration puts constraints on requests that other services are making to the stock quote service. The specified `outlierDetection` traffic policy is applied to each individual instance. To phrase the preceding configuration as a sentence, "Eject any stock-quote-service instance that fails 3 times in 5 seconds for at least 5 minutes; further, all instances can be ejected". The latter `maxEjectionPercent` setting is related to load-balancing. Istio maintains a load-balancing pool, and ejects failing instances from that pool. By default, it ejects a maximum of 10% of all available instance from the load balancing pool.
 
 For those familiar with other mechanisms of circuit breaking, Istio does not have a half-open state. It instead applies some simple math: an instance remains ejected from the pool for `baseInjectionTime * <number of times it has been ejected>`. This allows for instances to recover from transient failures, while keeping consistently failing instances out of the pool.
 

@@ -18,16 +18,16 @@ lastupdated: "2019-02-08"
 # Configuration
 {: #configuration}
 
-Cloud-native systems are highly automated by design. Part of the automation includes the abstraction of environment-specific logic from the core application. Applications might be developed on local hardware or vetted in a staging environment before they are deployed to production. The applications need to be environment-agnostic, as these different environments have unique properties and protocols for accessing information about the underlying infrastructure. Effective abstraction and automation are critical to ensuring cloud-native applications and microservices function properly regardless of where they run.
+Cloud-native applications must be portable. You should be able to use the same fixed artifact to deploy to multiple environments, from local hardware to cloud-based test and production environments, without changing code or exercising otherwise untested code paths.
 {:shortdesc}
 
-The key principle of configuration is that cloud-native applications must be portable. You should be able to use the same fixed artifact to deploy to multiple environments, for example, local hardware and cloud-based test and production environments, without changing code or exercising otherwise untested code paths. Three factors from the [twelve factor approach](https://12factor.net/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") directly relate to this best practice:
+Three factors from the [twelve factor methodology](https://12factor.net/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") directly relate to this practice:
 
 * The first factor recommends a 1-to-1 correlation between a running service and a versioned codebase. This means creating a fixed deployment artifact, like a Docker image, from a versioned codebase that can be deployed, unchanged, to multiple environments.
-* The third factor recommends a separation between application-specific configuration, which should be part of the fixed artifact, and environment-specific configuration, which should be provided to, or injected into, the service at run time.
+* The third factor recommends a separation between application-specific configuration, which should be part of the fixed artifact, and environment-specific configuration, which should be provided to the service at deployment time.
 * The tenth factor recommends keeping all environments as similar as possible. Environment-specific code paths are difficult to test, and increase the risk of failures as you deploy to different environments. This also applies to backing services. If you develop and test with an in-memory database, unexpected failures might occur in test, staging, or production environments because they use a database that has different behavior.
 
-## Environment configuration
+## Configuration sources
 {: #config-inject}
 
 Application-specific configuration should be part of the fixed artifact. For example, applications that run on WebSphere Liberty define a list of installed features that control the binaries and services that are active in the runtime. This configuration is specific to the application, and should be included in the Docker image. Docker images also define the listening, or exposed, port as the execution environment handles the port mapping when starting the container.
@@ -75,7 +75,7 @@ In the following example `mappings.json` file, `cloudant-password` is the key th
 The library searches the following places for the cloudant password:
 
 * The `['cloudant'][0].credentials.password` JSON path in the Cloud Foundry `VCAP_SERVICES` environment variable.
-* A case-insensitive environment variable named cloudant_password`.
+* A case-insensitive environment variable named `cloudant_password`.
 * A **cloudant_password** JSON field in a **`localdev-config.json`** file that is kept in a language-specific resource location.
 
 For more information, see:
