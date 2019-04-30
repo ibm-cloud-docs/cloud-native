@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-10"
+lastupdated: "2019-02-18"
 
 ---
 
@@ -18,13 +18,13 @@ lastupdated: "2019-02-10"
 # Cloud platform concepts
 {: #platform}
 
-This section provides a brief overview of the core technologies and concepts that developers interact with when building cloud-native applications, starting with Containers, Kubernetes, Helm and Istio.
+This section provides a brief overview of the core technologies and concepts that developers interact with when building cloud-native applications, starting with containers, Kubernetes, Helm and Istio.
 {:shortdesc}
 
 ## Containers
 {: #containers}
 
-Container are a standard mechanism for packaging an application and all of its dependencies into a single, self-contained unit. Containers solve the portability problem: the container artifact (image) ensures that everything an application needs to run is in the right place; container engines can then focus on running containers as isolated processes in an efficient, safe, and secure way.
+Containers are a standard mechanism for packaging an application and all of its dependencies into a single, self-contained unit. Containers solve the portability problem: the container artifact (image) ensures that everything an application needs to run is in the right place; container engines can then focus on running containers as isolated processes in an efficient, safe, and secure way.
 
 Container images are usually built from a list of instructions defined in a `Dockerfile`. Container images are almost always built from other container images (as essentially a continuation of instructions from known previous state). You can use the following snippet to make your own Open Liberty image, for example:
 
@@ -36,7 +36,7 @@ COPY server.xml /config/
 
 After an image is built, it can be run. Container execution engines, like Docker or [containerd](https://containerd.io/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), take that image definition and execute the defined entrypoint as a resource-isolated process directly on top of the host operating system, eliminating the overhead of virtual machines.
 
-Container images are stored in *registries*. The best known is the public Docker Hub registry, but more commonly, you push images into and pull images from access-controlled container registries, like {{site.data.keyword.registryshort_notm}}, that are more closely associated with your infrastructure and CI/CD pipelines.
+Container images are stored in *registries*. The best known is the public Docker Hub registry but, more commonly, you push images into and pull images from access-controlled container registries, like {{site.data.keyword.registryshort_notm}}, that are more closely associated with your infrastructure and CI/CD pipelines.
 
 ## Kubernetes
 {: #kubernetes}
@@ -51,7 +51,6 @@ IBM's cloud platforms leverage Kubernetes for container orchestration. Therefore
 | Ingress | Provides the ability to share a single network address with multiple services by way of virtual hosting or context-based routing. An Ingress can also perform network connection management activities like TLS termination. An Ingress is displayed as `kind: Ingress` in `.yaml` files. |
 | Secret | An object that stores sensitive information for Pod runtime use and separates the deployment-specific information from the container image or orchestration. A secret can be exposed to a Pod at runtime through either environment variables or virtual file system mounts. Without secrets, sensitive data is stored in either the container image or the orchestration, both of which create more opportunities for accidental exposure or unintended access. |
 | ConfigMap | Plays a similar role to Secrets in that it separates deployment specific information from the container orchestration. However, a ConfigMap is a general purpose configuration structure. It is used to bind information, such as command-line arguments, environment variables, and other configuration artifacts, to your Pod's containers and system components at run time. | 
-{: caption="Table 1. Kubernetes concepts" caption-side="top"}
 
 All resources are defined within the Kubernetes resource model, which can be configured either through the RESTful API or through configuration files submitted through the `kubectl` command line.
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -116,7 +116,7 @@ After you determine how to manage the changes, the much easier problem to solve 
 
 The easiest way to specify a version is to include it in the path of the URI. There are advantages to this approach: it's obvious, it's easy to achieve when building the services in your application, and it's compatible with API browsing tools like Swagger and command-line tools like `curl`, and so on.
 
-If you're going to include the version in the path of the URI, the version should apply to your application as a whole, for example, `/api/v1/accounts` instead of `/api/accounts/v1`. Hypermedia as the Engine of Application State (HATEOAS) is one way of providing URIs to API consumers so they are not responsible for constructing URIs themselves. GitHub, for example, provides [hypermedia URLs](https://developer.github.com/v3/\#hypermedia){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") in the responses for this reason. HATEOAS becomes difficult, if not impossible, to achieve if different backend services can have independently varying versions in their URIs.
+If you're going to include the version in the path of the URI, the version should apply to your application as a whole, for example, `/api/v1/accounts` instead of `/api/accounts/v1`. Hypermedia as the Engine of Application State (HATEOAS) is one way of providing URIs to API consumers so they are not responsible for constructing URIs themselves. GitHub, for example, provides [hypermedia URLs](https://developer.github.com/v3/#hypermedia){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") in the responses for this reason. HATEOAS becomes difficult, if not impossible, to achieve if different backend services can have independently varying versions in their URIs.
 
 #### Modifying the Accept header to include the version
 {: #version-accept}
