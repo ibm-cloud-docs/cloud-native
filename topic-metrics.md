@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -23,7 +23,7 @@ Metrics are simple numerical measurements captured as key-value pairs. Some metr
 
 There are three general factors when talking about metrics in a distributed system: producers, aggregators, and processors. There are some fairly common combinations of these factors, such as using Prometheus as the aggregator with Grafana processing collected metrics for display in graphical dashboards, or using StatsD with graphite.
 
-![The three factors in distributed system metrics](images/metrics-systems.png "The three factors in distributed system metrics") Figure 1. The three factors in distributed system metrics
+![The three factors in distributed system metrics](images/metrics-systems.png "The three factors in distributed system metrics"){: caption="Figure 1. The three factors in distributed system metrics" caption-side="bottom"}
 
 The producer is, of course, the application itself. In some cases, the application is directly involved in producing metrics. In other cases, agents or other infrastructure either passively observe or actively instrument the application to produce metrics on its behalf. What happens next depends on the aggregator.
 
@@ -92,6 +92,6 @@ For more information on best practices for naming metrics and labels (labels), s
 
 When collecting your metrics, remember that a failure path is often wildly different than a success path. For example, an error response on a HTTP resource might take much longer than a successful response if the failure involved timeouts and stack trace collection. Count and treat error paths separately from successful requests.
 
-A distributed system has natural variations in certain measurements. Occasional errors are normal, as requests might be directed to processes in the middle of starting up or shutting down. Filter the raw data to catch when this natural variation begins to exceed a valid range. For example, split metrics into buckets. Categorize request duration into categories like 'smallest/quickest', 'medium/normal', and 'longest/largest', as observed within a sliding time window. If request durations are consistently landing in the "longest/largest" butcket, you can identify a problem. Histogram or summary metrics are usually used for this kind of data. For more information, see [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+A distributed system has natural variations in certain measurements. Occasional errors are normal, as requests might be directed to processes in the middle of starting up or shutting down. Filter the raw data to catch when this natural variation begins to exceed a valid range. For example, split metrics into buckets. Categorize request duration into categories like 'smallest/quickest', 'medium/normal', and 'longest/largest', as observed within a sliding time window. If request durations are consistently landing in the "longest/largest" bucket, you can identify a problem. Histogram or summary metrics are usually used for this kind of data. For more information, see [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
 
-As an application developer, ensure that your applications or services are emitting metrics with names and labels that follow organization-wide conventions to support monitoring efforts that are focused on end-to-end paths central to your business. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+As an application developer, ensure that your applications or services are emitting metrics with names and labels that follow organization-wide conventions to support monitoring efforts that are focused on end-to-end paths central to your business. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").

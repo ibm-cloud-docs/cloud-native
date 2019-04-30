@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-02-11"
 Cloud computing environments are dynamic, with on-demand allocation and release of resources from a virtualized, shared pool. These elastic environments enable more flexible scaling options when compared to the up-front resource allocation that is typically used in traditional on-premises data centers.
 {:shortdesc}
 
-According to the [Cloud Native Computing Foundation](https://cncf.io/about/charter){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), cloud-native systems have the following attributes:
+According to the [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), cloud-native systems have the following attributes:
 
 - Applications or processes are run in software containers as isolated units.
 - Processes are managed by central orchestration processes to improve resource utilization and reduce maintenance costs.
@@ -45,7 +45,7 @@ Cloud technologies like Kubernetes and Istio aim to address these concerns in th
 ## Twelve factors
 {: #twelve-factors}
 
-The [twelve-factor application](http://12factor.net){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") methodology was drafted by developers at Heroku. The characteristics mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service applications). The twelve factors are provided in the following list:
+The [twelve-factor application](https://12factor.net){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") methodology was drafted by developers at Heroku. The characteristics mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service applications). The twelve factors are provided in the following list:
 
 1. There is a one-to-one association between a versioned codebase, for example, a git repository, and a deployed service. The same codebase is used for many deployments.
 2. Services explicitly declare all dependencies, and do not rely on the presence of system-level tools or libraries.
@@ -101,17 +101,17 @@ Polyglot applications are only possible with language-agnostic protocols. REST a
 
 JSON has emerged in microservices architectures as the wire format of choice for text-based data, displacing XML with its comparative simplicity and conciseness. As a comparison, the following example is a basic record that contains data about an employee in JSON:
 
-  ```json
+```json
 {
   "name": "Marley Cassin",
-  "birthDate": "1971-06-14",
-  "gender": "Male",
+  "serial": 228264,
+  "title": "Senior Software Engineer",
   "address": {
     "office": "501-B101",
     "street": "3858 Kuvalis Pass",
     "city": "East Craig",
     "state": "NC",
-    "zip": 64519
+    "zip": "64519-8934"
   }
 }
 ```
@@ -122,17 +122,17 @@ And the following example is the same employee record in XML:
 ```xml
 <person>
   <name>Marley Cassin</name>
-  <birthDate>1971-06-14</birthdate>
-  <gender>Male</gender>
+  <serial>228264</serial>
+  <title>Senior Software Engineer</title>
   <address>
     <office>501-B101</office>
     <street>3858 Kuvalis Pass</street>
     <city>East Craig</city>
     <state>NC</state>
-    <zip>64519</zip>
+    <zip>64519-8934</zip>
   </address>
 </person>
 ```
 {: codeblock}
 
-JSON uses attribute-value pairs to represent data objects in a concise syntax that preserves information about a few basic types, such as numbers, strings, arrays, and objects. Both JSON and XML clearly represent the nested address object in the previous examples, but you need the associated XML schema to understand what the type is for the zip element. In JSON, the syntax makes it clear that the value of zip is a number and not a string.
+JSON uses attribute-value pairs to represent data objects in a concise syntax that preserves information about a few basic types, such as numbers, strings, arrays, and objects. Both JSON and XML clearly represent the nested address object in the previous examples, but you need the associated XML schema to determine  the type of the `serial` element. In JSON, the syntax makes it clear that the value of `serial` is a number and not a string.
