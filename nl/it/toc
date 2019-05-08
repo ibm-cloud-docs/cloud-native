@@ -1,0 +1,19 @@
+{:navgroup: .navgroup}
+{:topicgroup: .topicgroup}
+
+{: .toc subcollection="cloud-native" audience="platform" href="/docs/cloud-native/overview.html" path="cloud-native"}
+Sviluppo nativo del cloud
+
+    {: .navgroup id="learn"}
+    {: .topicgroup}
+    Sviluppo nativo del cloud
+        overview.md
+        topic-cloudplatform-basics.md
+        topic-api-rest-create.md
+        topic-configuration.md
+        topic-observability.md
+        topic-healthcheck.md
+        topic-logging.md
+        topic-metrics.md
+        topic-fault-tolerance.md
+    {: .navgroup-end}
