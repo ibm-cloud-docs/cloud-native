@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-03-26"
 
 ---
 
@@ -94,4 +94,4 @@ metadata:
 
 分散式系統在某些測量中具有自然變化。偶發性錯誤是正常的，因為可能會在啟動或關閉過程中將要求導向至處理程序。過濾要在此自然變化開始超出有效範圍時捕捉的原始資料。例如，將度量值分割成儲存區。將要求持續時間分類為 'smallest/quickest'、'medium/normal' 及 'longest/largest' 這類種類，如滑動時間範圍內觀察到的值。如果要求持續時間一致地落入 "longest/largest" 儲存區，您便可以識別出問題。直方圖或摘要度量值通常用於這類型的資料。如需相關資訊，請參閱[直方圖和摘要](https://prometheus.io/docs/practices/histograms/){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示")。
 
-身為應用程式開發人員，請確定您應用程式或服務所發出的度量值具有遵循全組織使用慣例的名稱和標籤，以支援著重在商業核心端對端路徑的監視工作。如需相關資訊，請參閱[監視分散式系統](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示")。
+身為應用程式開發人員，請確定您應用程式或服務所發出的度量值具有遵循全組織使用慣例的名稱和標籤，以支援著重在商業核心端對端路徑的監視工作。如需相關資訊，請參閱[監視分散式系統](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示")。

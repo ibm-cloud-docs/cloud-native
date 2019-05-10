@@ -75,7 +75,7 @@ lastupdated: "2019-02-08"
 程式庫會在下列位置中搜尋 cloudant 密碼：
 
 * Cloud Foundry `VCAP_SERVICES` 環境變數中的 `['cloudant'][0].credentials.password` JSON 路徑。
-* 名為 `cloudant_password` 且不區分大小寫的環境變數。
+* 名為 cloudant_password 的不區分大小寫環境變數。
 * 保留在語言特定資源位置內的 **`localdev-config.json`** 檔案中的 **cloudant_password** JSON 欄位。
 
 如需相關資訊，請參閱：

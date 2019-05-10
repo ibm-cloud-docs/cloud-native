@@ -18,7 +18,7 @@ lastupdated: "2019-02-18"
 # 云平台概念
 {: #platform}
 
-此部分简要概述了开发者在构建云本机应用程序时与之交互的核心技术和概念，这里会依次介绍容器、Kubernetes、Helm 和 Istio。
+此部分简要概述了开发者在构建云本机应用程序时与之交互的核心技术和概念，首先介绍容器、Kubernetes、Helm 和 Istio。
 {:shortdesc}
 
 ## 容器
@@ -36,7 +36,7 @@ COPY server.xml /config/
 
 构建映像后，即可以运行该映像。容器执行引擎（如 Docker 或 [containerd](https://containerd.io/){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")）会采用该映像定义，并将定义的入口点作为资源隔离的进程直接在主机操作系统上执行，从而避免了虚拟机的开销。
 
-容器映像存储在*注册表*中。最为人熟知的是公共 Docker Hub 注册表，但更常见的做法是将映像推送到与基础架构和 CI/CD 管道更密切关联的访问控制的容器注册表（如 {{site.data.keyword.registryshort_notm}}）中，以及从这类注册表中拉取映像。
+容器映像存储在*注册表*中。最为人熟知的是公共 Docker Hub 注册表，但更常见的做法是将映像推送到与基础架构和 CI/CD 管道更密切关联的进行访问控制的容器注册表（如 {{site.data.keyword.registryshort_notm}}），以及从这类注册表中拉取映像。
 
 ## Kubernetes
 {: #kubernetes}
@@ -51,6 +51,7 @@ IBM 的云平台利用 Kubernetes 来进行容器编排。因此，除了了解�
 |Ingress|通过虚拟托管或基于上下文的路由，提供在多个服务中共享单个网络地址的能力。Ingress 还可以执行网络连接管理活动，如 TLS 终止。Ingress 在 `.yaml` 文件中显示为 `kind: Ingress`。|
 |私钥|一个对象，用于存储 Pod 运行时使用的敏感信息，并将特定于部署的信息与容器映像或编排相分离。私钥可以通过环境变量或虚拟文件系统安装，在运行时公开给 Pod。不使用私钥时，敏感数据会存储在容器映像或编排中，这两种情况都会带来意外公开或意外访问这些数据的更多机会。|
 |ConfigMap|作用与私钥类似，可将特定于部署的信息与容器编排相分离。但是，ConfigMap 是通用配置结构。它用于在运行时将信息（例如，命令行自变量、环境变量和其他配置工件）绑定到 Pod 的容器和系统组件。| 
+{: caption="表 1. Kubernetes 概念" caption-side="bottom"}
 
 所有资源都在 Kubernetes 资源模型中进行定义，可以通过 RESTful API 或通过使用 `kubectl` 命令行提交的配置文件进行配置。
 
