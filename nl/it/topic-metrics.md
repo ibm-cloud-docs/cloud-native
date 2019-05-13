@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-03-26"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -94,4 +94,4 @@ Quando raccogli le tue metriche, ricordati che un percorso di malfunzionamento �
 
 Un sistema distribuito ha delle variazioni naturali in alcune misurazioni. Degli errori occasionali sono normali poiché le richieste potrebbero essere indirizzate a processi che sono in pieno avvio o arresto. Filtra i dati non elaborati da acquisire quando questa variazione naturale inizia a superare un intervallo valido. Ad esempio, suddividi le metriche in bucket. Categorizza la durata delle richieste in categorie come 'smallest/quickest', 'medium/normal' e 'longest/largest', come osservato entro un intervallo di tempo considerato. Se le durate delle richieste vanno a finire regolarmente nel bucket "longest/largest", puoi identificare un problema. Per questo tipo di dati vengono di norma utilizzate le metriche di riepilogo o istogramma. Per ulteriori informazioni, vedi il documento relativo a [istogrammi e riepiloghi](https://prometheus.io/docs/practices/histograms/){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno").
 
-In qualità di sviluppatore delle applicazioni, assicurati che le tue applicazioni o i tuoi servizi stiano emettendo metriche con nomi ed etichette che rispettano le convenzioni a livello dell'organizzazione per supportare gli sforzi di monitoraggio concentrati sui percorsi end-to-end centrali per la tua attività di business. Per ulteriori informazioni, vedi il documento relativo al [monitoraggio dei sistemi distribuiti](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno").
+In qualità di sviluppatore delle applicazioni, assicurati che le tue applicazioni o i tuoi servizi stiano emettendo metriche con nomi ed etichette che rispettano le convenzioni a livello dell'organizzazione per supportare gli sforzi di monitoraggio concentrati sui percorsi end-to-end centrali per la tua attività di business. Per ulteriori informazioni, vedi il documento relativo al [monitoraggio dei sistemi distribuiti](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno").

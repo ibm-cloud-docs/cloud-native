@@ -75,7 +75,7 @@ No arquivo `mappings.json` de exemplo a seguir, `cloudant-password` é a chave u
 A biblioteca procura a senha do cloudant nos locais a seguir:
 
 * O caminho JSON `['cloudant'][0].credentials.password` na variável de ambiente `VCAP_SERVICES` do Cloud Foundry.
-* Uma variável de ambiente sem distinção entre maiúsculas e minúsculas, denominada cloudant_password`.
+* Uma variável de ambiente que não faz distinção entre maiúsculas e minúsculas denominada `cloudant_password`.
 * Um campo JSON **cloudant_password** em um arquivo **`localdev-config.json`** mantido em um local de recurso específico da linguagem.
 
 Para obter mais informações, veja:

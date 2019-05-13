@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-03-26"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -18,7 +18,7 @@ lastupdated: "2019-03-26"
 # Création de microservices RESTful
 {: #rest-api}
 
-Les applications Cloud native génèrent et utilisent des API, que ce soit dans une architecture de microservices ou non. Certaines API sont considérées comme internes, ou privées et d'autres sont considérées comme externes.
+Les applications Cloud native génèrent et utilisent des API, que ce soit dans une architecture de microservices ou non. Certaines API sont considérées comme internes, ou privées et d'autres sont considérées comme externes. 
 {:shortdesc}
 
 Les API internes sont utilisées uniquement dans un environnement de pare-feu afin que les services de back end puissent communiquer les uns avec les autres. Les API externes offrent un point d'entrée unifié pour les consommateurs, et sont souvent **gérées** par des outils, tels {{site.data.keyword.apiconnect_long}}, qui peuvent imposer une limitation de débit ou d'autres contraintes d'utilisation. L'[API GitHub Developer](https://developer.github.com/v3/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") constitue un exemple d'une telle API. Cette API unifiée permet d'utiliser de manière cohérente les codes retour et les instructions HTTP ainsi que le comportement de pagination sans exposer les détails d'implémentation internes. Cette API peut être sauvegardée par une application monolithique ou par une collection de microservices. Ce détail n'est pas visible du consommateur, ce qui permet à GitHub de faire évoluer les systèmes internes, lorsque cela est nécessaire.
@@ -77,22 +77,21 @@ La page [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: ne
 #### Génération d'API
 {: #robust-producer}
 
-Lors de la mise à disposition d'une API auprès de clients externes, vous devez effectuer deux actions lors de l'acceptation des demandes et l'envoi des réponses. 
+Lors de la mise à disposition d'une API auprès de clients externes, vous devez effectuer deux actions lors de l'acceptation des demandes et l'envoi des réponses : 
 
 * Acceptez les attributs inconnus comme partie de la demande.
     > Si un service appelle votre API avec des attributs non nécessaires, rejetez ces valeurs. Lorsqu'une erreur est générée dans ce scénario, des défaillances peuvent survenir, ayant un impact négatif sur l'utilisateur final.
 * Renvoyez uniquement les attributs requis par vos consommateurs
-    > Evitez d'exposer les détails de service internes. Exposez uniquement les attributs dont les consommateurs ont besoin dans l'API. 
+    > Evitez d'exposer les détails de service internes. Exposez uniquement les attributs dont les consommateurs ont besoin dans l'API.
 
 #### Consommation des API
 {: #robust-consumer}
 
-Validez uniquement la requête par rapport aux variables ou aux attributs dont vous avez besoin.
+Lors de la consommation d'API :
 
+* Validez uniquement la requête par rapport aux variables ou aux attributs dont vous avez besoin.
     > N'effectuez pas de validation en fonction de variables uniquement parce qu'elles sont disponibles. Si vous ne les utilisez pas dans la demande, ne comptez pas sur le fait qu'elles soient présentes.
-
-Acceptez les attributs inconnus comme partie de la réponse.
-
+* Acceptez les attributs inconnus comme partie de la réponse.
     > Ne générez pas d'exception si vous recevez une variable inattendue. Tant que la réponse contient les informations dont vous avez besoin, le reste des données n'a aucune importance.
 
 Ces instructions sont particulièrement adaptées aux langages fortement typés comme Java, où la sérialisation et la désérialisation JSON surviennent souvent indirectement, par exemple via les bibliothèques Jackson ou JSON-P/JSON-B. Recherchez les mécanismes de langage qui permettent de spécifier un comportement plus généreux, comme le fait d'ignorer des attributs inconnus ou de définir ou filtrer les attributs à sérialiser.
@@ -117,7 +116,7 @@ Une fois que vous avez déterminé comment gérer les modifications, vous devez 
 
 La méthode la plus simple de spécification de version consiste à l'inclure dans le chemin de l'URI. Cette approche offre plusieurs avantages : il est plus facile d'obtenir le résultat souhaité lors de la génération des services dans votre application et cette approche est compatible avec des outils de navigation, tels Swagger, et des outils de ligne de commande, tels `curl`, etc.
 
-Si vous incluez la version dans le chemin de l'URI, elle doit s'appliquer à votre application dans son ensemble, par exemple `/api/v1/accounts` et non `/api/accounts/v1`. HATEOS (Hypermedia as the Engine of Application State) constitue une des manières de mettre à disposition des URI auprès des consommateurs d'API. Ainsi, ces derniers n'ont pas la charge de construire les URI eux-mêmes. GitHub, par exemple, met à disposition des [URL hypermédia](https://developer.github.com/v3/\#hypermedia){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") dans les réponses pour cette raison. Il devient difficile, voire impossible d'utiliser HATEOAS si différents services de back end peuvent avoir des versions variant de manière indépendante dans leurs URI.
+Si vous incluez la version dans le chemin de l'URI, elle doit s'appliquer à votre application dans son ensemble, par exemple `/api/v1/accounts` et non `/api/accounts/v1`. HATEOS (Hypermedia as the Engine of Application State) constitue une des manières de mettre à disposition des URI auprès des consommateurs d'API. Ainsi, ces derniers n'ont pas la charge de construire les URI eux-mêmes. GitHub, par exemple, met à disposition des [URL hypermédia](https://developer.github.com/v3/#hypermedia){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") dans les réponses pour cette raison. Il devient difficile, voire impossible d'utiliser HATEOAS si différents services de back end peuvent avoir des versions variant de manière indépendante dans leurs URI.
 
 #### Modification de l'en-tête Accept afin d'inclure la version
 {: #version-accept}
@@ -138,7 +137,7 @@ Pour plus d'informations, voir la page [Your API versioning is wrong, which is w
 
 Vous pouvez procéder d'une des manières suivantes pour créer une API :
 
-  * Commencer avec une définition OpenAPI (méthode descendante) : Dans cette approche, vous commencez par créer une définition OpenAPI dans un format indépendant du langage (généralement YAML). Vous utilisez ensuite un générateur de code pour créer un squelette puis générez à partir de ce dernier votre implémentation de service. Cette méthode est généralement adoptée par les entreprises ayant une équipe de conception d'API centrale. De plus, elle permet une progression parallèle du développement et du test. 
+  * Commencer avec une définition OpenAPI (méthode descendante) : Dans cette approche, vous commencez par créer une définition OpenAPI dans un format indépendant du langage (généralement YAML). Vous utilisez ensuite un générateur de code pour créer un squelette puis générez à partir de ce dernier votre implémentation de service. Cette méthode est généralement adoptée par les entreprises ayant une équipe de conception d'API centrale. De plus, elle permet une progression parallèle du développement et du test.
   * Commencer avec le code (méthode ascendante) : Votre code constitue la source de votre définition d'API. Cette approche est particulièrement adaptée pour les nouvelles applications avec un aspect expérimental, car votre définition d'API évolue au fur et à mesure que vous comprenez mieux ce que votre service a besoin de faire. Elle fonctionne mieux dans certains langages que dans d'autres, car elle repose sur des outils générant une définition OpenAPI à partir de votre code. Java, par exemple, offre un excellent support pour la génération de documents OpenAPI à partir de structures REST utilisant des annotations.
 
 Dans tous les cas, l'utilisation d'une définition OpenAPI peut vous aider à identifier les zones dans lesquelles l'API est incohérente ou difficile à comprendre du point de vue d'un consommateur. Les définitions OpenAPI contrôlées par version ou publiées peuvent également être utilisées par des outils de génération afin de marquer les modifications problématiques ayant un impact potentiel sur les consommateurs.

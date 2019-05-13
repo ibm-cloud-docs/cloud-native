@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-03-26"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -18,7 +18,7 @@ lastupdated: "2019-03-26"
 # Creazione di microservizi RESTful
 {: #rest-api}
 
-Le applicazioni native del cloud producono e consumano le API, in un'architettura di microservizi o meno. Alcune API sono considerate interne, o private, e alcune sono considerate esterne.
+Le applicazioni native del cloud producono e consumano le API, in un'architettura di microservizi o meno. Alcune API sono considerate interne, o private, e alcune sono considerate esterne. 
 {:shortdesc}
 
 Le API interne sono utilizzate solo all'interno di un ambiente protetto da firewall per consentire ai servizi di backend di comunicare tra loro. Le API esterne presentano un punto di ingresso unificato per i consumatori e sono spesso **gestite** da strumenti come {{site.data.keyword.apiconnect_long}}, che possono imporre una limitazione della frequenza o altri vincoli di utilizzo. Un esempio di una API del genere è l'[API GitHub Developer](https://developer.github.com/v3/){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno"). Fornisce una singola API unificata con un utilizzo congruente dei codici di restituzione e dei verbi HTTP, della modalità di funzionamento della paginazione e così via, senza esporre i dettagli dell'implementazione interna. Questa API può essere supportata da una singola applicazione unica oppure può essere supportata da una raccolta di microservizi: questo dettaglio non è esposto al consumatore, che lascia che GitHub sia libera di evolvere i suoi sistemi interni come necessario.
@@ -72,12 +72,12 @@ Si è meno d'accordo su cosa dovrebbe accadere con le operazioni associate alla 
 ### Solidità e API RESTful
 {: #robust-api}
 
-Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window}, ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") fornisce l'orientamento migliore, invitandoti a "essere liberale con quanto accetti e conservativo con quanto invii". Presumi inoltre che le API si evolveranno nel corso del tempo e sii tollerante con i dati che non comprendi. 
+Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window}, ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") fornisce l'orientamento migliore, invitandoti a "essere liberale con quanto accetti e conservativo con quanto invii". Presumi inoltre che le API si evolveranno nel corso del tempo e sii tollerante con i dati che non comprendi.
 
 #### Produzione di API
 {: #robust-producer}
 
-Quando fornisci una API a client esterni, ci sono due cose che devi fare quando accetti richieste e restituisci risposte. 
+Quando fornisci una API a client esterni, ci sono due cose che devi fare quando accetti richieste e restituisci risposte: 
 
 * Accetta attributi sconosciuti come parte della richiesta.
     > Se un servizio richiama la tua API con attributi non necessari, semplicemente sbarazzati di questi valori. La restituzione di un errore in questo scenario può causare delle condizioni di errore non necessarie, con ripercussioni negative sull'utente finale.
@@ -87,12 +87,11 @@ Quando fornisci una API a client esterni, ci sono due cose che devi fare quando 
 #### Consumo di API
 {: #robust-consumer}
 
-Convalida la richiesta solo rispetto alle variabili o agli attributi di cui hai bisogno.
+Quando utilizzi le API:
 
+* Convalida la richiesta solo rispetto alle variabili o agli attributi di cui hai bisogno.
     > Non eseguire una convalida rispetto a delle variabili solo perché vengono fornite. Se non le stai usando come parte della tua chiesta, non fare affidamento su fatto che ci siano.
-
-Accetta valori sconosciuti come parte della risposta.
-
+* Accetta valori sconosciuti come parte della risposta.
     > Non emettere un'eccezione se ricevi una variabile imprevista. È sufficiente che la risposta contenga le informazioni di cui hai bisogno, il resto non conta.
 
 Queste linee guida sono particolarmente rilevanti per linguaggi fortemente tipizzati come Java, dove la serializzazione e la deserializzazione JSON spesso si verifica in modo indiretto, ad esempio mediante librerie Jackson, o JSON-P/JSON-B. Cerca i meccanismi di linguaggio che ti consentono di specificare una modalità di funzionamento più generosa, come ad esempio ignorare gli attributi sconosciuti, o di definire o filtrare quali attributi devono essere serializzati.
@@ -117,7 +116,7 @@ Dopo che hai determinato come gestire le modifiche, il problema molto più facil
 
 Il modo più semplice per specificare una versione è quello di includerla nel percorso dell'URI. Questo approccio presenta dei vantaggi: è chiaro, è facile da raggiungere quando crei i servizi nella tua applicazione ed è compatibile con gli strumenti di esplorazione delle API come Swagger e gli strumenti di riga di comando come `curl` e così via.
 
-Se includerai la versione nel percorso dell'URI, la versione deve essere valida per la tua applicazione nel suo insieme, ad esempio `/api/v1/accounts` invece di `/api/accounts/v1`. HATEOAS (Hypermedia as the Engine of Application State) è un modo per fornire gli URI ai consumatori di API in modo che non siano responsabili essi stessi della creazione degli URI. GitHub, ad esempio, fornisce [URL ipermediali](https://developer.github.com/v3/\#hypermedia){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") nelle risposte per questo motivo. HATEOAS diventa difficile, se non impossibile, da ottenere se diversi servizi di backend possono avere delle versioni che variano in modo indipendente nei loro URI.
+Se includerai la versione nel percorso dell'URI, la versione deve essere valida per la tua applicazione nel suo insieme, ad esempio `/api/v1/accounts` invece di `/api/accounts/v1`. HATEOAS (Hypermedia as the Engine of Application State) è un modo per fornire gli URI ai consumatori di API in modo che non siano responsabili essi stessi della creazione degli URI. GitHub, ad esempio, fornisce [URL ipermediali](https://developer.github.com/v3/#hypermedia){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") nelle risposte per questo motivo. HATEOAS diventa difficile, se non impossibile, da ottenere se diversi servizi di backend possono avere delle versioni che variano in modo indipendente nei loro URI.
 
 #### Modifica dell'intestazione Accept per includere la versione
 {: #version-accept}
@@ -159,7 +158,7 @@ Sono disponibili anche diversi editor di analisi dal vivo e basati sui browser c
 ### Generazione dell'implementazione API
 {: #code-first}
 
-Puoi utilizzare un [generatore OpenAPI](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") open-source per creare un progetto con una struttura di base per la tua implementazione del servizio da una definizione OpenAPI. Puoi specificare il linguaggio o il framework per la struttura di base dalla riga di comando. Ad esempio, per creare un progetto Java per la API PetStore di esempio che utilizza le annotazioni del metodo JAX_RS generiche, specifichi quanto segue:
+Puoi utilizzare un [generatore OpenAPI](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") open-source per creare un progetto con una struttura di base per la tua implementazione del servizio da una definizione OpenAPI. Puoi specificare il linguaggio o il framework per la struttura di base dalla riga di comando. Ad esempio, per creare un progetto Java per la API PetStore di esempio che utilizza le annotazioni del metodo JAX_RS generiche, specifichi il seguente comando:
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore
