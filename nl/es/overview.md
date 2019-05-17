@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-04-08"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-04-30"
 Los entornos de computación en la nube son dinámicos, con asignación y liberación a demanda de recursos de una agrupación compartida y virtualizada. Estos entornos elásticos permiten más opciones de escalado flexible si se comparan con la asignación de recursos frontal que se utiliza habitualmente en los centros de datos locales tradicionales.
 {:shortdesc}
 
-De acuerdo con [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"), los sistemas nativos de la nube tienen los atributos siguientes:
+De acuerdo con [Cloud Native Computing Foundation](https://cncf.io/about/charter){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"), los sistemas nativos de la nube tienen los atributos siguientes:
 
 - Las aplicaciones o procesos se ejecutan en contenedores de software como unidades aisladas.
 - Los procesos se gestionan mediante procesos de coordinación centrales para mejorar la utilización de recursos y reducir los costes de mantenimiento.
@@ -45,7 +45,7 @@ Las tecnologías de la nube como Kubernetes e Istio tienen como objetivo abordar
 ## Doce factores
 {: #twelve-factors}
 
-Los desarrolladores de Heroku han creado un borrador de la metodología de [aplicación en doce factores](https://12factor.net){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Las características mencionadas en los doce factores no son específicas de un proveedor de nube, plataforma o lenguaje. Los factores representan un conjunto de directrices o métodos recomendados para aplicaciones portables y resistentes que se desarrollan en entornos de nube (específicamente aplicaciones de software como servicio). Los doce factores se proporcionan en la lista siguiente:
+Los desarrolladores de Heroku han creado un borrador de la metodología de [aplicación en doce factores](http://12factor.net){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Las características mencionadas en los doce factores no son específicas de un proveedor de nube, plataforma o lenguaje. Los factores representan un conjunto de directrices o métodos recomendados para aplicaciones portables y resistentes que se desarrollan en entornos de nube (específicamente aplicaciones de software como servicio). Los doce factores se proporcionan en la lista siguiente:
 
 1. Existe una asociación uno a uno entre un código base con versión, por ejemplo, un repositorio git, y un servicio desplegado. Se utiliza el mismo código base para muchos despliegues.
 2. Los servicios declaran explícitamente todas las dependencias y no se basan en la presencia de bibliotecas ni herramientas a nivel del sistema.
@@ -57,7 +57,8 @@ Los desarrolladores de Heroku han creado un borrador de la metodología de [apli
 8. La simultaneidad se obtiene escalando procesos individuales (escalado horizontal).
 9. Los procesos son desechables: los comportamientos de inicio rápido y cierre ordenado permiten que un sistema sea más sólido y resistente.
 10. Todos los entornos, desde desarrollo local a producción, son tan similares como sea posible.
-11. Las aplicaciones producen registros como secuencias de sucesos, por ejemplo, la escritura en `stdout` y `stderr`, y confían en el entorno de ejecución para agregar las secuencias.
+11. Las aplicaciones producen registros como secuencias de sucesos, por ejemplo, la escritura en
+`stdout` y `stderr`, y confían en el entorno de ejecución para agregar las secuencias.
 12. Si se necesitan tareas de administración únicas, se mantienen en el control de origen y se empaquetan junto con la aplicación para garantizar que se ejecutan con el mismo entorno que la aplicación.
 
 No tiene que seguir estos factores de manera estricta para conseguir un entorno de microservicios de calidad; no obstante, tenerlos en cuenta le permitirá crear y mantener aplicaciones portables o servicios en entornos de entrega continua.
@@ -65,10 +66,9 @@ No tiene que seguir estos factores de manera estricta para conseguir un entorno 
 ## Microservicios
 {: #microservices}
 
-Un *microservicio* es un conjunto de componentes de arquitectura pequeños e independientes, cada uno con un único propósito, que se comunican a través de una API ligera común. Cada microservicio del ejemplo simple siguiente es una aplicación de doce factores que utiliza servicios de respaldo reemplazables para almacenar datos y pasar mensajes:
+Un *microservicio* es un conjunto de componentes de arquitectura pequeños e independientes, cada uno con un único propósito, que se comunican a través de una API ligera común. Cada microservicio del ejemplo simple siguiente es una aplicación de doce factores que utiliza servicios de respaldo reemplazables para almacenar datos y pasar mensajes.
 
 ![Una aplicación de microservicios](images/microservice.png "Una aplicación de microservicios")
-{: caption="Figura 1. Una aplicación de microservicios" caption-side="bottom"}
 
 Los microservicios son independientes. La agilidad es uno de los beneficios de las arquitecturas de microservicios, pero solo existe cuando existe la posibilidad de reescribir completamente los servicios sin que ello afecte a otros servicios. No es probable que esto ocurra con mucha frecuencia, pero explica el requisito. Unos límites de API claros proporcionan al equipo que trabaja en un servicio la máxima flexibilidad para desarrollar la implementación. Esta característica es lo que permite la persistencia y la programación políglota.
 
@@ -102,7 +102,7 @@ Las aplicaciones políglotas solo son posibles con protocolos independientes del
 
 JSON ha surgido en las arquitecturas de microservicios como la elección de formato de cable para datos basados en texto, desplazando a XML por su simpleza y claridad. Como comparación, el ejemplo siguiente es un registro básico que contiene datos acerca de un empleado en JSON:
 
-```json
+  ```json
 {
   "name": "Marley Cassin",
   "serial": 228264,

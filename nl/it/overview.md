@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-04-08"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-04-30"
 Gli ambienti di calcolo cloud sono dinamici, con un'assegnazione e un rilascio dinamici delle risorse da un pool virtualizzato condiviso. Questi ambienti elastici consentono delle opzioni di ridimensionamento più flessibili rispetto all'assegnazione di risorse anticipata che viene di norma utilizzata nei data center in loco tradizionali.
 {:shortdesc}
 
-Secondo la [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno"), i sistemi nativi del cloud hanno i seguenti attributi:
+Secondo la [Cloud Native Computing Foundation](https://cncf.io/about/charter){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno"), i sistemi nativi del cloud hanno i seguenti attributi:
 
 - Applicazioni o processi sono eseguiti in contenitori software come unità isolate.
 - I processi sono gestiti da processo di orchestrazione centrali per migliorare l'utilizzo delle risorse e ridurre i costi di manutenzione.
@@ -45,7 +45,7 @@ Le tecnologie cloud come Kubernetes e Istio intendono rispondere a queste preocc
 ## Dodici fattori
 {: #twelve-factors}
 
-La metodologia dell'[applicazione a dodici fattori](https://12factor.net){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") è stata elaborata dagli sviluppatori di Heroku. Le caratteristiche menzionate nei dodici fattori non sono specifiche per un provider, una piattaforma o un linguaggio cloud. I fattori rappresentano una serie di linee guida o prassi ottimali per applicazioni portatili e resilienti che hanno negli ambienti cloud il loro ambiente ideale (in particolare le applicazioni SaaS (Software as a Service). I dodici fattori sono forniti nel seguente elenco:
+La metodologia dell'[applicazione a dodici fattori](http://12factor.net){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") è stata elaborata dagli sviluppatori di Heroku. Le caratteristiche menzionate nei dodici fattori non sono specifiche per un provider, una piattaforma o un linguaggio cloud. I fattori rappresentano una serie di linee guida o prassi ottimali per applicazioni portatili e resilienti che hanno negli ambienti cloud il loro ambiente ideale (in particolare le applicazioni SaaS (Software as a Service). I dodici fattori sono forniti nel seguente elenco:
 
 1. C'è un'associazione uno-a-uno tra una codebase con controllo delle versioni, ad esempio un repository git, e un servizio distribuito. La stessa codebase viene utilizzata per molte distribuzioni.
 2. I servizi dichiarano esplicitamente tutte le dipendenze e non fanno affidamento sulla presenza di librerie o strumenti a livello di sistema.
@@ -65,7 +65,7 @@ Non devi rispettare in modo rigoroso questi fattori per ottenere un ambiente di 
 ## Microservizi
 {: #microservices}
 
-Un *microservizio* è un insieme di piccoli componenti dell'architettura indipendenti, ciascun con un singolo scopo, che comunicano su una leggera API comune. Ogni microservizio nel semplice esempio riportato di seguito è un'applicazione a dodici fattori che utilizza i servizi di supporto sostituibili per archiviare i dati e passare i messaggi:
+Un *microservizio* è un insieme di piccoli componenti dell'architettura indipendenti, ciascun con un singolo scopo, che comunicano su una leggera API comune. Ogni microservizio nel semplice esempio riportato di seguito è un'applicazione a dodici fattori che utilizza i servizi di supporto sostituibili per archiviare i dati e passare i messaggi.
 
 ![Un'applicazione di microservizi](images/microservice.png "Un'applicazione di microservizi")
 
@@ -101,7 +101,7 @@ Le applicazioni poliglotte sono possibili solo con protocolli indipendenti dai l
 
 JSON si è distinto nelle architetture di microservizi come il formato di trasmissione preferito per i dati basati su testo, rimpiazzando XML grazie alla semplicità e sinteticità che offre rispetto a esso. Per fare un confronto, il seguente esempio è un record di base che contiene i dati su un dipendente in JSON:
 
-```json
+  ```json
 {
   "name": "Marley Cassin",
   "serial": 228264,
@@ -117,7 +117,7 @@ JSON si è distinto nelle architetture di microservizi come il formato di trasmi
 ```
 {: codeblock}
 
-E il seguente esempio è lo stesso record di dipendente in XML: 
+E il seguente esempio è lo stesso record di dipendente in XML:
 
 ```xml
 <person>
@@ -135,5 +135,4 @@ E il seguente esempio è lo stesso record di dipendente in XML:
 ```
 {: codeblock}
 
-JSON utilizza le coppie attributo-valore per rappresentare gli oggetti di dati in una sintassi concisa che conserva le informazioni su alcuni tipi di base, come i numeri, le stringhe, gli array e gli oggetti. Sia JSON sia XML rappresentano chiaramente l'oggetto di indirizzo indicato negli esempi precedenti ma hai bisogno dello schema XML associato per determinare il tipo dell'elemento `serial`. In JSON, la sintassi rende chiaro che il valore di `serial` è un numero e non una stringa.
-
+JSON utilizza le coppie attributo-valore per rappresentare gli oggetti di dati in una sintassi concisa che conserva le informazioni su alcuni tipi di base, come i numeri, le stringhe, gli array e gli oggetti. Sia JSON sia XML rappresentano chiaramente l'oggetto di indirizzo indicato negli esempi precedenti ma hai bisogno dello schema XML associato per determinare il tipo dell'elemento 'serial`. In JSON, la sintassi rende chiaro che il valore di `serial` è un numero e non una stringa.

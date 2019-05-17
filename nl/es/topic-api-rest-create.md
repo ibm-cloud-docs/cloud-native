@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-03-26"
 
 ---
 
@@ -21,7 +21,8 @@ lastupdated: "2019-04-30"
 Las aplicaciones nativas en la nube producen y consumen API, ya sea en una arquitectura de microservicios o no. Algunas API se consideran internas, o privadas, y algunas se consideran externas. 
 {:shortdesc}
 
-Las API internas solo se utilizan dentro de un entorno con cortafuegos para que los servicios de fondo se puedan comunicar entre sí. Las API externas presentan un punto de entrada unificado para los consumidores y, con frecuencia, son **gestionadas** por herramientas como {{site.data.keyword.apiconnect_long}}, que pueden imponer una limitación de velocidad u otras restricciones de uso. Un ejemplo de una API como esta es la [API de desarrollador de GitHub](https://developer.github.com/v3/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Proporciona una API unificada con el uso coherente de códigos de retorno y verbos HTTP, comportamiento de paginación, etc., sin exponer los detalles de la implementación interna. Esta API puede estar respaldada por una aplicación monolítica, o por una colección de microservicios; dicho detalle no se expone al consumidor, lo que deja libertad a GitHub para evolucionar sus propios sistemas internos según sea necesario.
+Las API internas solo se utilizan dentro de un entorno con cortafuegos para que los servicios de fondo se puedan comunicar entre sí. Las API externas presentan un punto de entrada unificado para los consumidores y, con frecuencia, son **gestionadas** por herramientas como
+{{site.data.keyword.apiconnect_long}}, que pueden imponer una limitación de velocidad u otras restricciones de uso. Un ejemplo de una API como esta es la [API de desarrollador de GitHub](https://developer.github.com/v3/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Proporciona una API unificada con el uso coherente de códigos de retorno y verbos HTTP, comportamiento de paginación, etc., sin exponer los detalles de la implementación interna. Esta API puede estar respaldada por una aplicación monolítica, o por una colección de microservicios; dicho detalle no se expone al consumidor, lo que deja libertad a GitHub para evolucionar sus propios sistemas internos según sea necesario.
 
 ## Métodos recomendados para las API RESTful
 {: #bps-apis}
@@ -77,7 +78,7 @@ El [Principio de solidez](https://tools.ietf.org/html/rfc1122#page-12){: new_win
 #### Producción de API
 {: #robust-producer}
 
-Al proporcionar una API a clientes externos, hay dos acciones que se deben realizar al aceptar solicitudes y devolver respuestas: 
+Al proporcionar una API a clientes externos, hay dos acciones que se deben realizar al aceptar solicitudes y devolver respuestas. 
 
 * Aceptar atributos desconocidos como parte de la solicitud.
     > Si un servicio llama a la API con atributos innecesarios, simplemente descarte dichos valores. La devolución de un error en esta situación puede provocar fallos innecesarios, afectando negativamente al usuario final.
@@ -87,11 +88,12 @@ Al proporcionar una API a clientes externos, hay dos acciones que se deben reali
 #### Consumo de API
 {: #robust-consumer}
 
-Al consumir las API:
+Valide la solicitud únicamente con las variables o atributos que necesite.
 
-* Valide la solicitud únicamente con las variables o atributos que necesite.
     > No valide con las variables solo por el hecho de que se proporcionen. Si no las utiliza como parte de su solicitud, no se base simplemente en que estén ahí.
-* Acepte atributos desconocidos como parte de la respuesta.
+
+Acepte atributos desconocidos como parte de la respuesta.
+
     > No emita una excepción si recibe una variable no esperada. Siempre que la respuesta contenga la información que necesita, no importa que venga algo más en el camino.
 
 Estas directrices son especialmente relevantes para lenguajes fuertemente tipados como Java, donde la serialización y deserialización de JSON a menudo se produce indirectamente, por ejemplo, mediante bibliotecas Jackson o JSON-P/JSON-B. Busque mecanismos del lenguaje que le permitan especificar un comportamiento más generoso, como ignorar atributos desconocidos, o definir o filtrar qué atributos se deben serializar.
@@ -116,7 +118,9 @@ Después de determinar cómo gestionar los cambios, otro problema a resolver, au
 
 La forma más fácil de especificar una versión es incluirla en la vía de acceso del URI. Existen ventajas en este enfoque: obviamente, es fácil de conseguir al crear los servicios en la aplicación, y es compatible con herramientas de navegación de API como Swagger y herramientas de línea de mandatos como `curl`, etc.
 
-Si va a incluir la versión en la vía de acceso de URI, la versión debe aplicarse a la aplicación en su totalidad, por ejemplo, `/api/v1/accounts` en lugar de `/api/accounts/v1`. Hypermedia como motor de estado de aplicación (HATEOAS) es una manera de proporcionar URI a consumidores de API para que no tengan la responsabilidad de construir los URI ellos mismos. GitHub, por ejemplo, proporciona [URL de Hypermedia](https://developer.github.com/v3/#hypermedia){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") en las respuestas por este motivo. HATEOAS empieza a ser difícil, si no imposible, de conseguir si distintos servicios de respaldo pueden tener versiones que varían de forma independiente en sus URI.
+Si va a incluir la versión en la vía de acceso de URI, la versión debe aplicarse a la aplicación en su totalidad, por ejemplo,
+`/api/v1/accounts` en lugar de `/api/accounts/v1`. Hypermedia como motor de estado de aplicación (HATEOAS) es una manera de proporcionar URI a consumidores de API para que no tengan la responsabilidad de construir los URI ellos mismos. GitHub, por ejemplo, proporciona [URL de Hypermedia](https://developer.github.com/v3/\#hypermedia){: new_window}
+![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") en las respuestas por este motivo. HATEOAS empieza a ser difícil, si no imposible, de conseguir si distintos servicios de respaldo pueden tener versiones que varían de forma independiente en sus URI.
 
 #### Modificar la cabecera Accept para incluir la versión
 {: #version-accept}
@@ -145,10 +149,10 @@ En cualquier caso, trabajar con una definición de OpenAPI puede servir de ayuda
 ### Creación de una API a partir de una definición de OpenAPI
 {: #openapi-first}
 
-Puede crear su archivo YAML de OpenAPI en cualquier herramienta de su elección. No obstante, el uso de un editor de texto sin formato puede provocar errores. Algunos editores tienen soporte básico para YAML, y algunos pueden tener extensiones adicionales para dar soporte a definiciones de OpenAPI. Por ejemplo, puede utilizar extensiones de Visual Studio Code como [Visor de Swagger](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") o [Vista previa de OpenAPI](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") para validar la definición de OpenAPI frente a una versión de especificación determinada y representar una vista web en el panel de vista previa:
+Puede crear su archivo YAML de OpenAPI en cualquier herramienta de su elección. No obstante, el uso de un editor de texto sin formato puede provocar errores. Algunos editores tienen soporte básico para YAML, y algunos pueden tener extensiones adicionales para dar soporte a definiciones de OpenAPI. Por ejemplo, puede utilizar extensiones de Visual Studio Code como [Visor de Swagger](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") o
+[Vista previa de OpenAPI](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") para validar la definición de OpenAPI frente a una versión de especificación determinada y representar una vista web en el panel de vista previa:
 
-![Vista previa de OpenAPI](images/create-api-image1.png "Vista previa de OpenAPI")
-{: caption="Figura 1. Vista previa de OpenAPI" caption-side="bottom"} 
+![Vista previa de OpenAPI](images/create-api-image1.png "Vista previa de OpenAPI") 
 
 También hay una serie de editores basados en navegador y de análisis en vivo que puede utilizar en línea o de manera local. Algunos ejemplos incluyen:
 
@@ -159,7 +163,7 @@ También hay una serie de editores basados en navegador y de análisis en vivo q
 ### Generación de la implementación de API
 {: #code-first}
 
-Puede utilizar el [generador OpenAPI](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") de código abierto para crear un proyecto esqueleto para la implementación de su servicio a partir de una definición de OpenAPI. Puede especificar el lenguaje o la infraestructura para el esqueleto desde la línea de mandatos. Por ejemplo, para crear un proyecto Java para la API PetStore de ejemplo que utiliza anotaciones del método JAX-RS genérico, especifique el siguiente mandato:
+Puede utilizar el [generador OpenAPI](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") de código abierto para crear un proyecto esqueleto para la implementación de su servicio a partir de una definición de OpenAPI. Puede especificar el lenguaje o la infraestructura para el esqueleto desde la línea de mandatos. Por ejemplo, para crear un proyecto Java para la API PetStore de ejemplo que utiliza anotaciones del método JAX-RS genérico, especifique lo siguiente:
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore

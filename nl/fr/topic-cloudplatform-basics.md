@@ -24,7 +24,7 @@ Cette section présente brièvement les principaux concepts et technologies util
 ## Conteneurs
 {: #containers}
 
-Les conteneurs constituent un mécanisme de base pour le conditionnement d'une application et de toutes ses dépendances dans une seule unité autonome. Les conteneurs permettent de résoudre le problème de portabilité : l'artefact de conteneur (image) permet de s'assurer que tous les éléments devant être exécutés par une application se trouvent au bon emplacement. Les moteurs de conteneur peuvent ensuite se concentrer sur l'exécution de conteneurs en tant que processus isolés de manière sécurisée et efficace.
+Les conteneurs constituent un mécanisme de base pour le conditionnement d'une application et de toutes ses dépendances dans une seule unité autonome. Les conteneurs permettent de résoudre le problème de portabilité : l'artefact de conteneur (image) permet de s'assurer que tous les éléments devant être exécutés par une application se trouvent au bon emplacement. Les moteurs de conteneur peuvent ensuite se concentrer sur l'exécution de conteneurs en tant que processus isolés de manière sécurisée et efficace. 
 
 Les images de conteneur sont généralement générées à partir d'une liste d'instructions définie dans un élément `Dockerfile`. Elles sont presque toujours générées à partir d'autres images de conteneur (principalement en tant que suite d'instructions d'un état précédent connu). Vous pouvez utiliser le fragment suivant pour créer votre propre image Open Liberty, par exemple :
 
@@ -36,7 +36,7 @@ COPY server.xml /config/
 
 Une fois qu'une image est générée, elle peut être exécutée. Les moteurs d'exécution de conteneur, comme Docker ou [containerd](https://containerd.io/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe"), utilisent cette définition d'image et exécutent le point d'entrée défini en tant que processus isolé par les ressources directement sur le système d'exploitation hôte, supprimant la surcharge des machines virtuelles.
 
-Les images de conteneur sont stockées dans des *registres*. Le plus connu est le registre Docker Hub public. Cependant, généralement, vous transmettez et recevez des images vers/provenant des registres de conteneurs contrôlés par l'accès, comme {{site.data.keyword.registryshort_notm}}, qui sont associés à votre infrastructure et aux pipelines CI/CD.
+Les images de conteneur sont stockées dans des *registres*. Le plus connu est le registre Docker Hub public. Généralement, vous transmettez et recevez des messages provenant de/à destination de registres de conteneurs contrôlés par l'accès, comme {{site.data.keyword.registryshort_notm}}, qui sont associés à votre infrastructure et aux pipelines CI/CD.
 
 ## Kubernetes
 {: #kubernetes}
@@ -51,6 +51,7 @@ Les plateformes de cloud d'IBM optimisent Kubernetes pour l'orchestration de con
 | Ingress | Permet de partager une adresse réseau unique avec plusieurs services via l'hébergement virtuel ou le routage contextuel. Un élément Ingress peut également effectuer des activités de gestion des connexions réseau, comme l'arrêt TLS. Un élément Ingress s'affiche comme `kind: Ingress` dans les fichiers `.yaml`. |
 | Secret | Objet qui stocke les informations sensibles pour l'utilisation d'environnement d'exécution de Pod et sépare les informations spécifiques au déploiement de l'orchestration ou de l'image de conteneur. Un secret peut être exposé à un pod lors de l'exécution via des variables d'environnement ou des montages de système de fichiers virtuels. Sans secret, les données sensibles sont stockées dans l'orchestration ou l'image de conteneur. Ainsi, les risques d'exposition accidentelle ou d'accès indésirable sont plus élevés. |
 | ConfigMap | Joue un rôle similaire aux secrets par le fait que cet élément sépare les informations spécifiques au déploiement de l'orchestration de conteneur. Toutefois, un élément ConfigMap constitue une structure de configuration générale. Il permet d'associer des informations, comme des arguments de ligne de commande, des variables d'environnement et d'autres artefacts de configuration, à vos conteneurs de pod et à vos composants système lors de l'exécution. | 
+{: caption="Tableau 1. Concepts Kubernetes" caption-side="bottom"}
 
 Toutes les ressources sont définies dans le modèle de ressource Kubernetes, qui peut être configuré via l'API RESTful ou via les fichiers de configuration soumis à partir de la ligne de commande `kubectl`.
 
@@ -68,7 +69,7 @@ Pour plus d'informations, voir [Helm](https://helm.sh/){: new_window} ![Icône d
 
 Istio est une plateforme open source permettant de gérer et de sécuriser les microservices. Cette plateforme fonctionne avec des orchestrateurs, ce qui permet de gérer et de contrôler la communication entre les services.
 
-Istio utilise un modèle de composant sidecar. Un tel composant (proxy Envoy) est un processus distinct utilisé conjointement à votre application. Il gère toutes les communications de votre service, qu'elles soient entrantes ou sortantes, et applique un niveau commun de capacité à tous les services indépendants de la structure ou du langage de programmation utilisés pour la génération du service. En effet, Istio offre un mécanisme permettant de configurer centralement les règles de routage et de sécurité. De plus, ces règles sont appliquées par des composants sidecar de manière décentralisée.
+Istio utilise un modèle de composant sidecar. Un tel composant (proxy Envoy) est un processus distinct utilisé conjointement à votre application. Il gère toutes les communications de votre service, qu'elles soient entrantes ou sortantes, et applique un niveau commun de capacité à tous les services indépendants de la structure ou du langage de programmation utilisés pour la génération du service. En effet, Istio offre un mécanisme permettant de configurer centralement les règles de routage et de sécurité. De plus, ces règles sont appliquées par des composants sidecar de manière décentralisée. 
 
 Nous vous recommandons d'utiliser les fonctions fournies par Istio et non les fonctions similaires fournies par les infrastructures ou les langages de programmation individuels. L'équilibrage de charge et d'autres règles d'acheminement sont définis, gérés et appliqués par l'infrastructure de manière cohérente et ce en tant qu'exemple.
 
@@ -81,7 +82,7 @@ Au niveau le plus élevé, Istio étend la plateforme Kubernetes, offrant sécur
 * Observabilité : Collecte les métriques et les journaux pour une meilleure visibilité des applications s'exécutant dans votre cluster.
 * Règles : Applique des contrôles d'accès, des limites de débit et des quotas pour protéger vos applications.
 
-Voir la page [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") pour plus d'informations.
+Voir la page [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") pour plus d'informations. 
 
 
 

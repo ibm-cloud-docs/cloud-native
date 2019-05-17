@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-03-26"
 
 ---
 
@@ -92,6 +92,6 @@ Para obter mais informações sobre as melhores práticas para nomear métricas 
 
 Ao coletar suas métricas, lembre-se de que um caminho de falha é, muitas vezes, muito diferente de um caminho de sucesso. Por exemplo, se a falha envolveu tempos limite e coleta de rastreio de pilha, uma resposta de erro em um recurso HTTP pode levar muito mais tempo do que uma resposta bem-sucedida. Conte e trate caminhos de erro separadamente de solicitações bem-sucedidas.
 
-Um sistema distribuído tem variações naturais em determinadas medidas. Erros ocasionais são normais, uma vez que as solicitações podem ser direcionadas para processos em inicialização ou encerramento. Filtre os dados brutos para capturar quando essa variação natural começa a exceder um intervalo válido. Por exemplo, divida métricas em depósitos. Categorize a duração da solicitação em categorias, como 'menor/mais rápida', 'média/normal' e 'maior/mais longa', conforme observado dentro de um espaço de tempo deslizante. Se as durações de solicitação forem continuamente inseridas no depósito "maior/mais longo", será possível identificar um problema. As métricas de histograma ou resumo são geralmente usadas para esse tipo de dados. Para obter mais informações, consulte [Histogramas e resumos](https://prometheus.io/docs/practices/histograms/){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo").
+Um sistema distribuído tem variações naturais em determinadas medidas. Erros ocasionais são normais, uma vez que as solicitações podem ser direcionadas para processos em inicialização ou encerramento. Filtre os dados brutos para capturar quando essa variação natural começa a exceder um intervalo válido. Por exemplo, divida métricas em depósitos. Categorize a duração da solicitação em categorias, como 'menor/mais rápida', 'média/normal' e 'maior/mais longa', conforme observado dentro de um espaço de tempo deslizante. Se as durações de solicitação forem direcionadas continuamente para o depósito "maior/mais longa", será possível identificar um problema. As métricas de histograma ou resumo são geralmente usadas para esse tipo de dados. Para obter mais informações, consulte [Histogramas e resumos](https://prometheus.io/docs/practices/histograms/){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo").
 
-Como um desenvolvedor de aplicativos, certifique-se de que seus aplicativos ou serviços estejam emitindo métricas com nomes e rótulos que sigam convenções corporativas abrangentes para suportar os esforços de monitoramento que estão focados em caminhos de ponta a ponta centrais para seus negócios. Para obter mais informações, consulte [Monitorando sistemas distribuídos](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo").
+Como um desenvolvedor de aplicativos, certifique-se de que seus aplicativos ou serviços estejam emitindo métricas com nomes e rótulos que sigam convenções corporativas abrangentes para suportar os esforços de monitoramento que estão focados em caminhos de ponta a ponta centrais para seus negócios. Para obter mais informações, consulte [Monitorando sistemas distribuídos](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo").

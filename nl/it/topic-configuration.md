@@ -27,7 +27,7 @@ Tre fattori dalla [metodologia a dodici fattori](https://12factor.net/){: new_wi
 * Il terzo fattore raccomanda una separazione tra la configurazione specifica per l'applicazione, che deve far parte della risorsa fissa, e la configurazione specifica per l'ambiente, che deve essere fornita al servizio in fase di distribuzione.
 * Il decimo fattore raccomanda di mantenere tutti gli ambienti simili il più possibile. I percorsi di codice specifici per l'ambiente sono difficili da testare e aumentano il rischio di malfunzionamenti man mano che esegui la distribuzione ad ambienti differenti. Ciò vale anche per i servizi di supporto. Se esegui attività di sviluppo e test con un database in memoria, potrebbero verificarsi dei malfunzionamenti imprevisti negli ambienti di test, preparazione o produzione perché utilizzano un database che ha una modalità di funzionamento differente.
 
-## Origini di configurazione
+## Origini di configurazione 
 {: #config-inject}
 
 La configurazione specifica per l'applicazione deve far parte della risorsa fissa. Ad esempio, le applicazioni in esecuzione su WebSphere Liberty definiscono un elenco di funzioni installate che controllano i file binari e i servizi attivi nel runtime. Questa configurazione è specifica per l'applicazione e deve essere inclusa nell'immagine Docker. Le immagini Docker definiscono anche la porta di ascolto, o esposta, poiché l'ambiente di esecuzione gestisce l'associazione di porte all'avvio del contenitore.
@@ -75,7 +75,7 @@ Nel seguente file `mappings.json` di esempio, `cloudant-password` è la chiave u
 La libreria ricerca la password cloudant nelle seguenti ubicazioni:
 
 * Il percorso JSON `['cloudant'][0].credentials.password` nella variabile di ambiente di Cloud Foundry `VCAP_SERVICES`.
-* Una variabile di ambiente non sensibile a maiuscole/minuscole denominata `cloudant_password`.
+* Una variabile di ambiente non sensibile a maiuscole/minuscole denominata cloudant_password`.
 * Un campo JSON **cloudant_password** in un file **`localdev-config.json`** che viene mantenuto in un'ubicazione delle risorse specifica per il linguaggio.
 
 Per ulteriori informazioni, vedi:

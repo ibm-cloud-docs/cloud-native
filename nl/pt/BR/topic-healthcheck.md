@@ -35,7 +35,7 @@ Fundamentalmente, o desenvolvimento de aplicativos nativos de nuvem é baseado n
 
 Quando as verificações de prontidão não são definidas, o Kubernetes tem poucos insights sobre se uma instância de contêiner está pronta para manipular o tráfego e roteia-o imediatamente após o processo de contêiner ser iniciado. Sem verificações de prontidão, os aplicativos têm mais probabilidade de experimentar tempos limite de conectividade e respostas de rejeição de conexão quando o trabalho é roteado para uma instância que não está pronta para entregar a solicitação. As verificações de prontidão reduzem, mas não eliminam completamente, os erros de conectividade do cliente.
 
-Mesmo que as mudanças nos destinos de roteamento de instâncias sejam normais dentro do ciclo de vida de um aplicativo ativado por contêiner, o processo indica que as verificações de atividade que são destinadas a identificar são menos frequentes e representam uma exceção em vez da norma. Quando um processo entra em um estado que não tem uma recuperação possível, ele torna-se efetivamente inoperante. Alguns exemplos de possíveis motivos incluem condições de falta de memória ou um conflito causado por um erro de programação. A melhor maneira de recuperar-se de situações como essa é finalizar o contêiner, o que também finalizará qualquer processamento que esteja ocorrendo atualmente nele. Isso também cria a possibilidade de finalizar ou reiniciar loops no aplicativo, no qual os contêineres não conseguem ficar completamente on-line antes de serem finalizados e substituídos.
+Embora as mudanças nos destinos de roteamento de instância sejam normais dentro do ciclo de vida de um aplicativo ativado para contêiner, os estados de processo que as verificações de atividade são destinadas a identificar são menos frequentes e representam uma exceção em vez da norma. Quando um processo entra em um estado que não tem uma recuperação possível, ele torna-se efetivamente inoperante. Alguns exemplos de possíveis motivos incluem condições de falta de memória ou um conflito causado por um erro de programação. A melhor maneira de recuperar-se de situações como essa é finalizar o contêiner, o que também finalizará qualquer processamento que esteja ocorrendo atualmente nele. Isso também cria a possibilidade de finalizar ou reiniciar loops no aplicativo, no qual os contêineres não conseguem ficar completamente on-line antes de serem finalizados e substituídos.
 
 As análises de prontidão e atividade afetam o sistema de diferentes maneiras. Isso pode ser entendido em termos de transição de estado, na qual o estado positivo de uma verificação de prontidão é roteável e o estado negativo não é. Da mesma forma, o estado positivo de uma verificação de atividade representa um contêiner que está em execução normalmente e o estado negativo representa um contêiner que está inoperante. Quando um contêiner é iniciado, o estado de prontidão é inicialmente negativo e ele entrará em um estado positivo somente depois que estiver funcional. Uma verificação de atividade é iniciada em um estado positivo e entra em um estado negativo somente quando o processo se torna inoperante.
 
@@ -44,7 +44,7 @@ A configuração excessivamente agressiva de uma verificação de prontidão, co
 ## Melhores práticas para configurar análises
 {: #probe-recommendation}
 
-Ao implementar uma análise de funcionamento usando HTTP, considere os códigos de status HTTP a seguir para prontidão, vivacidade e funcionamento:
+Ao implementar uma análise de funcionamento usando HTTP, considere os códigos de status HTTP a seguir para prontidão, atividade e funcionamento.
 
 | Status    |  Prontidão            |  Atividade             |
 |----------|-----------------------|-----------------------|
@@ -54,6 +54,7 @@ Ao implementar uma análise de funcionamento usando HTTP, considere os códigos 
 | Parando | 503 - Indisponível     | 200 - OK              |
 | Inativo     | 503 - Indisponível     | 503 - Indisponível     |
 | Com erro  | 500 - Erro do servidor    | 500 - Erro do servidor    |
+{: caption="Tabela 1. Códigos de status HTTP" caption-side="bottom"}
 
 Os terminais de verificação de funcionamento não devem requerer autorização ou autenticação. Como essas proteções não entram em vigor em terminais de análise de funcionamento, restrinja quaisquer implementações de análise de HTTP a solicitações GET que não modifiquem nenhum dado. Nunca retorne dados que identifiquem as especificidades sobre o ambiente, como o sistema operacional, a linguagem de implementação ou as versões de software, pois elas podem ser usadas para estabelecer um vetor de ataque.
 

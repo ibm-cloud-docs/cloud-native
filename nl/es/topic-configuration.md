@@ -80,7 +80,7 @@ La biblioteca busca la contraseña de cloudant en los lugares siguientes:
 
 * La vía de acceso JSON `['cloudant'][0].credentials.password` en la variable de entorno
 `VCAP_SERVICES` de Cloud Foundry.
-* Una variable de entorno que no distingue entre mayúsculas y minúsculas denominada `cloudant_password`.
+* Una variable de entorno que no distingue entre mayúsculas y minúsculas denominada cloudant_password`.
 * Un campo JSON **cloudant_password** en un archivo **`localdev-config.json`** que se guarda en una ubicación de recursos específica del lenguaje.
 
 Para obtener más información, consulte:

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-04-08"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-04-30"
 Les environnements Cloud Computing sont dynamiques, ils offrent une libération et une allocation à la demande des ressources d'un pool partagé virtualisé. Ces environnements élastiques proposent des options d'évolution plus flexibles par rapport à l'allocation de ressources initiale généralement utilisée dans les centres de données sur site standard.
 {:shortdesc}
 
-Selon la fondation [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe"), les systèmes Cloud native ont les caractéristiques suivantes :
+Selon la fondation [Cloud Native Computing Foundation](https://cncf.io/about/charter){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe"), les systèmes Cloud native ont les caractéristiques suivantes :
 
 - Les applications ou les processus s'exécutent dans des conteneurs logiciels en tant qu'unités isolées.
 - Les processus sont gérés par des processus d'orchestration centraux afin d'améliorer l'utilisation des ressources et de réduire les coûts de maintenance.
@@ -45,7 +45,7 @@ Les technologies cloud, comme Kubernetes et Istio, ont pour but de traiter ces p
 ## Douze facteurs
 {: #twelve-factors}
 
-La méthodologie d'[application à douze facteurs](https://12factor.net){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") a été ébauchée par des développeurs sur la plateforme Heroku. Les caractéristiques mentionnées dans les douze facteurs ne sont pas spécifiques à un langage, une plateforme ou à un fournisseur de cloud. Ces facteurs représentent un ensemble d'instructions ou de meilleures pratiques pour les applications résilientes et portables qui se développent dans des environnements de cloud (spécifiquement des applications SaaS, Software as a Service). Les douze facteurs sont présentés dans la liste suivante :
+La méthodologie d'[application à douze facteurs](http://12factor.net){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") a été ébauchée par des développeurs sur la plateforme Heroku. Les caractéristiques mentionnées dans les douze facteurs ne sont pas spécifiques à un langage, une plateforme ou à un fournisseur de cloud. Ces facteurs représentent un ensemble d'instructions ou de meilleures pratiques pour les applications résilientes et portables qui se développent dans des environnements de cloud (spécifiquement des applications SaaS, Software as a Service). Les douze facteurs sont présentés dans la liste suivante :
 
 1. Il existe une association individuelle entre un codebase versionné, par exemple, un référentiel Git et un service déployé. Le même codebase est utilisé pour un grand nombre de déploiements.
 2. Les services déclarent explicitement toutes les dépendances, et ne s'appuient pas sur la présence de bibliothèques ou d'outils de niveau système.
@@ -58,14 +58,14 @@ La méthodologie d'[application à douze facteurs](https://12factor.net){: new_w
 9. Les processus sont remplaçables : des comportement de démarrage rapide et d'arrêt approprié génèrent un système plus robuste et résilient.
 10. Tous les environnements, du développement local à la production, sont le plus similaires possible.
 11. Les applications génèrent des journaux sous forme de flux d'événements (par exemple, écriture dans `stdout` et `stderr`) et laissent à l'environnement d'exécution la tâche d'agréger les flux.
-12. Si des tâches d'administration ponctuelles sont requises, elles sont conservées dans le contrôle des sources et conditionnées avec l'application afin de garantir qu'elles s'exécutent avec le même environnement que cette dernière.
+12. Si des tâches d'administration ponctuelles sont requises, elles sont conservées dans le contrôle des sources et conditionnées avec l'application afin de garantir qu'elles ont été exécutées avec le même environnement que l'application.
 
 Il n'est pas nécessaire de suivre strictement ces facteurs pour obtenir un environnement de microservice de qualité. Cependant, gardez-les à l'esprit afin de générer et gérer des services ou des applications portables dans des environnements de distribution continue.
 
 ## Microservices
 {: #microservices}
 
-Un *microservice* est un ensemble de petits composants architecturaux indépendants, chacun ayant un but spécifique, qui établit une communication via une API légère standard. Chaque microservice de l'exemple simple suivant est une application à douze facteurs qui utilise des services de sauvegarde remplaçables pour stocker des données et transmettre des messages :
+Un *microservice* est un ensemble de petits composants architecturaux indépendants, chacun ayant un but spécifique, qui établit une communication via une API légère standard. Chaque microservice de l'exemple simple suivant est une application à douze facteurs qui utilise des services de sauvegarde remplaçables pour stocker des données et transmettre des messages.
 
 ![Applications de microservices](images/microservice.png "Application de microservices"){: caption="Figure 1. Application de microservices" caption-side="bottom"}
 
@@ -97,11 +97,11 @@ Etablissez un équilibre entre ces deux points en créant une liste de technolog
 ## REST et JSON
 {: #rest-json}
 
-Les applications polyglottes sont possibles uniquement avec des protocoles indépendants du langage. Les modèles d'architecture REST définissent des instructions de création d'interfaces uniformes qui séparent la représentation de données sur le fil de l'implémentation du service.
+Les applications polyglottes sont possibles uniquement avec des protocoles indépendants du langage. Les modèles d'architecture REST définissent des instructions de création d'interfaces uniformes qui séparent la représentation de données sur le fil de l'implémentation du service. 
 
 JSON a émergé dans des architectures de microservices en tant que format WF de prédilection pour les données de type texte, remplaçant XML avec sa concision et sa simplicité comparatives. L'exemple suivant est un enregistrement de base qui contient des données sur un employé en notation JSON :
 
-```json
+  ```json
 {
   "name": "Marley Cassin",
   "serial": 228264,
@@ -135,4 +135,4 @@ Et l'exemple suivant correspond au même enregistrement d'employé au format XML
 ```
 {: codeblock}
 
-JSON utilise des paires attribut/valeur pour représenter des objets de données dans une syntaxe concise qui conserve les informations de certains types de base, comme des nombres, des chaînes, des grappes et des objets. JSON et XML représentent dans les exemples précédents l'objet address imbriqué, mais vous avez besoin du schéma XML associé pour déterminer le type de l'élément `serial`. En notation JSON, la syntaxe indique clairement que la valeur de `serial` est un nombre et non une chaîne. 
+JSON utilise des paires attribut/valeur pour représenter des objets de données dans une syntaxe concise qui conserve les informations sur quelques types de base, comme des nombres, des chaînes, des grappes et des objets. JSON et XML représentent l'objet address imbriqué dans les exemples précédents mais vous avez besoin du schéma XML associé pour déterminer le type de l'élément `serial`. En notation JSON, la syntaxe indique clairement que la valeur de `serial` est un nombre et non une chaîne.

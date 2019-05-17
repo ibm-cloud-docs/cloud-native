@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-03-26"
 
 ---
 
@@ -92,6 +92,6 @@ metadata:
 
 收集度量值时，请记住，失败路径往往与成功路径有很大的不同。例如，如果失败涉及超时和堆栈跟踪收集，那么对 HTTP 资源的错误响应需要的时间可能要比成功响应长得多。请统计错误路径数，并将错误路径与成功请求分开来处理。
 
-分布式系统在某些度量中具有自然变体。偶尔有错误是正常的，因为请求可能会定向到正在启动或正在关闭的进程。但当这种自然变体开始超出有效范围时，请过滤原始数据以捕获相关信息。例如，将度量值拆分成存储区。将请求持续时间分类为“最小/最快”、“中等/正常”和“最长/最大”等类别，如在滑动时间窗口中观察到的那样。如果请求持续时间始终位于“最长/最大”存储区中，那么您就可以识别问题。直方图或摘要度量值通常用于此类数据。有关更多信息，请参阅 [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")。
+分布式系统在某些度量中具有自然变体。偶尔有错误是正常的，因为请求可能会定向到正在启动或正在关闭的进程。但当这种自然变体开始超出有效范围时，请过滤原始数据以捕获相关信息。例如，将度量值拆分成存储区。将请求持续时间分类为“最小/最快”、“中等/正常”和“最长/最大”等类别，如在滑动时间窗口中观察到的那样。如果请求持续时间持续位于“最长/最大”存储区中，那么可以识别到问题。直方图或摘要度量值通常用于此类数据。有关更多信息，请参阅 [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")。
 
-作为应用程序开发者，请确保应用程序或服务发出的度量值使用的是遵循组织范围内约定的名称和标签，以支持重点关注作为业务核心的端到端路径的监视工作。有关更多信息，请参阅 [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")。
+作为应用程序开发者，请确保应用程序或服务发出的度量值使用的是遵循组织范围内约定的名称和标签，以支持重点关注作为业务核心的端到端路径的监视工作。有关更多信息，请参阅 [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")。

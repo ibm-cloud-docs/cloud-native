@@ -44,22 +44,23 @@ La configuration agressive d'une vérification de préparation (avec un faible d
 ## Meilleures pratiques pour la configuration des sondes
 {: #probe-recommendation}
 
-Lors de l'implémentation d'une sonde d'intégrité en utilisant HTTP, prenez en compte les codes d'état HTTP suivants pour la préparation, la vivacité et l'intégrité :
+Lors de l'implémentation d'une sonde d'intégrité en utilisant HTTP, prenez en compte les codes d'état HTTP pour la préparation, la vivacité et l'intégrité.
 
-| Etat    |  Préparation            |  Vivacité             |
+| Etat     |  Préparation          |  Vivacité             |
 |----------|-----------------------|-----------------------|
 |          | Non-OK causes no load | Non-OK causes restart |
-| Démarrage | 503 - Unavailable     | 200 - OK              |
-| Actif       | 200 - OK              | 200 - OK              |
-| Arrêt | 503 - Unavailable     | 200 - OK              |
-| Inactif     | 503 - Unavailable     | 503 - Unavailable     |
-| Erreur  | 500 - Server Error    | 500 - Server Error    |
+| Démarrage| 503 - Unavailable     | 200 - OK              |
+| Actif    | 200 - OK              | 200 - OK              |
+| Arrêt    | 503 - Unavailable     | 200 - OK              |
+| Inactif  | 503 - Unavailable     | 503 - Unavailable     |
+| Erreur   | 500 - Server Error    | 500 - Server Error    |
+{: caption="Tableau 1. Codes d'état HTTP" caption-side="bottom"}
 
 Les noeuds finaux de diagnostic d'intégrité n'exigent aucune autorisation ou authentification. Etant donné que ces protections ne sont pas appliquées sur les noeuds finaux de sonde d'intégrité, restreignez les implémentations de sonde HTTP aux demandes GET qui ne modifient pas les données. Ne renvoyez jamais les données qui identifient des caractéristiques de l'environnement, comme le système d'exploitation, le langage d'implémentation ou les versions logicielles, car elles peuvent être utilisées pour établir un vecteur d'attaque.
 
 Une sonde de vivacité doit être très précise sur les éléments à vérifier, car un échec entraîne un arrêt immédiat du processus. Evitez d'utiliser des métriques ambiguës qui indiquent parfois uniquement un processus défaillant, par exemple un noeud final HTTP simple qui renvoie toujours `{"status": "UP"}` avec un code d'état 200. Cette vérification n'aboutit pas pour la plupart des processus à l'état inopérant, ce qui déclenche à raison un redémarrage.
 
-Les diagnostics d'intégrité surviennent à intervalles réguliers, ce qui peut provoquer une surcharge supplémentaire. Les sondes de préparation et de vivacité testent uniquement la viabilité des services de sauvegarde, comme les bases de données ou d'autres microservices, se trouvant dans leurs résultats lorsqu'il n'existe aucune rétromigration acceptable. Pour une sonde de vivacité, une vérification de sauvegarde doit être incluse uniquement si un mauvais résultat provoque le passage à l'état irrécupérable du conteneur local. Une sonde de préparation doit vérifier un service de sauvegarde uniquement lorsque le conteneur local ne peut pas traiter les demandes en cas de défaillance mais que cette situation n'est pas irréversible.
+Les diagnostics d'intégrité surviennent à intervalles réguliers, ce qui peut provoquer une surcharge supplémentaire. Les sondes de préparation et de vivacité testent uniquement la viabilité des services de sauvegarde, comme les bases de données ou d'autres microservices, se trouvant dans leurs résultats lorsqu'il n'existe aucune rétromigration acceptable. Pour une sonde de vivacité, une vérification de sauvegarde doit être incluse uniquement si un mauvais résultat provoque le passage à l'état irrécupérable du conteneur local. Une sonde de préparation doit vérifier un service de sauvegarde uniquement lorsque le conteneur local ne peut pas traiter les demandes en cas de défaillance mais que cette situation n'est pas irréversible. 
 
 Lors de la configuration du temps d'attente initial, une sonde de préparation doit utiliser la valeur la plus faible possible et une vérification d'activité doit utiliser la valeur temporelle la plus élevée possible. Par exemple, si un serveur d'applications a tendance à démarrer en trente secondes, le délai de préparation standard est de dix secondes. La vérification de vivacité utilise la valeur de 60 secondes afin de garantir que le démarrage du serveur aboutit avant la vérification des états pouvant être arrêtés.
 

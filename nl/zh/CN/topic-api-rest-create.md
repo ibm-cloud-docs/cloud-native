@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-03-26"
 
 ---
 
@@ -77,7 +77,7 @@ REST API 应该使用标准 HTTP 动词来表示创建、检索、更新和删�
 #### 生成 API
 {: #robust-producer}
 
-如果向外部客户机提供 API，那么您在接受请求和返回响应时必须执行两个操作： 
+向外部客户机提供 API 后，在接受请求和返回响应时必须执行两个操作。 
 
 * 接受未知属性作为请求的一部分。
     > 如果服务调用 API 时使用了不必要的属性，只要将这些值丢弃即可。在此场景中返回错误可能会导致不必要的失败，从而对最终用户产生负面影响。
@@ -87,12 +87,13 @@ REST API 应该使用标准 HTTP 动词来表示创建、检索、更新和删�
 #### 使用 API
 {: #robust-consumer}
 
-使用 API 时：
+仅针对需要的变量或属性验证请求。
 
-* 仅针对您需要的变量或属性来验证请求。
-    > 不要因为提供了变量，我们就要对其都进行验证。如果不打算在请求中使用这些变量，那么不要因为提供了这些变量就一定要进行验证。
-* 接受未知属性作为响应的一部分。
-    > 收到意外变量时，不要发出异常。只要响应包含所需的信息，随响应一起收到的其他内容都无关紧要。
+    > 不要提供什么变量都进行验证。如果不打算在请求中使用这些变量，那么不要因为提供了这些变量就一定要进行验证。
+
+接受未知属性作为响应的一部分。
+
+    > 收到意外变量时，不发出异常。只要响应包含所需的信息，随响应一起收到的其他内容都无关紧要。
 
 这些准则对于 Java 等强类型语言特别重要，在这类语言中，经常会间接执行 JSON 序列化和反序列化，例如，通过 Jackson 库或 JSON-P/JSON-B。请寻找允许您指定更宽容行为（如忽略未知属性），或者允许定义或过滤哪些属性应该执行序列化的语言机制。
 
@@ -116,7 +117,7 @@ REST API 应该使用标准 HTTP 动词来表示创建、检索、更新和删�
 
 指定版本的最简单方法是将其包含在 URI 的路径中。此方法具有以下优点：版本显而易见，在应用程序中构建服务时很容易实现，并且与多种 API 浏览工具（如 Swagger）和命令行工具（如 `curl` 等）兼容。
 
-如果要将版本包含在 URI 的路径中，那么版本应该应用于整个应用程序，例如 `/api/v1/accounts`，而不是 `/api/accounts/v1`。超媒体即应用程序状态引擎 (HATEOAS) 是向 API 使用者提供 URI 的一种方法，让使用者无需自行负责构造 URI。例如，出于此原因，GitHub 会在响应中提供[超媒体 URL ](https://developer.github.com/v3/#hypermedia){: new_window}![外部链接图标](../icons/launch-glyph.svg "外部链接图标")。如果不同的后端服务可以在其 URI 中具有互不相同的版本，那么 HATEOAS 将很难实现，甚至可能完全不可行。
+如果要将版本包含在 URI 的路径中，那么版本应该应用于整个应用程序，例如 `/api/v1/accounts`，而不是 `/api/accounts/v1`。超媒体即应用程序状态引擎 (HATEOAS) 是向 API 使用者提供 URI 的一种方法，让使用者无需自行负责构造 URI。例如，出于此原因，GitHub 会在响应中提供[超媒体 URL ](https://developer.github.com/v3/\#hypermedia){: new_window}![外部链接图标](../icons/launch-glyph.svg "外部链接图标")。如果不同的后端服务可以在其 URI 中具有互不相同的版本，那么 HATEOAS 将很难实现，甚至可能完全不可行。
 
 #### 修改 Accept 头以包含版本
 {: #version-accept}
@@ -158,7 +159,7 @@ Accept 头是定义版本的明显位置，但也是最难进行测试的位置�
 ### 生成 API 实现
 {: #code-first}
 
-可以使用开放式源代码 [OpenAPI 生成器](https://github.com/OpenAPITools/openapi-generator){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")，通过 OpenAPI 定义来创建用于服务实现的框架项目。您可以在命令行中指定框架的语言或架构。例如，要为使用通用 JAX-RS 方法注释的样本 PetStore API 创建 Java 项目，可以指定以下命令：
+可以使用开放式源代码 [OpenAPI 生成器](https://github.com/OpenAPITools/openapi-generator){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")，通过 OpenAPI 定义来创建用于服务实现的框架项目。您可以在命令行中指定框架的语言或架构。例如，要为使用通用 JAX-RS 方法注释的样本 PetStore API 创建 Java 项目，需要指定以下内容：
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore

@@ -75,7 +75,7 @@ Dans le fichier `mappings.json` exemple suivant, `cloudant-password` est la clé
 La bibliothèque recherche les emplacements suivants pour le mot de passe cloudant :
 
 * Chemin JSON `['cloudant'][0].credentials.password` dans la variable d'environnement `VCAP_SERVICES` Cloud Foundry.
-* Variable d'environnement insensible à la casse nommée `cloudant_password`.
+* Variable d'environnement insensible à la casse nommée cloudant_password`.
 * Zone JSON **cloudant_password** dans un fichier **`localdev-config.json`** conservé à un emplacement de ressource spécifique au langage.
 
 Pour plus d'informations, voir :
@@ -251,7 +251,7 @@ volumes:
 ```
 {: codeblock}
 
-En cas de montage en tant que volume, chaque clé de la mappe de données du secret devient un nom de fichier sous l'élément `mountPath` spécifié : `/etc/foo/username` et `/etc/foo/password` dans ce cas.
+En cas de montage en tant que volume, chaque clé de la mappe de données du secret devient un nom de fichier sous l'élément `mountPath` spécifié : `/etc/foo/username` et `/etc/foo/password` dans ce cas. 
 
 Les secrets peuvent également être utilisés pour définir des variables d'environnement :
 

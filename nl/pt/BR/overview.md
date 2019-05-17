@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-04-08"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-04-30"
 Os ambientes de computação em nuvem são dinâmicos, com alocação sob demanda e liberação de recursos por meio de um conjunto virtualizado e compartilhado. Esses ambientes elásticos permitem opções de dimensionamento mais flexíveis quando comparadas à alocação de recurso up-front geralmente usada em data centers locais tradicionais.
 {:shortdesc}
 
-De acordo com a [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo"), os sistemas nativos de nuvem têm os atributos a seguir:
+De acordo com a [Cloud Native Computing Foundation](https://cncf.io/about/charter){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo"), os sistemas nativos de nuvem têm os atributos a seguir:
 
 - Os aplicativos ou processos são executados em contêineres de software como unidades isoladas.
 - Os processos são gerenciados por processos de orquestração central para melhorar a utilização de recursos e reduzir os custos de manutenção.
@@ -45,7 +45,7 @@ Tecnologias de nuvem, como o Kubernetes e o Istio, visam abordar essas questões
 ## Doze fatores
 {: #twelve-factors}
 
-A metodologia de [aplicativo de doze fatores](https://12factor.net){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") foi criada por desenvolvedores no Heroku. As características mencionadas nos doze fatores não são específicas de uma plataforma, uma linguagem ou um provedor em nuvem. Os fatores representam um conjunto de diretrizes ou melhores práticas para aplicativos móveis resilientes que se desenvolvem em ambientes de nuvem (especificamente aplicativos de Software como um Serviço). Os doze fatores são fornecidos na lista a seguir:
+A metodologia de [aplicativo de doze fatores](http://12factor.net){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") foi criada por desenvolvedores no Heroku. As características mencionadas nos doze fatores não são específicas de uma plataforma, uma linguagem ou um provedor em nuvem. Os fatores representam um conjunto de diretrizes ou melhores práticas para aplicativos móveis resilientes que se desenvolvem em ambientes de nuvem (especificamente aplicativos de Software como um Serviço). Os doze fatores são fornecidos na lista a seguir:
 
 1. Há uma associação de um para um entre um código base com versão, por exemplo, um repositório git e um serviço implementado. O mesmo código base é usado para muitas implementações.
 2. Os serviços declaram explicitamente todas as dependências e não contam com a presença de ferramentas ou bibliotecas de nível de sistema.
@@ -58,14 +58,14 @@ A metodologia de [aplicativo de doze fatores](https://12factor.net){: new_window
 9. Os processos são descartáveis: os comportamentos de inicialização rápida e encerramento normal resultam em um sistema mais robusto e resiliente.
 10. Todos os ambientes, desde o desenvolvimento local até a produção, são tão semelhantes quanto possível.
 11. Os aplicativos produzem logs como fluxos de evento, por exemplo, gravando em `stdout` e `stderr`, e confiam no ambiente de execução para agregar fluxos.
-12. Se forem necessárias tarefas de administração únicas, elas serão mantidas no controle de fonte e empacotadas ao lado do aplicativo para assegurar que sejam executadas com o mesmo ambiente que o aplicativo.
+12. Se tarefas únicas de administração forem necessárias, serão mantidas no controle de versão e empacotadas com o aplicativo para garantir que sejam executadas com o mesmo ambiente que ele.
 
 Você não precisa seguir estritamente esses fatores para alcançar um ambiente de microsserviço de qualidade, no entanto, mantê-los em mente permite construir e manter aplicativos ou serviços móveis em ambientes de entrega contínua.
 
 ## Microsserviços
 {: #microservices}
 
-Um *microsserviço* é um conjunto de componentes arquiteturais pequenos e independentes, cada um com um único propósito, que se comunicam por meio de uma API leve e comum. Cada microsserviço no exemplo simples a seguir é um aplicativo de 12 fatores que usa serviços auxiliares substituíveis para armazenar dados e transmitir mensagens:
+Um *microsserviço* é um conjunto de componentes arquiteturais pequenos e independentes, cada um com um único propósito, que se comunicam por meio de uma API leve e comum. Cada microsserviço no exemplo simples a seguir é um aplicativo de doze fatores que usa os serviços auxiliares substituíveis para armazenar dados e transmitir mensagens.
 
 ![Um aplicativo de microsserviços](images/microservice.png "Um aplicativo de microsserviços")
 
@@ -101,7 +101,7 @@ Os aplicativos poliglotas somente são possíveis com protocolos abrangentes de 
 
 O JSON emergiu em arquiteturas de microsserviços como o formato de ligação de escolha para dados baseados em texto, removendo o XML com sua simplicidade e concisão comparativas. Como uma comparação, o exemplo a seguir é um registro básico que contém dados sobre um funcionário em JSON:
 
-```json
+  ```json
 {
   "name": "Marley Cassin",
   "serial": 228264,
@@ -135,4 +135,4 @@ E o exemplo a seguir é o mesmo registro de funcionário em XML:
 ```
 {: codeblock}
 
-O JSON usa pares atributo-valor para representar objetos de dados em uma sintaxe concisa que preserva as informações sobre alguns tipos básicos, como números, sequências, matrizes e objetos. O JSON e o XML claramente representam o objeto de endereço aninhado nos exemplos anteriores, mas o esquema XML associado é necessário para determinar o tipo do elemento `serial`. No JSON, a sintaxe deixa claro que o valor de `serial` é um número e não uma sequência.
+O JSON usa os pares atributo/valor para representar objetos de dados em uma sintaxe concisa que preserva informações sobre alguns tipos básicos, como números, sequências, matrizes e objetos. O JSON e o XML representam claramente o objeto de endereço aninhado nos exemplos anteriores, mas o esquema XML associado é necessário para determinar o tipo do elemento `serial`. No JSON, a sintaxe esclarece que o valor de `serial` é um número e não uma sequência.

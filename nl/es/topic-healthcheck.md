@@ -44,7 +44,7 @@ La configuración de una prueba de preparación de manera muy agresiva, por ejem
 ## Métodos recomendados para configurar pruebas
 {: #probe-recommendation}
 
-Al implementar una prueba de estado utilizando HTTP, tenga en cuenta los códigos de estado HTTP siguientes para preparación, actividad y estado de salud:
+Al implementar una prueba de estado utilizando HTTP, tenga en cuenta los códigos de estado HTTP siguientes para preparación, actividad y estado de salud.
 
 | Estado    |  Preparación            |  Actividad             |
 |----------|-----------------------|-----------------------|
@@ -54,6 +54,7 @@ Al implementar una prueba de estado utilizando HTTP, tenga en cuenta los código
 | Deteniéndose | 503 - No disponible     | 200 - Correcto              |
 | Inactivo     | 503 - No disponible     | 503 - No disponible     |
 | Con errores  | 500 - Error del servidor    | 500 - Error del servidor    |
+{: caption="Tabla 1. Códigos de estado HTTP" caption-side="bottom"}
 
 Los puntos finales de comprobación de estado no requieren autorización ni autenticación. Dado que estas protecciones no se ponen en marcha en puntos finales de pruebas de estado, limite las implementaciones de pruebas HTTP a las solicitudes GET que no modifiquen ningún dato. No devuelva nunca datos que identifiquen detalles específicos del entorno, como el sistema operativo, el lenguaje de implementación o las versiones de software, ya que se pueden utilizar para establecer un vector de ataque.
 
