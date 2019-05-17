@@ -18,7 +18,7 @@ lastupdated: "2019-02-18"
 # Conceitos da plataforma de nuvem
 {: #platform}
 
-Esta seção fornece uma breve visão geral das tecnologias e conceitos principais com os quais os desenvolvedores interagem ao construir aplicativos nativos de nuvem, iniciando com os Contêineres, o Kubernetes, o Helm e o Istio.
+Esta seção fornece uma breve visão geral das principais tecnologias e conceitos com as quais os desenvolvedores interagem ao construir aplicativos nativos da nuvem, iniciando com contêineres, Kubernetes, Helm e Istio.
 {:shortdesc}
 
 ## Contêineres
@@ -36,7 +36,7 @@ COPY server.xml /config/
 
 Depois que uma imagem é construída, pode ser executada. Os mecanismos de execução de contêiner, como o Docker ou o [containerd](https://containerd.io/){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo"), utilizam essa definição de imagem e executam o ponto de entrada definido como um processo isolado de recurso diretamente no sistema operacional do host, eliminando a sobrecarga de máquinas virtuais.
 
-As imagens de contêiner são armazenadas em *registros*. O mais conhecido é o registro público do Docker Hub, mas é mais comum enviar imagens por push e extraí-las de registros de contêiner controlados por acesso, como o {{site.data.keyword.registryshort_notm}}, que estão mais intimamente associados a seus pipelines de infraestrutura e CI/CD.
+As imagens de contêiner são armazenadas em *registros*. O mais conhecido é o registro público do Docker Hub, mas é mais comum enviar imagens por push e fazer pull de imagens por meio de registros de contêiner controlados por acesso, como o {{site.data.keyword.registryshort_notm}}, que estão mais intimamente associados a seus pipelines de infraestrutura e CI/CD.
 
 ## Kubernetes
 {: #kubernetes}
@@ -51,7 +51,6 @@ As plataformas em nuvem da IBM utilizam o Kubernetes para a orquestração de co
 | Entrada | Fornece a capacidade de compartilhar um único endereço de rede com diversos serviços por meio de hospedagem virtual ou de roteamento baseado em contexto. Um Ingresso também pode executar atividades de gerenciamento de conexão de rede, como a finalização de TLS. Um Ingresso é exibido como `kind: Ingress` em arquivos `.yaml`. |
 | Segredo | Um objeto que armazena informações confidenciais para o uso do tempo de execução do Pod e separa as informações específicas da implementação da orquestração ou da imagem de contêiner. Um segredo pode ser exposto a um Pod no tempo de execução por meio de variáveis de ambiente ou de montagens do sistema de arquivos virtual. Sem segredos, os dados sensíveis são armazenados na imagem do contêiner ou na orquestração, criando mais oportunidades para a exposição acidental ou o acesso indesejado. |
 | ConfigMap | Desempenha uma função semelhante àquela dos Segredos na separação das informações específicas da implementação com relação à orquestração de contêiner. No entanto, um ConfigMap é uma estrutura de configuração de propósito geral. Ele é usado para ligar informações, como argumentos de linha de comandos, variáveis de ambiente e outros artefatos de configuração, aos contêineres e componentes do sistema do seu Pod no tempo de execução. | 
-{: caption="Tabela 1. Conceitos do Kubernetes" caption-side="bottom"}
 
 Todos os recursos são definidos dentro do modelo de recurso do Kubernetes, que pode ser configurado pela API RESTful ou pelos arquivos de configuração enviados por meio da linha de comandos `kubectl`.
 

@@ -44,17 +44,16 @@ La configurazione di un controllo della disponibilità in modo molto aggressivo,
 ## Prassi ottimali per la configurazione dei probe
 {: #probe-recommendation}
 
-Quando implementi un probe di integrità utilizzando HTTP, considera i seguenti codici di stato HTTP per disponibilità, attività e integrità.
+Quando implementi un probe di integrità utilizzando HTTP, considera i seguenti codici di stato HTTP per disponibilità, attività e integrità:
 
-| Stato    |  Disponibilità        |  Attività             |
+| Stato    |  Disponibilità            |  Attività             |
 |----------|-----------------------|-----------------------|
-|          | Non OK provoca nessun caricamento  | Non OK provoca il riavvio  |
-|Avvio in corso | 503 - Non disponibile         | 200 - OK                   |
-|Attivo | 200 - OK                   | 200 - OK                   |
-|Arresto in corso | 503 - Non disponibile           | 200 - OK               |
-|Inattivo | 503 - Non disponibile           | 503 - Non disponibile          |
-| In errore  | 500 - Errore server          | 500 - Errore server            |
-{: caption="Tabella 1. Codici di stato HTTP" caption-side="bottom"}
+|          | Non OK provoca nessun caricamento | Non OK provoca il riavvio |
+| Avvio in corso | 503 - Non disponibile     | 200 - OK              |
+| Attivo       | 200 - OK              | 200 - OK              |
+| Arresto in corso | 503 - Non disponibile     | 200 - OK              |
+| Inattivo     | 503 - Non disponibile     | 503 - Non disponibile     |
+| In errore  | 500 - Errore server    | 500 - Errore server    |
 
 Gli endpoint di controllo dell'integrità non devono richiedere l'autorizzazione o l'autenticazione. Poiché queste protezioni non sono implementate sugli endpoint di probe di integrità, limita le eventuali implementazioni di probe HTTP alle richieste GET che non modificano alcun dato. Non restituire mai dei dati che identificano specifiche sull'ambiente, come il sistema operativo, la lingua di implementazione o le versioni software poiché possono essere utilizzate come un vettore di attacco.
 
@@ -75,7 +74,7 @@ Dichiara i probe di attività e disponibilità accanto alla distribuzione di Kub
 |-----------|-------------|
 | *initialDelaySeconds* | Il lasso di tempo per cui il kubelet attende dopo la creazione del contenitore prima del primo probe. |
 | *periodSeconds* | La frequenza con cui il kubelet esegue il probe del servizio. Il valore predefinito è 1. |
-| *timeoutSeconds* | Con che frequenza il probe va in timeout. Il valore predefinito, e minimo, è 1.  |
+| *timeoutSeconds* | Con che frequenza il probe va in timeout. Il valore predefinito, e minimo, è 1. |
 | *successThreshold* | Il numero di volte per cui il probe deve avere esito positivo dopo un malfunzionamento. Il valore predefinito e minimo è 1. Il valore deve essere 1 per i probe di attività. |
 | *failureThreshold* | Il numero di volte per cui Kubernetes proverà a riavviare il pod prima di rinunciare quando il pod viene avviato e il probe non riesce (vedi la nota). Il valore minimo è 1 e il valore predefinito è 3. |
 

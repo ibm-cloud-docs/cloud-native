@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-03-26"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -18,7 +18,7 @@ lastupdated: "2019-03-26"
 # Criando microsserviços RESTful
 {: #rest-api}
 
-Os aplicativos nativos de nuvem produzem e consomem APIs, seja ou não em uma arquitetura de microsserviços. Algumas APIs são consideradas internas, ou privadas, e algumas são consideradas externas.
+Os aplicativos nativos de nuvem produzem e consomem APIs, seja ou não em uma arquitetura de microsserviços. Algumas APIs são consideradas internas, ou privadas, e algumas são consideradas externas. 
 {:shortdesc}
 
 As APIs internas são usadas apenas em um ambiente com firewall para os serviços de back-end se comunicarem uns com os outros. As APIs externas apresentam um ponto de entrada unificado para os consumidores e são frequentemente **gerenciadas** por ferramentas como o {{site.data.keyword.apiconnect_long}}, que podem impor limitação de taxa ou outras restrições de uso. Um exemplo desse tipo de API é a [API do desenvolvedor do GitHub](https://developer.github.com/v3/){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo"). Ela fornece uma API unificada com uso consistente de verbos e códigos de retorno HTTP, comportamento de paginação e assim por diante, sem expor detalhes da implementação interna. Essa API pode ser suportada por um aplicativo monolítico ou uma coleção de microsserviços e esse detalhe não é exposto ao consumidor, o que deixa o GitHub livre para desenvolver seus sistemas internos, conforme necessário.
@@ -77,7 +77,7 @@ O [princípio de robustez](https://tools.ietf.org/html/rfc1122#page-12){: new_wi
 #### Produzindo APIs
 {: #robust-producer}
 
-Ao fornecer uma API a clientes externos, há duas coisas que devem ser feitas ao aceitar solicitações e retornar respostas. 
+Ao fornecer uma API para clientes externos, há duas coisas que devem ser feitas ao aceitar solicitações e retornar respostas: 
 
 * Aceite os atributos desconhecidos como parte da solicitação.
     > Se um serviço chamar sua API com atributos desnecessários, basta ignorar esses valores. O retorno de um erro neste cenário pode causar falhas desnecessárias, impactando negativamente o usuário final.
@@ -87,13 +87,12 @@ Ao fornecer uma API a clientes externos, há duas coisas que devem ser feitas ao
 #### Consumindo APIs
 {: #robust-consumer}
 
-Valide a solicitação apenas com relação às variáveis ou atributos necessários.
+Ao consumir APIs:
 
-    > Não valide com relação a variáveis apenas porque elas foram fornecidas. Se não as estiver usando como parte de sua solicitação, não se preocupe se elas não estiverem presentes.
-
-Aceite os atributos desconhecidos como parte da resposta.
-
-    > Não emita uma exceção se receber uma variável inesperada. Contanto que a resposta contenha as informações necessárias, não importa o que mais estiver lá.
+* Valide a solicitação somente com relação às variáveis ou atributos de que você precisa.
+    > Não valide com relação às variáveis apenas porque elas são fornecidas. Se não as estiver usando como parte de sua solicitação, não se preocupe se elas não estiverem presentes.
+* Aceite os atributos desconhecidos como parte da resposta.
+    > Não emita uma exceção se você receber uma variável inesperada. Contanto que a resposta contenha as informações necessárias, não importa o que mais estiver lá.
 
 Essas diretrizes são especialmente relevantes para linguagens fortemente tipificadas, como Java, nas quais a serialização e a desserialização JSON geralmente ocorrem indiretamente, por exemplo, por meio das bibliotecas Jackson ou de JSON-P/JSON-B. Procure mecanismos de linguagem que permitam definir ou filtrar quais atributos devem ser serializados ou especificar um comportamento mais liberal, como ignorar atributos desconhecidos.
 
@@ -117,7 +116,7 @@ Depois de determinar como gerenciar as mudanças, o problema mais fácil de reso
 
 A maneira mais fácil de especificar uma versão é incluí-la no caminho do URI. Há vantagens nessa abordagem: ela é claramente fácil de alcançar ao construir os serviços em seu aplicativo e é compatível com ferramentas de navegação de API, como o Swagger, e ferramentas de linha de comandos, como o `curl`, e assim por diante.
 
-Se for incluir a versão no caminho do URI, ela deverá se aplicar a seu aplicativo como um todo, por exemplo, `/api/v1/accounts` em vez de `/api/accounts/v1`. Hipermídia como o Engine of Application State (HATEOAS) é uma maneira de fornecer URIs aos consumidores de API para que eles não sejam responsáveis por construir URIs por conta própria. O GitHub, por exemplo, fornece [URLs de hipermídia](https://developer.github.com/v3/\#hypermedia){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") nas respostas por esse motivo. Isso faz com que HATEOAS seja difícil, se não impossível, de obter, caso diferentes serviços de back-end puderem ter versões de variação independente em seus URIs.
+Se for incluir a versão no caminho do URI, ela deverá se aplicar a seu aplicativo como um todo, por exemplo, `/api/v1/accounts` em vez de `/api/accounts/v1`. Hipermídia como o Engine of Application State (HATEOAS) é uma maneira de fornecer URIs aos consumidores de API para que eles não sejam responsáveis por construir URIs por conta própria. O GitHub, por exemplo, fornece [URLs de hipermídia](https://developer.github.com/v3/#hypermedia){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") nas respostas por esse motivo. Isso faz com que HATEOAS seja difícil, se não impossível, de obter, caso diferentes serviços de back-end puderem ter versões de variação independente em seus URIs.
 
 #### Modificando o cabeçalho Aceitar para incluir a versão
 {: #version-accept}
@@ -159,7 +158,7 @@ Há também uma variedade de editores de análise em tempo real baseados em nave
 ### Gerando a implementação da API
 {: #code-first}
 
-É possível usar o [Gerador de OpenAPI](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") de software livre para criar um projeto de estrutura básica para a implementação de seu serviço por meio de uma definição OpenAPI. É possível especificar a estrutura ou a linguagem para a estrutura básica na linha de comandos. Por exemplo, para criar um projeto Java para a API PetStore de amostra que usa anotações de método JAX-RS genéricas, especifique o seguinte:
+É possível usar o [Gerador de OpenAPI](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") de software livre para criar um projeto de estrutura básica para a implementação de seu serviço por meio de uma definição OpenAPI. É possível especificar a estrutura ou a linguagem para a estrutura básica na linha de comandos. Por exemplo, para criar um projeto Java para a API do PetStore de amostra que usa as anotações de método JAX-RS genéricas, especifique o comando a seguir:
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore

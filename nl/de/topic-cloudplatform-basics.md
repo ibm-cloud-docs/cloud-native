@@ -24,9 +24,9 @@ Dieser Abschnitt enthält eine kurze Übersicht über die wichtigsten Technologi
 ## Container
 {: #containers}
 
-Container sind ein Standardmechanismus zum Packen einer Anwendung und aller zugehörigen Abhängigkeiten in eine einzelne, eigenständige Einheit. Container lösen das Portierbarkeitsproblem: Das Containerartefakt (Image) stellt sicher, dass alle Elemente, die eine Anwendung für die Ausführung benötigt, am richtigen Ort sind; Container-Engines können sich dann auf die Ausführung von Containern als isolierte Prozesse in einer effizienten, sicheren und geschützten Weise konzentrieren. 
+Container sind ein Standardmechanismus zum Packen einer Anwendung und aller zugehörigen Abhängigkeiten in eine einzelne, eigenständige Einheit. Container lösen das Portierbarkeitsproblem: Das Containerartefakt (Image) stellt sicher, dass alle Elemente, die eine Anwendung für die Ausführung benötigt, am richtigen Ort sind; Container-Engines können sich dann auf die Ausführung von Containern als isolierte Prozesse in einer effizienten, sicheren und geschützten Weise konzentrieren.
 
-Container-Images werden in der Regel aus einer Liste von Anweisungen erstellt, die in einer `Dockerfile` definiert sind. Container-Images werden fast immer aus anderen Container-Images erstellt (sie sind im Wesentlichen eine Fortsetzung der Anweisungen aus dem bekannten vorherigen Status). Sie können das folgende Snippet verwenden, um ein eigenes Open Liberty-Image zu erstellen. Beispiel: 
+Container-Images werden in der Regel aus einer Liste von Anweisungen erstellt, die in einer `Dockerfile` definiert sind. Container-Images werden fast immer aus anderen Container-Images erstellt (sie sind im Wesentlichen eine Fortsetzung der Anweisungen aus dem bekannten vorherigen Status). Sie können das folgende Snippet verwenden, um ein eigenes Open Liberty-Image zu erstellen. Beispiel:
 
 ```yaml
 FROM open-liberty:kernel
@@ -34,14 +34,14 @@ COPY server.xml /config/
 ```
 {: codeblock}
 
-Nachdem ein Image erstellt wurde, kann es ausgeführt werden. Engines für die Containerausführung wie Docker oder [containerd](https://containerd.io/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") verwenden diese Imagedefinition und führen den definierten Einstiegspunkt als ressourcenisolierten Prozess direkt auf dem Hostbetriebssystem aus, wodurch der Systemaufwand für virtuelle Maschinen entfällt. 
+Nachdem ein Image erstellt wurde, kann es ausgeführt werden. Engines für die Containerausführung wie Docker oder [containerd](https://containerd.io/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") verwenden diese Imagedefinition und führen den definierten Einstiegspunkt als ressourcenisolierten Prozess direkt auf dem Hostbetriebssystem aus, wodurch der Systemaufwand für virtuelle Maschinen entfällt.
 
 Container-Images werden in *Registrys* gespeichert. Die bekannteste Registry ist die öffentliche Docker-Hub-Registry. Häufiger werden Images jedoch in oder aus Container-Registrys mit Zugriffssteuerung wie {{site.data.keyword.registryshort_notm}} übertragen, die enger mit der Infrastruktur und den CI/CD-Pipelines verknüpft sind. 
 
 ## Kubernetes
 {: #kubernetes}
 
-Die Cloudplattformen von IBM verwenden Kubernetes für die Containerorchestrierung. Daher ist es wichtig, dass Entwickler nicht nur die Grundlagen der Containertechnologie beherrschen, sondern auch mit den Grundlagen von Kubernetes einschließlich der wichtigsten Befehle und Bereitstellungsartefakte vertraut sind. In der folgenden Tabelle sind einige wichtige Kubernetes-Konzepte aufgeführt: 
+Die Cloudplattformen von IBM verwenden Kubernetes für die Containerorchestrierung. Daher ist es wichtig, dass Entwickler nicht nur die Grundlagen der Containertechnologie beherrschen, sondern auch mit den Grundlagen von Kubernetes einschließlich der wichtigsten Befehle und Bereitstellungsartefakte vertraut sind. In der folgenden Tabelle sind einige wichtige Kubernetes-Konzepte aufgeführt:
 
 | Konzept | Beschreibung |
 |---------|-------------|
@@ -51,38 +51,37 @@ Die Cloudplattformen von IBM verwenden Kubernetes für die Containerorchestrieru
 | Ingress | Bietet die Möglichkeit, eine einzige Netzadresse über virtuelles Hosting oder kontextbasiertes Routing mit mehreren Services gemeinsam zu nutzen. Ein Ingress kann auch Verwaltungsaktivitäten für die Netzverbindung wie die TLS-Beendigung ausführen. Ein Ingress wird als `kind: Ingress` in `.yaml`-Dateien angezeigt. |
 | Secret (geheimer Schlüssel) | Ein Objekt, das sensible Informationen für die Verwendung zur Podlaufzeit speichert und die bereitstellungsspezifischen Informationen von dem Container-Image oder der Orchestrierung trennt. Ein Secret kann einem Pod während der Laufzeit entweder über Umgebungsvariablen oder über virtuelle Dateisystemmounts zugänglich gemacht werden. Ohne Secrets werden sensible Daten entweder im Container-Image oder in der Orchestrierung gespeichert, die beide mehr Raum für Sicherheitslücken oder unbeabsichtigten Zugriff schaffen. |
 | ConfigMap | Trennt ebenso wie Secrets bereitstellungsspezifische Informationen von der Containerorchestrierung. Eine ConfigMap ist jedoch eine allgemeine Konfigurationsstruktur. Sie wird verwendet, um Informationen wie Befehlszeilenargumente, Umgebungsvariablen und andere Konfigurationsartefakte zur Laufzeit an die Container und Systemkomponenten des Pod zu binden. | 
-{: caption="Tabelle 1. Kubernetes-Konzepte" caption-side="bottom"}
 
-Alle Ressourcen werden im Kubernetes-Ressourcenmodell definiert. Dieses kann entweder über die REST-konforme API oder über Konfigurationsdateien konfiguriert werden, die über die `kubectl`-Befehlszeile übergeben werden. 
+Alle Ressourcen werden im Kubernetes-Ressourcenmodell definiert. Dieses kann entweder über die REST-konforme API oder über Konfigurationsdateien konfiguriert werden, die über die `kubectl`-Befehlszeile übergeben werden.
 
-Weitere Informationen finden Sie in [Kubernetes basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link"), [Kubernetes Object Model](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") und [`kubectl` command line](https://kubernetes.io/docs/reference/kubectl/overview/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link").  
+Weitere Informationen finden Sie in [Kubernetes basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link"), [Kubernetes Object Model](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") und [`kubectl` command line](https://kubernetes.io/docs/reference/kubectl/overview/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link"). 
 
 ## Helm
 {: #helm}
 
-Helm ist ein Paketmanager, mit dem für Kubernetes erstellte Software auf einfache Weise gesucht, gemeinsam genutzt und verwendet werden kann. Helm bietet auch eine Lösung für eine häufige Benutzeranforderung: die Bereitstellung derselben Anwendung für mehrere Umgebungen. In Helm werden *Charts* (Diagramme) verwendet; Sammlungen von Vorlagen, die zur Installationszeit gültige Kubernetes-Objekte (YAML) erzeugen. Diese Diagramme werden aus einer Vorlagensprache erstellt, die Unterstützung für Variablen, Bereichsoperationen und andere Mechanismen enthält, die die Verwaltung von Metadaten für Kubernetes-Bereitstellungen erheblich vereinfachen. 
+Helm ist ein Paketmanager, mit dem für Kubernetes erstellte Software auf einfache Weise gesucht, gemeinsam genutzt und verwendet werden kann. Helm bietet auch eine Lösung für eine häufige Benutzeranforderung: die Bereitstellung derselben Anwendung für mehrere Umgebungen. In Helm werden *Charts* (Diagramme) verwendet; Sammlungen von Vorlagen, die zur Installationszeit gültige Kubernetes-Objekte (YAML) erzeugen. Diese Diagramme werden aus einer Vorlagensprache erstellt, die Unterstützung für Variablen, Bereichsoperationen und andere Mechanismen enthält, die die Verwaltung von Metadaten für Kubernetes-Bereitstellungen erheblich vereinfachen.
 
-Weitere Informationen finden Sie in [Helm](https://helm.sh/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link"). 
+Weitere Informationen finden Sie in [Helm](https://helm.sh/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link").
 
 ## Service-Mesh Istio
 {: #istio}
 
-Istio ist eine Open-Source-Plattform für die Verwaltung und den Schutz von Mikroservices. Sie arbeitet mit Orchestrierungssystemen wie Kubernetes zusammen und ermöglicht die Verwaltung und Steuerung der Kommunikation zwischen Services. 
+Istio ist eine Open-Source-Plattform für die Verwaltung und den Schutz von Mikroservices. Sie arbeitet mit Orchestrierungssystemen wie Kubernetes zusammen und ermöglicht die Verwaltung und Steuerung der Kommunikation zwischen Services.
 
-In Istio wird ein sogenanntes Sidecar-Modell verwendet. Ein Sidecar (ein Envoy-Proxy) ist ein separater Prozess, der neben der Anwendung besteht. Das Sidecar verwaltet die gesamte ein- und ausgehende Kommunikation des Service und wendet eine allgemeine Funktionalitätsstufe auf alle Services an, unabhängig von der Programmiersprache oder dem Framework, mit der bzw. dem der Service erstellt wurde. Praktisch bietet Istio einen Mechanismus für die zentrale Konfiguration von Routing- und Sicherheitsrichtlinien und die dezentrale Anwendung dieser Richtlinien über Sidecars. 
+In Istio wird ein sogenanntes Sidecar-Modell verwendet. Ein Sidecar (ein Envoy-Proxy) ist ein separater Prozess, der neben der Anwendung besteht. Das Sidecar verwaltet die gesamte ein- und ausgehende Kommunikation des Service und wendet eine allgemeine Funktionalitätsstufe auf alle Services an, unabhängig von der Programmiersprache oder dem Framework, mit der bzw. dem der Service erstellt wurde. Praktisch bietet Istio einen Mechanismus für die zentrale Konfiguration von Routing- und Sicherheitsrichtlinien und die dezentrale Anwendung dieser Richtlinien über Sidecars.
 
-In den meisten Fällen empfehlen wir die Verwendung der von Istio bereitgestellten Funktionen anstelle der ähnlichen Funktionen, die von einzelnen Programmiersprachen oder Frameworks bereitgestellt werden. Richtlinien für den Lastausgleich und andere Routing-Richtlinien beispielsweise werden jedoch durch die Infrastruktur in konsistenterer Weise definiert, verwaltet und umgesetzt. 
+In den meisten Fällen empfehlen wir die Verwendung der von Istio bereitgestellten Funktionen anstelle der ähnlichen Funktionen, die von einzelnen Programmiersprachen oder Frameworks bereitgestellt werden. Richtlinien für den Lastausgleich und andere Routing-Richtlinien beispielsweise werden jedoch durch die Infrastruktur in konsistenterer Weise definiert, verwaltet und umgesetzt.
 
-In einigen Fällen, z. B. beim dezentralen Tracing, ergänzen sich Istio und Bibliotheken auf der Anwendungsebene. Sie können die Abläufe verbessern, wenn Sie beides verwenden. Beim dezentralen Tracing kann Istio lediglich sicherstellen, dass Trace-Header vorhanden sind; Anwendungsbibliotheken stellen den wichtigen Kontext zu den Beziehungen zwischen Anforderungen zur Verfügung. Ihr Verständnis des Systems als Ganzes verbessert sich, wenn Istio und die unterstützenden Bibliotheken oder Frameworkbibliotheken gemeinsam verwendet werden. 
+In einigen Fällen, z. B. beim dezentralen Tracing, ergänzen sich Istio und Bibliotheken auf der Anwendungsebene. Sie können die Abläufe verbessern, wenn Sie beides verwenden. Beim dezentralen Tracing kann Istio lediglich sicherstellen, dass Trace-Header vorhanden sind; Anwendungsbibliotheken stellen den wichtigen Kontext zu den Beziehungen zwischen Anforderungen zur Verfügung. Ihr Verständnis des Systems als Ganzes verbessert sich, wenn Istio und die unterstützenden Bibliotheken oder Frameworkbibliotheken gemeinsam verwendet werden.
 
-Auf der höchsten Ebene erweitert Istio die Kubernetes-Plattform und stellt zusätzliche Managementkonzepte, Transparenz und Sicherheit bereit. Die Funktionen von Istio können in die folgenden vier Kategorien eingeteilt werden: 
+Auf der höchsten Ebene erweitert Istio die Kubernetes-Plattform und stellt zusätzliche Managementkonzepte, Transparenz und Sicherheit bereit. Die Funktionen von Istio können in die folgenden vier Kategorien eingeteilt werden:
 
-* Datenverkehrsmanagement: Steuerung des Datenverkehrs zwischen den Mikroservices, um Datenverkehrssplitting, Fehlerbehebung und Canary-Releases auszuführen. 
-* Sicherheit: Bereitstellung einer starken, identitätsbasierten Authentifizierung, Autorisierung und Verschlüsselung zwischen den Mikroservices. 
-* Beobachtbarkeit: Erfassung von Metriken und Protokollen für eine höhere Transparenz der Anwendungen, die im Cluster ausgeführt werden. 
-* Richtlinien: Erzwingung von Zugriffsbeschränkungen, Durchsatzbegrenzungen und Kontingenten, um die Anwendungen zu schützen. 
+* Datenverkehrsmanagement: Steuerung des Datenverkehrs zwischen den Mikroservices, um Datenverkehrssplitting, Fehlerbehebung und Canary-Releases auszuführen.
+* Sicherheit: Bereitstellung einer starken, identitätsbasierten Authentifizierung, Autorisierung und Verschlüsselung zwischen den Mikroservices.
+* Beobachtbarkeit: Erfassung von Metriken und Protokollen für eine höhere Transparenz der Anwendungen, die im Cluster ausgeführt werden.
+* Richtlinien: Erzwingung von Zugriffsbeschränkungen, Durchsatzbegrenzungen und Kontingenten, um die Anwendungen zu schützen.
 
-Weitere Informationen finden Sie in [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link"). 
+Weitere Informationen finden Sie in [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link").
 
 
 

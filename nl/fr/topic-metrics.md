@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-03-26"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -94,4 +94,4 @@ Lors de la collecte de vos métriques, n'oubliez pas qu'un chemin d'échec est s
 
 Certaines mesures d'un système distribué incluent des variations naturelles. Des erreurs occasionnelles sont normales, car les demandes peuvent être dirigées vers des processus au milieu de l'opération de démarrage ou d'arrêt. Filtrez les données brutes à intercepter lorsque cette variation naturelle commence à dépasser une plage valide. Par exemple, répartissez les métriques dans des compartiments. Placez la durée des demandes dans des catégories telles 'plus petit/plus rapide', 'moyen/normal' et 'plus long/plus grand', selon les observations dans une fenêtre de durée. Si les durées des demandes sont toujours classées dans le compartiment "plus long/plus grand", vous pouvez identifier un problème. Les métriques d'histogramme ou récapitulatives sont généralement utilisées pour ce type de données. Pour plus d'informations, voir [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe").
 
-En tant que développeur d'application, vérifiez que vos applications ou vos services émettent des métriques avec des noms et des libellés respectant les conventions de l'organisation afin de prendre en charge les différents efforts de surveillance ciblés sur les principales activités de bout en bout de votre entreprise. Pour plus d'informations, voir [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe").
+En tant que développeur d'application, vérifiez que vos applications ou vos services émettent des métriques avec des noms et des libellés respectant les conventions de l'organisation afin de prendre en charge les différents efforts de surveillance ciblés sur les principales activités de bout en bout de votre entreprise. Pour plus d'informations, voir [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe").

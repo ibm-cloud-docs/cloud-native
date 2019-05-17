@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-03-26"
+lastupdated: "2019-04-30"
 
 ---
 
@@ -24,6 +24,7 @@ Las métricas son mediciones numéricas simples que se capturan como pares de cl
 Existen tres factores generales cuando se habla de métricas en un sistema distribuido: productores, agregadores y procesadores. Existen algunas combinaciones comunes de estos factores, como el uso de Prometheus como agregador con Grafana como procesador de las métricas recopiladas para mostrarlas en paneles de control gráficos, o el uso de StatsD con graphite.
 
 ![Los tres factores en las métricas de sistemas distribuidos](images/metrics-systems.png "Los tres factores en las métricas de sistemas distribuidos")
+{: caption="Figura 1. Los tres factores en las métricas de sistemas distribuidos" caption-side="bottom"}
 
 El productor es, por supuesto, la propia aplicación. En algunos casos, la aplicación está implicada directamente en producir métricas. En otros casos, los agentes u otra infraestructura observan de manera pasiva o equipan de forma activa la aplicación para producir métricas en su nombre. Lo que ocurre después dependerá del agregador.
 
@@ -73,8 +74,7 @@ Hay algunos elementos comunes entre estos métodos, por ejemplo, que todos ellos
 ## Definición de métricas
 {: #defining-metrics}
 
-La supervisión de las métricas recopiladas de un servicio individual puede ofrecerle una idea de la utilización de recursos, pero si hay varias instancias del servicio (debido a despliegue de escalado horizontal o de varias regiones), necesita distinguir entre ellas para aislar problemas dentro la masa de datos similares que entran. En última instancia, esto se reduce a la denominación. En algunos casos, el sistema de métricas que utiliza puede imponer una estructura en sus métricas. Prometheus, por ejemplo, recomienda algo como `namespace_subsystem_name`, mientras que otros recomiendan
-`namespace.subsystem.targetNoun.actioned`.
+La supervisión de las métricas recopiladas de un servicio individual puede ofrecerle una idea de la utilización de recursos, pero si hay varias instancias del servicio (debido a despliegue de escalado horizontal o de varias regiones), necesita distinguir entre ellas para aislar problemas dentro la masa de datos similares que entran. En última instancia, esto se reduce a la denominación. En algunos casos, el sistema de métricas que utiliza puede imponer una estructura en sus métricas. Prometheus, por ejemplo, recomienda algo como `namespace_subsystem_name`, mientras que otros recomiendan `namespace.subsystem.targetNoun.actioned`.
 
 Por ejemplo, si desea realizar el seguimiento del número de "transacciones" que ha realizado una aplicación de comercio de acciones, puede capturarla en una propiedad denominada `stock.trades`. Para distinguir entre instancias, puede poner como prefijo el ID de instancia en la propiedad: `<instanceid>.stock.trades`. Esto da soporte a la recopilación de valores de instancia individuales y también de datos agregados utilizando `*.stock.trades`. Pero, ¿qué ocurre cuando realiza el despliegue en varios centros de datos y desea analizar las métricas de esa manera? Puede actualizar el nombre a `<datacenter>.<instanceid>.stock.trades`, pero eso podría romper cualquier informe que utilice el comodín anterior de `*.stock.trades`. Necesitaría utilizar `*.*.stock.trades` en su lugar. 
 
@@ -82,24 +82,17 @@ Si no se tiene cuidado, el uso de propiedades con nombres jerárquicos únicamen
 
 Los sistemas de métricas que dan soporte a datos dimensionales le permiten asociar etiquetas de identificación adicionales, o códigos, a los datos de métricas. A continuación, puede filtrar, agrupar o analizar las métricas recopiladas utilizando estas dimensiones adicionales sin depender de comodines ni convenios de denominación. Las etiquetas típicas incluyen el nombre de punto final o de servicio, centro de datos, código de respuesta, entorno de alojamiento (prod/staging/dev/test), o identificadores de tiempo de ejecución (versión de Java, información del servidor de apps).
 
-Utilizando el mismo ejemplo de comercio de acciones, la métrica `stock.trades` está asociada con varias etiquetas:
-`{ instanceid=..., datacenter=... }`, lo que permite que se filtre o agrupe el valor agregado por
-`instanceid` o `datacenter` sin depender de comodines. Hay un equilibrio entre la métrica denominada
-(`stock.trades`) y las etiquetas asociadas (compare esto con el ejemplo jerárquico de
-`<datacenter>.<instanceid>.stock.trades`): cada métrica debe capturar datos significativos, mientras que las etiquetas eliminan ambigüedades donde sea necesario.
+Utilizando el mismo ejemplo de comercio de acciones, la métrica `stock.trades` está asociada con varias etiquetas: `{ instanceid=..., datacenter=... }`, lo que permite que se filtre o agrupe el valor agregado por `instanceid` o `datacenter` sin depender de comodines. Hay un equilibrio entre la métrica denominada (`stock.trades`) y las etiquetas asociadas (compare esto con el ejemplo jerárquico de `<datacenter>.<instanceid>.stock.trades`): cada métrica debe capturar datos significativos, mientras que las etiquetas eliminan ambigüedades donde sea necesario.
 
 Además, tenga cuidado al definir etiquetas. En Prometheus, por ejemplo, cada combinación exclusiva de pares de etiquetas clave/valor se trata como una serie temporal independiente. Un método recomendado para garantizar un buen comportamiento de consulta y la recopilación de datos limitada es utilizar etiquetas con un número finito de valores permitidos. Por ejemplo, si utiliza una métrica que cuenta el número de errores, puede utilizar el código de retorno como etiqueta, donde los valores están dentro de un conjunto razonable (401, 404, 409, 500... ), pero es posible que no quiera una etiqueta para el URL con errores, ya que este es un conjunto ilimitado (cualquier URL de solicitud que haya fallado por cualquier motivo, incluyendo que no sea válido).
 
-Para obtener más información sobre los métodos recomendados para la denominación de métricas y etiquetas (etiquetas), consulte
-[Denominación de métricas y etiquetas](https://prometheus.io/docs/practices/naming/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo").
+Para obtener más información sobre los métodos recomendados para la denominación de métricas y etiquetas (etiquetas), consulte [Denominación de métricas y etiquetas](https://prometheus.io/docs/practices/naming/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo").
 
 ## Consideraciones adicionales
 {: #metrics-considerations}
 
 Al recopilar las métricas, recuerde que una vía de error es con frecuencia sumamente distinta a una vía de éxito. Por ejemplo, una respuesta de error en un recurso HTTP puede tardar mucho más tiempo que una respuesta correcta si el error implicaba la recopilación del rastreo de pila y tiempos de espera. Haga el recuento y trate las vías de error de forma independiente a las solicitudes correctas.
 
-Un sistema distribuido tiene variaciones naturales en determinadas medidas. Los errores ocasionales son normales, ya que las solicitudes pueden estar dirigidas a procesos en medio de su inicio o de su conclusión. Filtre los datos en bruto para capturar cuándo esta variación natural empieza a sobrepasar un rango válido. Por ejemplo, divida las métricas en grupos. Categorice la duración de la solicitud en categorías como 'más pequeña/más rápida', 'media/normal' y 'más larga/más extensa', tal como se observa en una ventana de tiempo deslizante. Si las duraciones de solicitud caen de forma constante en el grupo "más larga/más extensa", puede identificar un problema. El histograma o las métricas de resumen se utilizan habitualmente para este tipo de datos. Para obtener más información, consulte
-[Histogramas y resúmenes](https://prometheus.io/docs/practices/histograms/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo").
+Un sistema distribuido tiene variaciones naturales en determinadas medidas. Los errores ocasionales son normales, ya que las solicitudes pueden estar dirigidas a procesos en medio de su inicio o de su conclusión. Filtre los datos en bruto para capturar cuándo esta variación natural empieza a sobrepasar un rango válido. Por ejemplo, divida las métricas en grupos. Categorice la duración de la solicitud en categorías como 'más pequeña/más rápida', 'media/normal' y 'más larga/más extensa', tal como se observa en una ventana de tiempo deslizante. Si las duraciones de solicitud caen de forma constante en el grupo "más larga/más extensa", puede identificar un problema. El histograma o las métricas de resumen se utilizan habitualmente para este tipo de datos. Para obtener más información, consulte [Histogramas y resúmenes](https://prometheus.io/docs/practices/histograms/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo").
 
-Como desarrollador de aplicaciones, asegúrese de que sus aplicaciones o servicios emiten métricas con nombres y etiquetas que siguen los convenios generales de la organización para dar soporte a los esfuerzos de supervisión que se centran en las vías de extremo a extremo más importantes para su negocio. Para obtener más información, consulte
-[Supervisión de sistemas distribuidos](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo").
+Como desarrollador de aplicaciones, asegúrese de que sus aplicaciones o servicios emiten métricas con nombres y etiquetas que siguen los convenios generales de la organización para dar soporte a los esfuerzos de supervisión que se centran en las vías de extremo a extremo más importantes para su negocio. Para obtener más información, consulte [Supervisión de sistemas distribuidos](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo").

@@ -44,7 +44,7 @@ A configuração excessivamente agressiva de uma verificação de prontidão, co
 ## Melhores práticas para configurar análises
 {: #probe-recommendation}
 
-Ao implementar uma análise de funcionamento usando HTTP, considere os códigos de status HTTP a seguir para prontidão, atividade e funcionamento.
+Ao implementar uma análise de funcionamento usando HTTP, considere os códigos de status HTTP a seguir para prontidão, vivacidade e funcionamento:
 
 | Status    |  Prontidão            |  Atividade             |
 |----------|-----------------------|-----------------------|
@@ -54,7 +54,6 @@ Ao implementar uma análise de funcionamento usando HTTP, considere os códigos 
 | Parando | 503 - Indisponível     | 200 - OK              |
 | Inativo     | 503 - Indisponível     | 503 - Indisponível     |
 | Com erro  | 500 - Erro do servidor    | 500 - Erro do servidor    |
-{: caption="Tabela 1. Códigos de status HTTP" caption-side="bottom"}
 
 Os terminais de verificação de funcionamento não devem requerer autorização ou autenticação. Como essas proteções não entram em vigor em terminais de análise de funcionamento, restrinja quaisquer implementações de análise de HTTP a solicitações GET que não modifiquem nenhum dado. Nunca retorne dados que identifiquem as especificidades sobre o ambiente, como o sistema operacional, a linguagem de implementação ou as versões de software, pois elas podem ser usadas para estabelecer um vetor de ataque.
 
