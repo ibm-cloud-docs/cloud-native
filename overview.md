@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ According to the [Cloud Native Computing Foundation](https://github.com/cncf/fou
 
 These attributes describe a highly dynamic system that is composed of independent processes working together to provide business value: a distributed system.
 
-Distributed computing is a concept with roots stretching back decades. [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") captures the following assumptions made by architects and designers of distributed systems that prove wrong in the long run. 
+Distributed computing is a concept with roots stretching back decades. [Fallacies of Distributed Computing](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") captures the following assumptions made by architects and designers of distributed systems that prove wrong in the long run. 
 
 * The network is reliable.
 * The network is secure.

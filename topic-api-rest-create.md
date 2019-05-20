@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -72,7 +72,7 @@ There is less agreement about what should happen with operations associated with
 ### Robustness and RESTful APIs
 {: #robust-api}
 
-The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") provides the best guidance: "Be liberal in what you accept, and conservative in what you send". Assume that APIs will evolve over time and be tolerant of data you do not understand.
+The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") provides the best guidance: "Be liberal in what you accept, and conservative in what you send." Assume that APIs will evolve over time and be tolerant of data you do not understand.
 
 #### Producing APIs
 {: #robust-producer}
@@ -80,9 +80,9 @@ The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_wi
 When providing an API to external clients there are two things you must do when accepting requests and returning responses: 
 
 * Accept unknown attributes as part of the request.
-    > If a service calls your API with unnecessary attributes, just throw those values away. Returning an error in this scenario can cause unnecessary failures, negatively impacting the end user.
+    - If a service calls your API with unnecessary attributes, just throw those values away. Returning an error in this scenario can cause unnecessary failures, negatively impacting the end user.
 * Only return the attributes required by your consumers
-    > Avoid exposing internal service details. Only expose attributes that consumers need as part of the API.
+    - Avoid exposing internal service details. Only expose attributes that consumers need as part of the API.
 
 #### Consuming APIs
 {: #robust-consumer}
@@ -90,9 +90,9 @@ When providing an API to external clients there are two things you must do when 
 When consuming APIs:
 
 * Only validate the request against the variables or attributes that you need.
-    > Do not validate against variables just because they are provided. If you are not using them as part of your request, do not rely on them being there.
+    - Do not validate against variables just because they are provided. If you are not using them as part of your request, do not rely on them being there.
 * Accept unknown attributes as part of the response.
-    > Do not issue an exception if you receive an unexpected variable. As long as the response contains the information you need, it does not matter what else comes along for the ride.
+    - Do not issue an exception if you receive an unexpected variable. As long as the response contains the information you need, it does not matter what else comes along for the ride.
 
 These guidelines are especially relevant for strongly-typed languages like Java, where JSON serialization and deserialization often occurs indirectly, for example, by way of the Jackson libraries, or JSON-P/JSON-B. Look for language mechanisms that allow you to specify more generous behavior like ignoring unknown attributes, or to define or filter which attributes should be serialized.
 
