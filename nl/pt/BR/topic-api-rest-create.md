@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -72,7 +72,7 @@ Há menos concordância sobre o que deve acontecer com as operações associadas
 ### Robustez e APIs RESTful
 {: #robust-api}
 
-O [princípio de robustez](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") fornece a melhor orientação: "seja liberal quanto ao que aceita e conservador quanto ao que envia". Parta do princípio de que as APIs evoluem ao longo do tempo e seja tolerante quanto aos dados que você não compreende.
+O [princípio de robustez](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") fornece a melhor orientação: "seja liberal no que você aceitar e conservador no que enviar." Parta do princípio de que as APIs evoluem ao longo do tempo e seja tolerante quanto aos dados que você não compreende.
 
 #### Produzindo APIs
 {: #robust-producer}
@@ -80,19 +80,20 @@ O [princípio de robustez](https://tools.ietf.org/html/rfc1122#page-12){: new_wi
 Ao fornecer uma API para clientes externos, há duas coisas que devem ser feitas ao aceitar solicitações e retornar respostas: 
 
 * Aceite os atributos desconhecidos como parte da solicitação.
-    > Se um serviço chamar sua API com atributos desnecessários, basta ignorar esses valores. O retorno de um erro neste cenário pode causar falhas desnecessárias, impactando negativamente o usuário final.
-* Retorne somente os atributos solicitados por seus consumidores
-    > Evite expor detalhes internos do serviço. Exponha somente os atributos que os consumidores precisam como parte da API.
+    
+    - Se um serviço chamar sua API com atributos desnecessários, basta ignorar esses valores. O retorno de um erro neste cenário pode causar falhas desnecessárias, impactando negativamente o usuário final.
+* Retorne somente os atributos necessários aos seus consumidores
+    - Evite expor detalhes do serviço interno. Exponha somente os atributos que os consumidores precisam como parte da API.
 
 #### Consumindo APIs
 {: #robust-consumer}
 
 Ao consumir APIs:
 
-* Valide a solicitação somente com relação às variáveis ou atributos de que você precisa.
-    > Não valide com relação às variáveis apenas porque elas são fornecidas. Se não as estiver usando como parte de sua solicitação, não se preocupe se elas não estiverem presentes.
+* Valide a solicitação apenas com relação às variáveis ou atributos necessários.
+    - Não valide com relação às variáveis apenas porque elas são fornecidas. Se não as estiver usando como parte de sua solicitação, não se preocupe se elas não estiverem presentes.
 * Aceite os atributos desconhecidos como parte da resposta.
-    > Não emita uma exceção se você receber uma variável inesperada. Contanto que a resposta contenha as informações necessárias, não importa o que mais estiver lá.
+    - Não emita uma exceção se você receber uma variável inesperada. Contanto que a resposta contenha as informações necessárias, não importa o que mais estiver lá.
 
 Essas diretrizes são especialmente relevantes para linguagens fortemente tipificadas, como Java, nas quais a serialização e a desserialização JSON geralmente ocorrem indiretamente, por exemplo, por meio das bibliotecas Jackson ou de JSON-P/JSON-B. Procure mecanismos de linguagem que permitam definir ou filtrar quais atributos devem ser serializados ou especificar um comportamento mais liberal, como ignorar atributos desconhecidos.
 

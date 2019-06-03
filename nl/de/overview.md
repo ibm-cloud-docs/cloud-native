@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ Gemäß der [Cloud Native Computing Foundation](https://github.com/cncf/foundati
 
 Diese Attribute beschreiben ein hochdynamisches System, das aus unabhängigen Prozessen besteht, die zusammenarbeiten, um einen geschäftlichen Nutzen bereitzustellen: ein verteiltes System.
 
-Die verteilte Datenverarbeitung ist ein Konzept mit Wurzeln, die Jahrzehnte zurückreichen. In [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") sind die folgenden Annahmen von Architekten und Entwicklern für verteilte Systeme aufgeführt, die sich langfristig als falsch erweisen. 
+Die verteilte Datenverarbeitung ist ein Konzept mit Wurzeln, die Jahrzehnte zurückreichen. In [Fallacies of Distributed Computing](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") sind die folgenden Annahmen von Architekten und Entwicklern für verteilte Systeme aufgeführt, die sich langfristig als falsch erweisen. 
 
 * Das Netz ist zuverlässig.
 * Das Netz ist sicher.
@@ -58,14 +58,14 @@ Die Methodik der [Zwölf-Faktor-Anwendung](https://12factor.net){: new_window} !
 9. Prozesse sind verfügbar: Der schnelle Start und die ordnungsgemäße Beendigung führen zu einem stabileren und ausfallsichereren System.
 10. Alle Umgebungen, von der lokalen Entwicklung bis zur Produktion, sind so ähnlich wie möglich.
 11. Anwendungen erzeugen Protokolle als Ereignisströme; sie schreiben z. B. in `stdout` und `stderr` und überlassen der Ausführungsumgebung die Aggregierung der Datenströme.
-12. Wenn einmalige Verwaltungstasks erforderlich sind, werden sie in der Quellcodeverwaltung aufbewahrt und zusammen mit der Anwendung gepackt, um sicherzustellen, dass sie mit derselben Umgebung wie die Anwendung ausgeführt werden. 
+12. Wenn einmalige Verwaltungstasks erforderlich sind, werden sie in der Quellcodeverwaltung aufbewahrt und zusammen mit der Anwendung gepackt, um sicherzustellen, dass sie mit derselben Umgebung wie die Anwendung ausgeführt werden.
 
 Sie müssen diese Faktoren nicht strikt einhalten, um eine qualitativ hochwertige Mikroserviceumgebung zu erzielen. Die Orientierung an diesen Faktoren hilft Ihnen jedoch, portierbare Anwendungen und Services in Continuous Delivery-Umgebungen zu erstellen und zu pflegen.
 
 ## Mikroservices
 {: #microservices}
 
-Ein *Mikroservice* ist eine Gruppe von kleinen, unabhängigen Architekturkomponenten, die jeweils einen einzigen Zweck haben und über eine gemeinsame einfache API kommunizieren. Jeder Mikroservice im folgenden einfachen Beispiel ist eine Zwölf-Faktor-Anwendung, die austauschbare Unterstützungsservices verwendet, um Daten zu speichern und Nachrichten zu übergeben: 
+Ein *Mikroservice* ist eine Gruppe von kleinen, unabhängigen Architekturkomponenten, die jeweils einen einzigen Zweck haben und über eine gemeinsame einfache API kommunizieren. Jeder Mikroservice im folgenden einfachen Beispiel ist eine Zwölf-Faktor-Anwendung, die austauschbare Unterstützungsservices verwendet, um Daten zu speichern und Nachrichten zu übergeben:
 
 ![Eine Mikroserviceanwendung](images/microservice.png "Eine Mikroserviceanwendung")
 
@@ -117,7 +117,7 @@ Bei Mikroservicearchitekturen hat JSON sich als das Sendeformat der Wahl für te
 ```
 {: codeblock}
 
-Und das folgende Beispiel zeigt denselben Mitarbeiterdatensatz in XML: 
+Und das folgende Beispiel zeigt denselben Mitarbeiterdatensatz in XML:
 
 ```xml
 <person>
@@ -136,4 +136,3 @@ Und das folgende Beispiel zeigt denselben Mitarbeiterdatensatz in XML:
 {: codeblock}
 
 In JSON werden Attribut/Wert-Paare für die Darstellung von Datenobjekten in einer prägnanten Syntax verwendet, die Informationen zu einigen Basistypen wie Zahlen, Zeichenfolgen, Arrays und Objekten beibehält. Sowohl in JSON als auch in XML ist das verschachtelte Adressobjekt im obigen Beispiel deutlich zu erkennen; jedoch ist das zugehörige XML-Schema erforderlich, um den Typ des Elements `serial` zu bestimmen. In JSON ist aus der Syntax ersichtlich, dass der Wert von `serial` eine Zahl und keine Zeichenfolge ist.
-

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ lastupdated: "2019-04-30"
 
 이러한 속성은 비즈니스 가치를 제공하기 위해 함께 작동하는 독립적인 프로세스로 구성된 매우 동적인 시스템, 즉 분산 시스템을 설명합니다.
 
-분산 컴퓨팅은 그 뿌리가 수십 년 전부터 이어온 개념입니다. [분산 컴퓨팅의 오류(Fallacies of Distributed Computing)](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘")는 분산 시스템의 설계자 및 디자이너가 만든 다음과 같은 가정이 장기적으로 보면 틀린 것임을 증명합니다. 
+분산 컴퓨팅은 그 뿌리가 수십 년 전부터 이어온 개념입니다. [분산 컴퓨팅의 오류(Fallacies of Distributed Computing)](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘")는 분산 시스템의 설계자 및 디자이너가 만든 다음과 같은 가정이 장기적으로 보면 틀린 것임을 증명합니다. 
 
 * 네트워크는 신뢰할 수 있습니다.
 * 네트워크는 안전합니다.
@@ -135,4 +135,4 @@ JSON은 마이크로서비스 아키텍처에서 텍스트 기반 데이터를 �
 ```
 {: codeblock}
 
-JSON은 특성-값 쌍을 사용하여 숫자, 문자열, 배열 및 오브젝트와 같은 몇 가지 기본 유형에 대한 정보를 보존하는 간결한 구문으로 데이터 오브젝트를 나타냅니다. JSON과 XML은 모두 이전 예제에서 중첩된 주소 오브젝트를 명확하게 나타내지만, `serial` 요소의 유형을 확인하려면 연관된 XML 스키마가 필요합니다.   JSON에서는 구문을 통해 `serial`의 값이 문자열이 아닌 숫자임을 명확히 합니다.
+JSON은 특성-값 쌍을 사용하여 숫자, 문자열, 배열 및 오브젝트와 같은 몇 가지 기본 유형에 대한 정보를 보존하는 간결한 구문으로 데이터 오브젝트를 나타냅니다. JSON과 XML은 모두 이전 예제에서 중첩된 주소 오브젝트를 명확하게 나타내지만, `serial` 요소의 유형을 확인하려면 연관된 XML 스키마가 필요합니다.  JSON에서는 구문을 통해 `serial`의 값이 문자열이 아닌 숫자임을 명확히 합니다.

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ lastupdated: "2019-04-30"
 
 这些特性描述了由多个独立进程组成的高度动态的系统，这些进程一起运行以提供业务价值，这是一种分布式系统。
 
-分布式计算这一概念可追溯到几十年前。[Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标") 中描述了分布式系统架构设计师和设计人员所做的以下假设，最终这些假设被证明是错误的。 
+分布式计算这一概念可追溯到几十年前。[Fallacies of Distributed Computing](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标") 中描述了分布式系统架构设计师和设计人员所做的以下假设，最终这些假设被证明是错误的。 
 
 * 网络是可靠的。
 * 网络是安全的。
@@ -67,7 +67,7 @@ Kubernetes 和 Istio 等云技术旨在解决基础架构本身的这些问题�
 
 *微服务*是一组小型独立体系结构组件，它们通过公共轻量级 API 进行通信，并且每个组件只有一个用途。以下简单示例中的每个微服务都是一个十二要素应用程序，都使用可替换的后备服务来存储数据和传递消息：
 
-![微服务应用程序](images/microservice.png "微服务应用程序"){: caption="图 1. 微服务应用程序" caption-side="bottom"}
+![微服务应用程序](images/microservice.png "微服务应用程序")
 
 微服务是独立的。敏捷性是微服务体系结构的其中一个优点，但仅当服务能够完全被重写而不妨碍其他服务时，才能体现出此优点。虽然这种情况不太可能经常发生，但它说明了这种需求。通过明确的 API 边界，基于服务工作的团队能以最高灵活性逐渐发展实现。正是此特征支持多语言编程和持久存储。
 

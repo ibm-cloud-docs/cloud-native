@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ Secondo la [Cloud Native Computing Foundation](https://github.com/cncf/foundatio
 
 Questi attributi descrivono un sistema altamente dinamico che è composto da processi indipendenti che lavorano insieme per fornire un valore di business: un sistema distribuito.
 
-L'elaborazione distribuita è un concetto che risale a decenni fa. [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") riporta le supposizioni di seguito indicate, espresse da architetti e designer, che, sulla lunga distanza si sono rivelate errate. 
+L'elaborazione distribuita è un concetto che risale a decenni fa. [Fallacies of Distributed Computing](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") riporta le supposizioni di seguito indicate, espresse da architetti e designer, che, sulla lunga distanza si sono rivelate errate. 
 
 * La rete è affidabile.
 * La rete è sicura.
@@ -117,7 +117,7 @@ JSON si è distinto nelle architetture di microservizi come il formato di trasmi
 ```
 {: codeblock}
 
-E il seguente esempio è lo stesso record di dipendente in XML: 
+E il seguente esempio è lo stesso record di dipendente in XML:
 
 ```xml
 <person>
@@ -136,4 +136,3 @@ E il seguente esempio è lo stesso record di dipendente in XML:
 {: codeblock}
 
 JSON utilizza le coppie attributo-valore per rappresentare gli oggetti di dati in una sintassi concisa che conserva le informazioni su alcuni tipi di base, come i numeri, le stringhe, gli array e gli oggetti. Sia JSON sia XML rappresentano chiaramente l'oggetto di indirizzo indicato negli esempi precedenti ma hai bisogno dello schema XML associato per determinare il tipo dell'elemento `serial`. In JSON, la sintassi rende chiaro che il valore di `serial` è un numero e non una stringa.
-

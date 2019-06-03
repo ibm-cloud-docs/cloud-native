@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -72,7 +72,7 @@ REST API 应该使用标准 HTTP 动词来表示创建、检索、更新和删�
 ### 稳健性和 RESTful API
 {: #robust-api}
 
-[Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标") 提供了最佳指导信息：“Be liberal in what you accept, and conservative in what you send”（对所接受的内容尽量包容，而对所发送的内容尽量审慎）。假定 API 会随着时间的推移而逐渐发展，并且能容忍您不了解的数据。
+[Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标") 提供了最佳指导信息：“Be liberal in what you accept, and conservative in what you send”。假定 API 会随着时间的推移而逐渐发展，并且能容忍您不了解的数据。
 
 #### 生成 API
 {: #robust-producer}
@@ -80,9 +80,9 @@ REST API 应该使用标准 HTTP 动词来表示创建、检索、更新和删�
 如果向外部客户机提供 API，那么您在接受请求和返回响应时必须执行两个操作： 
 
 * 接受未知属性作为请求的一部分。
-    > 如果服务调用 API 时使用了不必要的属性，只要将这些值丢弃即可。在此场景中返回错误可能会导致不必要的失败，从而对最终用户产生负面影响。
-* 仅返回使用者所需的属性。
-    > 避免公开内部服务详细信息。仅将使用者需要的属性作为 API 的一部分公开。
+         - 如果服务调用 API 时使用了不必要的属性，只要将这些值丢弃即可。在此场景中返回错误可能会导致不必要的失败，从而对最终用户产生负面影响。
+* 仅返回使用者所需的属性
+    - 避免公开内部服务的详细信息。仅将使用者需要的属性作为 API 的一部分公开。
 
 #### 使用 API
 {: #robust-consumer}
@@ -90,9 +90,9 @@ REST API 应该使用标准 HTTP 动词来表示创建、检索、更新和删�
 使用 API 时：
 
 * 仅针对您需要的变量或属性来验证请求。
-    > 不要因为提供了变量，我们就要对其都进行验证。如果不打算在请求中使用这些变量，那么不要因为提供了这些变量就一定要进行验证。
+         - 不要因为提供了变量，我们就要对其都进行验证。如果不打算在请求中使用这些变量，那么不要因为提供了这些变量就一定要进行验证。
 * 接受未知属性作为响应的一部分。
-    > 收到意外变量时，不要发出异常。只要响应包含所需的信息，随响应一起收到的其他内容都无关紧要。
+         - 收到意外变量时，不要发出异常。只要响应包含所需的信息，随响应一起收到的其他内容都无关紧要。
 
 这些准则对于 Java 等强类型语言特别重要，在这类语言中，经常会间接执行 JSON 序列化和反序列化，例如，通过 Jackson 库或 JSON-P/JSON-B。请寻找允许您指定更宽容行为（如忽略未知属性），或者允许定义或过滤哪些属性应该执行序列化的语言机制。
 
@@ -147,7 +147,7 @@ Accept 头是定义版本的明显位置，但也是最难进行测试的位置�
 
 您可以在所选择的任何工具中编写 OpenAPI YAML 文件。但是，使用纯文本编辑器可能很容易出错。有些编辑器具有对 YAML 的基本支持，有些编辑器则可能有其他扩展来支持 OpenAPI 定义。例如，可以使用 Visual Studio Code 扩展（如 [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标") 或 [OpenAPI 预览](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")）根据指定的规范版本来验证 OpenAPI 定义，并在预览窗格中呈现 Web 视图：
 
-![OpenAPI 预览](images/create-api-image1.png "OpenAPI 预览"){: caption="图 1. OpenAPI 预览" caption-side="bottom"} 
+![OpenAPI 预览](images/create-api-image1.png "OpenAPI 预览") 
 
 另外还有多种基于浏览器的实时解析编辑器，您可以联机或本地使用这些编辑器。一些示例包括：
 

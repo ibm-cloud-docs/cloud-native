@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -72,7 +72,7 @@ Si è meno d'accordo su cosa dovrebbe accadere con le operazioni associate alla 
 ### Solidità e API RESTful
 {: #robust-api}
 
-Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window}, ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") fornisce l'orientamento migliore, invitandoti a "essere liberale con quanto accetti e conservativo con quanto invii". Presumi inoltre che le API si evolveranno nel corso del tempo e sii tollerante con i dati che non comprendi.
+Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window}, ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") fornisce l'orientamento migliore, invitandoti a "essere liberale con quanto accetti e conservativo con quanto invii." Presumi inoltre che le API si evolveranno nel corso del tempo e sii tollerante con i dati che non comprendi.
 
 #### Produzione di API
 {: #robust-producer}
@@ -80,9 +80,10 @@ Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.
 Quando fornisci una API a client esterni, ci sono due cose che devi fare quando accetti richieste e restituisci risposte: 
 
 * Accetta attributi sconosciuti come parte della richiesta.
-    > Se un servizio richiama la tua API con attributi non necessari, semplicemente sbarazzati di questi valori. La restituzione di un errore in questo scenario può causare delle condizioni di errore non necessarie, con ripercussioni negative sull'utente finale.
-* Restituisci solo gli attributi richiesti dai tuoi consumatori
-    > Evita di esporre dettagli del servizio interno. Esponi solo gli attributi di cui i consumatori hanno bisogno come parte della API.
+    
+    - Se un servizio richiama la tua API con attributi non necessari, semplicemente sbarazzati di questi valori. La restituzione di un errore in questo scenario può causare delle condizioni di errore non necessarie, con ripercussioni negative sull'utente finale.
+* Restituisci solo gli attributi richiesti dai tuoi consumatori 
+    - Evita di esporre dettagli del servizio interno. Esponi solo gli attributi di cui i consumatori hanno bisogno come parte della API.
 
 #### Consumo di API
 {: #robust-consumer}
@@ -90,9 +91,11 @@ Quando fornisci una API a client esterni, ci sono due cose che devi fare quando 
 Quando utilizzi le API:
 
 * Convalida la richiesta solo rispetto alle variabili o agli attributi di cui hai bisogno.
-    > Non eseguire una convalida rispetto a delle variabili solo perché vengono fornite. Se non le stai usando come parte della tua chiesta, non fare affidamento su fatto che ci siano.
+    
+    - Non eseguire una convalida rispetto a delle variabili solo perché vengono fornite. Se non le stai usando come parte della tua chiesta, non fare affidamento su fatto che ci siano.
 * Accetta valori sconosciuti come parte della risposta.
-    > Non emettere un'eccezione se ricevi una variabile imprevista. È sufficiente che la risposta contenga le informazioni di cui hai bisogno, il resto non conta.
+    
+    - Non emettere un'eccezione se ricevi una variabile imprevista. È sufficiente che la risposta contenga le informazioni di cui hai bisogno, il resto non conta.
 
 Queste linee guida sono particolarmente rilevanti per linguaggi fortemente tipizzati come Java, dove la serializzazione e la deserializzazione JSON spesso si verifica in modo indiretto, ad esempio mediante librerie Jackson, o JSON-P/JSON-B. Cerca i meccanismi di linguaggio che ti consentono di specificare una modalità di funzionamento più generosa, come ad esempio ignorare gli attributi sconosciuti, o di definire o filtrare quali attributi devono essere serializzati.
 

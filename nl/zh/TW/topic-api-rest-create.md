@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -80,9 +80,9 @@ REST API 應該使用標準 HTTP 動詞來進行「建立」、「擷取」、�
 向外部用戶端提供 API 時，您必須在接受要求及傳回回應時執行兩個動作： 
 
 * 接受不明屬性作為要求的一部分。
-    > 如果服務以不必要的屬性呼叫您的 API，則只會擲出這些值。在此情況下，傳回錯誤可能導致不必要的失敗，對一般使用者會造成負面影響。
+         - 如果服務以不必要的屬性呼叫您的 API，則只會擲出這些值。在此情況下，傳回錯誤可能導致不必要的失敗，對一般使用者會造成負面影響。
 * 只傳回消費者所需的屬性
-    > 請避免公開內部服務詳細資料。只會將消費者所需的屬性公開為 API 的一部分。
+    - 避免公開內部服務詳細資料。只會將消費者所需的屬性公開為 API 的一部分。
 
 #### 耗用 API
 {: #robust-consumer}
@@ -90,9 +90,9 @@ REST API 應該使用標準 HTTP 動詞來進行「建立」、「擷取」、�
 耗用 API 時：
 
 * 只根據您需要的變數或屬性來驗證要求。
-    > 不要因為提供了變數就對它們進行驗證。如果您未使用它們作為要求的一部分，則請不要根據它們。
+    - 不要因為提供了變數就對它們進行驗證。如果您未使用它們作為要求的一部分，則請不要根據它們。
 * 接受不明屬性作為回應的一部分。
-    > 如果您收到非預期的變數，請不要發出異常狀況。只要回應包含您需要的資訊，就不需要在意伴隨的其他項目。
+    - 如果您收到非預期的變數，請不要發出異常狀況。只要回應包含您需要的資訊，就不需要在意伴隨的其他項目。
 
 這些準則特別適用於 Java 這類高度類型化語言，其中，JSON 序列化和解除序列化通常會透過 Jackson 程式庫或 JSON-P/JSON-B（舉例來說）間接發生。請尋找語言機制，以容許您指定忽略不明屬性這類更寬鬆的行為，或是定義或過濾應該序列化的屬性。
 
@@ -147,7 +147,7 @@ Accept 標頭是定義版本的明顯位置，但卻是其中一個最難測試�
 
 您可以使用選擇的任何工具來編寫 OpenAPI YAML 檔案。不過，使用純文字編輯器可能容易發生錯誤。部分編輯器對 YAML 具有基本支援，且部分編輯器可能具有支援 OpenAPI 定義的其他延伸。例如，您可以使用 [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示") 或 [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示") 這類 Visual Studio Code 延伸，來驗證指定規格版本的 OpenAPI 定義，並在預覽窗格中呈現 Web 視圖：
 
-![OpenAPI 預覽](images/create-api-image1.png "OpenAPI 預覽"){: caption="圖 1. OpenAPI 預覽" caption-side="bottom"} 
+![OpenAPI 預覽](images/create-api-image1.png "OpenAPI 預覽"){: caption="圖 1. OpenAPI 預覽" caption-side="bottom"}  
 
 您也可以在線上或本端使用各種瀏覽器型線上剖析編輯器。以下是部分範例：
 

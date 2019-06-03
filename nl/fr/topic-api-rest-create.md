@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -72,7 +72,7 @@ Les avis divergent sur les opérations associées à la ressource qui ne sont pa
 ### Robustesse et API RESTful
 {: #robust-api}
 
-La page [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") inclut un conseil très avisé : "Soyez libéral lorsque vous décidez ce que vous acceptez mais conservateur lorsque vous décidez ce que vous envoyez". Supposez que les API vont évoluer au fil du temps et soyez tolérant en ce qui concerne les données que vous ne comprenez pas.
+La page [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") inclut un conseil très avisé : "Soyez libéral lorsque vous décidez ce que vous acceptez mais conservateur lorsque vous décidez ce que vous envoyez." Supposez que les API vont évoluer au fil du temps et soyez tolérant en ce qui concerne les données que vous ne comprenez pas.
 
 #### Génération d'API
 {: #robust-producer}
@@ -80,9 +80,10 @@ La page [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: ne
 Lors de la mise à disposition d'une API auprès de clients externes, vous devez effectuer deux actions lors de l'acceptation des demandes et l'envoi des réponses : 
 
 * Acceptez les attributs inconnus comme partie de la demande.
-    > Si un service appelle votre API avec des attributs non nécessaires, rejetez ces valeurs. Lorsqu'une erreur est générée dans ce scénario, des défaillances peuvent survenir, ayant un impact négatif sur l'utilisateur final.
+    
+    - Si un service appelle votre API avec des attributs non nécessaires, rejetez ces valeurs. Lorsqu'une erreur est générée dans ce scénario, des défaillances peuvent survenir, ayant un impact négatif sur l'utilisateur final.
 * Renvoyez uniquement les attributs requis par vos consommateurs
-    > Evitez d'exposer les détails de service internes. Exposez uniquement les attributs dont les consommateurs ont besoin dans l'API.
+    - Evitez d'exposer les détails de service internes. Exposez uniquement les attributs dont les consommateurs ont besoin dans l'API.
 
 #### Consommation des API
 {: #robust-consumer}
@@ -90,9 +91,11 @@ Lors de la mise à disposition d'une API auprès de clients externes, vous devez
 Lors de la consommation d'API :
 
 * Validez uniquement la requête par rapport aux variables ou aux attributs dont vous avez besoin.
-    > N'effectuez pas de validation en fonction de variables uniquement parce qu'elles sont disponibles. Si vous ne les utilisez pas dans la demande, ne comptez pas sur le fait qu'elles soient présentes.
+    
+    - N'effectuez pas de validation en fonction de variables uniquement parce qu'elles sont disponibles. Si vous ne les utilisez pas dans la demande, ne comptez pas sur le fait qu'elles soient présentes.
 * Acceptez les attributs inconnus comme partie de la réponse.
-    > Ne générez pas d'exception si vous recevez une variable inattendue. Tant que la réponse contient les informations dont vous avez besoin, le reste des données n'a aucune importance.
+    
+    - Ne générez pas d'exception si vous recevez une variable inattendue. Tant que la réponse contient les informations dont vous avez besoin, le reste des données n'a aucune importance.
 
 Ces instructions sont particulièrement adaptées aux langages fortement typés comme Java, où la sérialisation et la désérialisation JSON surviennent souvent indirectement, par exemple via les bibliothèques Jackson ou JSON-P/JSON-B. Recherchez les mécanismes de langage qui permettent de spécifier un comportement plus généreux, comme le fait d'ignorer des attributs inconnus ou de définir ou filtrer les attributs à sérialiser.
 
@@ -147,7 +150,7 @@ Dans tous les cas, l'utilisation d'une définition OpenAPI peut vous aider à id
 
 Vous pouvez créer votre fichier YAML OpenAPI en utilisant l'outil de votre choix. Toutefois, l'utilisation d'un éditeur de texte en clair peut générer des erreurs. Certains éditeurs ont un support de base pour YAML et certains peuvent avoir des extensions supplémentaires pour la prise en charge des définitions OpenAPI. Par exemple, vous pouvez utiliser des extensions Visual Studio Code, telles [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") ou [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") pour valider votre définition OpenAPI par rapport à une version de spécification indiquée et afficher une vue Web dans le panneau de prévisualisation :
 
-![Aperçu OpenAPI](images/create-api-image1.png "Aperçu OpenAPI"){: caption="Figure 1. Aperçu OpenAPI" caption-side="bottom"}  
+![Aperçu OpenAPI](images/create-api-image1.png "Aperçu OpenAPI"){: caption="Figure 1. Aperçu OpenAPI" caption-side="bottom"} 
 
 Il existe également plusieurs éditeurs d'analyse syntaxique basés sur navigateur que vous pouvez utiliser en ligne ou localement. Voici quelques exemples :
 

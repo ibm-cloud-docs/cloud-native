@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ Selon la fondation [Cloud Native Computing Foundation](https://github.com/cncf/f
 
 Ces attributs décrivent un système hautement dynamique composé de processus indépendants, qui associés offrent une valeur métier : un système distribué.
 
-L'informatique en réseau est un concept datant de plusieurs décennies. Le document [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") rassemble les suppositions suivantes des architectes et des concepteurs de systèmes distribués qui se sont révélées fausses à long terme. 
+L'informatique en réseau est un concept datant de plusieurs décennies. Le document [Fallacies of Distributed Computing](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") rassemble les suppositions suivantes des architectes et des concepteurs de systèmes distribués qui se sont révélées fausses à long terme. 
 
 * Le réseau est fiable.
 * Le réseau est sécurisé.
@@ -135,4 +135,4 @@ Et l'exemple suivant correspond au même enregistrement d'employé au format XML
 ```
 {: codeblock}
 
-JSON utilise des paires attribut/valeur pour représenter des objets de données dans une syntaxe concise qui conserve les informations de certains types de base, comme des nombres, des chaînes, des grappes et des objets. JSON et XML représentent dans les exemples précédents l'objet address imbriqué, mais vous avez besoin du schéma XML associé pour déterminer le type de l'élément `serial`. En notation JSON, la syntaxe indique clairement que la valeur de `serial` est un nombre et non une chaîne. 
+JSON utilise des paires attribut/valeur pour représenter des objets de données dans une syntaxe concise qui conserve les informations de certains types de base, comme des nombres, des chaînes, des grappes et des objets. JSON et XML représentent dans les exemples précédents l'objet address imbriqué, mais vous avez besoin du schéma XML associé pour déterminer le type de l'élément `serial`. En notation JSON, la syntaxe indique clairement que la valeur de `serial` est un nombre et non une chaîne.

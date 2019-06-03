@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -80,9 +80,10 @@ El [Principio de solidez](https://tools.ietf.org/html/rfc1122#page-12){: new_win
 Al proporcionar una API a clientes externos, hay dos acciones que se deben realizar al aceptar solicitudes y devolver respuestas: 
 
 * Aceptar atributos desconocidos como parte de la solicitud.
-    > Si un servicio llama a la API con atributos innecesarios, simplemente descarte dichos valores. La devolución de un error en esta situación puede provocar fallos innecesarios, afectando negativamente al usuario final.
+    
+    - Si un servicio llama a la API con atributos innecesarios, simplemente descarte dichos valores. La devolución de un error en esta situación puede provocar fallos innecesarios, afectando negativamente al usuario final.
 * Devolver solo los atributos necesarios para los consumidores
-    > Evite exponer detalles internos del servicio. Exponga solo los atributos que necesiten los consumidores como parte de la API.
+    - Evite exponer detalles internos del servicio. Exponga solo los atributos que necesiten los consumidores como parte de la API.
 
 #### Consumo de API
 {: #robust-consumer}
@@ -90,9 +91,11 @@ Al proporcionar una API a clientes externos, hay dos acciones que se deben reali
 Al consumir las API:
 
 * Valide la solicitud únicamente con las variables o atributos que necesite.
-    > No valide con las variables solo por el hecho de que se proporcionen. Si no las utiliza como parte de su solicitud, no se base simplemente en que estén ahí.
+    
+    - No valide con las variables solo por el hecho de que se proporcionen. Si no las utiliza como parte de su solicitud, no se base simplemente en que estén ahí.
 * Acepte atributos desconocidos como parte de la respuesta.
-    > No emita una excepción si recibe una variable no esperada. Siempre que la respuesta contenga la información que necesita, no importa que venga algo más en el camino.
+    
+    - No emita una excepción si recibe una variable no esperada. Siempre que la respuesta contenga la información que necesita, no importa que venga algo más en el camino.
 
 Estas directrices son especialmente relevantes para lenguajes fuertemente tipados como Java, donde la serialización y deserialización de JSON a menudo se produce indirectamente, por ejemplo, mediante bibliotecas Jackson o JSON-P/JSON-B. Busque mecanismos del lenguaje que le permitan especificar un comportamiento más generoso, como ignorar atributos desconocidos, o definir o filtrar qué atributos se deben serializar.
 

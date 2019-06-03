@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ De acordo com a [Cloud Native Computing Foundation](https://github.com/cncf/foun
 
 Esses atributos descrevem um sistema altamente dinâmico, composto de processos independentes que trabalham juntos para fornecer um valor de negócios: um sistema distribuído.
 
-A computação distribuída é um conceito disseminado por décadas. As [falácias da computação distribuída](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") abordam as suposições a seguir, feitas por arquitetos e designers de sistemas distribuídos, que são comprovadamente erradas ao longo do tempo. 
+A computação distribuída é um conceito disseminado por décadas. As [falácias da computação distribuída](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") abordam as suposições a seguir, feitas por arquitetos e designers de sistemas distribuídos, que são comprovadamente erradas ao longo do tempo. 
 
 * A rede é confiável.
 * A rede é segura.

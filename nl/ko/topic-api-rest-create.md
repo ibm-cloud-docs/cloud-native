@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -79,10 +79,10 @@ RESTful 리소스 URI의 일부 측면에 대해서 다양한 의견이 있습�
 
 외부 클라이언트에 API를 제공하는 경우 요청을 수락하고 응답을 리턴할 때 반드시 수행해야 하는 두 가지가 있습니다. 
 
-* 알 수 없는 특성을 요청의 일부로 수락합니다.
-    > 서비스에서 불필요한 속성을 사용하여 API를 호출하는 경우 이러한 값을 버립니다. 이 시나리오에서 오류를 리턴하면 불필요한 장애가 발생하여 일반 사용자에게 부정적인 영향을 미칠 수 있습니다.
+* 알 수 없는 속성을 요청의 일부로 수락합니다.
+    - 서비스에서 불필요한 속성을 사용하여 API를 호출하는 경우 이러한 값을 버립니다. 이 시나리오에서 오류를 리턴하면 불필요한 장애가 발생하여 일반 사용자에게 부정적인 영향을 미칠 수 있습니다.
 * 이용자가 요구하는 속성만 리턴합니다.
-> 내부 서비스 세부 정보가 노출되지 않도록 합니다. API의 일부로 이용자에게 필요한 속성만 노출합니다.
+    - 내부 서비스 세부 정보가 노출되지 않도록 합니다. API의 일부로 이용자에게 필요한 속성만 노출합니다.
 
 #### API 이용
 {: #robust-consumer}
@@ -90,9 +90,9 @@ RESTful 리소스 URI의 일부 측면에 대해서 다양한 의견이 있습�
 API 이용시 다음 사항을 확인하십시오.
 
 * 필요한 변수 또는 속성에 대한 요청만 유효성 검증하십시오.
-    > 단지 변수가 제공되었다고 해서 변수에 대해 유효성을 검증하지 마십시오. 이를 사용자 요청의 일부로 사용하지 않는 경우에는 해당 요청에 의존하지 마십시오.
-* 알 수 없는 특성을 응답의 일부로 수락하십시오.
-    > 예기치 않은 변수를 수신하는 경우에는 예외를 발행하지 마십시오. 응답에 필요한 정보가 포함되어 있는 한, 실행에 필요한 다른 정보는 중요하지 않습니다.
+    - 단지 변수가 제공되었다고 해서 변수에 대해 유효성을 검증하지 마십시오. 이를 사용자 요청의 일부로 사용하지 않는 경우에는 해당 요청에 의존하지 마십시오.
+* 알 수 없는 속성을 응답의 일부로 수락하십시오.
+    - 예기치 않은 변수를 수신하는 경우에는 예외를 발행하지 마십시오. 응답에 필요한 정보가 포함되어 있는 한, 실행에 필요한 다른 정보는 중요하지 않습니다.
 
 이러한 지침은 JSON 직렬화 및 직렬화 해제가 JSON 라이브러리 또는 JSON-P/JSON-B와 같이 자주 간접적으로 발생하는 Java와 같은 강력한 유형의 언어와 특히 관련이 있습니다. 알 수 없는 속성 무시와 같은 보다 관대한 동작을 지정하거나, 직렬화할 속성을 정의하거나 필터링할 수 있는 언어 메커니즘을 찾으십시오.
 
@@ -147,7 +147,7 @@ Accept 헤더는 버전을 정의할 수 있는 명백한 위치이지만 테스
 
 선택한 도구가 무엇이든 이를 사용하여 OpenAPI YAML 파일을 작성할 수 있습니다. 단, 일반 텍스트 편집기를 사용하면 오류가 발생할 수 있습니다. 일부 편집기에는 YAML에 대한 기본적인 지원이 있으며 일부 편집기에는 OpenAPI 정의를 지원하기 위한 추가 확장기능이 있을 수 있습니다. 예를 들어 Visual Studio Code 확장기능(예: [Swagger 뷰어](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘") 또는 [OpenAPI 미리보기](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘")를 사용하여 특정 스펙 버전에 대해 OpenAPI 정의를 유효성 검증하고 미리보기 분할창에서 웹 보기를 렌더링할 수 있습니다.
 
-![OpenAPI 미리보기](images/create-api-image1.png "OpenAPI 미리보기"){: caption="그림 1. OpenAPI 미리보기" caption-side="bottom"}
+![OpenAPI 미리보기](images/create-api-image1.png "OpenAPI 미리보기"){: caption="그림 1. OpenAPI 미리보기" caption-side="bottom"} 
 
 또한 온라인 또는 로컬에서 사용할 수 있는 다양한 브라우저 기반의 활성 구문 분석 편집기도 있습니다. 다음은 일부 예입니다.
 
@@ -158,7 +158,7 @@ Accept 헤더는 버전을 정의할 수 있는 명백한 위치이지만 테스
 ### API 구현 생성
 {: #code-first}
 
-오픈 소스 [OpenAPI 생성기](https://github.com/OpenAPITools/openapi-generator){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘")를 사용하여 OpenAPI 정의에서 서비스 구현을 위해 스켈레톤 프로젝트를 작성할 수 있습니다. 명령행에서 스켈레톤에 대한 언어 또는 프레임워크를 지정할 수 있습니다. 예를 들어 일반 JAX-RS 메소드 어노테이션을 사용하는 샘플 PetStore API에 대한 Java 프로젝트를 작성하려면 다음 명령을 지정하십시오. 
+오픈 소스 [OpenAPI 생성기](https://github.com/OpenAPITools/openapi-generator){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘")를 사용하여 OpenAPI 정의에서 서비스 구현을 위해 스켈레톤 프로젝트를 작성할 수 있습니다. 명령행에서 스켈레톤에 대한 언어 또는 프레임워크를 지정할 수 있습니다. 예를 들어 일반 JAX-RS 메소드 어노테이션을 사용하는 샘플 PetStore API에 대한 Java 프로젝트를 작성하려면 다음 명령을 지정하십시오.
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore

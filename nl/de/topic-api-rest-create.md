@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -77,12 +77,13 @@ Das [Zuverlässigkeitsprinzip](https://tools.ietf.org/html/rfc1122#page-12){: ne
 #### APIs erzeugen
 {: #robust-producer}
 
-Bei der Bereitstellung einer API für externe Clients müssen Sie beim Akzeptieren von Anforderungen und Zurückgeben von Antworten zwei Punkte beachten:  
+Bei der Bereitstellung einer API für externe Clients müssen Sie beim Akzeptieren von Anforderungen und Zurückgeben von Antworten zwei Punkte beachten: 
 
 * Akzeptieren Sie unbekannte Attribute als Bestandteil der Anforderung.
-    > Wenn ein Service Ihre API mit nicht notwendigen Attributen aufruft, werfen Sie diese Werte einfach weg. Wenn in diesem Szenario ein Fehler zurückgegeben wird, kann dies zu unnötigen Störungen führen, die den Endbenutzer beeinträchtigen.
-* Geben Sie nur die Attribute zurück, die Ihre Konsumenten benötigen.
-    > Vermeiden Sie es, interne Servicedetails zugänglich zu machen. Machen Sie nur Attribute zugänglich, die Konsumenten als Bestandteil der API benötigen.
+    
+    - Wenn ein Service Ihre API mit nicht notwendigen Attributen aufruft, werfen Sie diese Werte einfach weg. Wenn in diesem Szenario ein Fehler zurückgegeben wird, kann dies zu unnötigen Störungen führen, die den Endbenutzer beeinträchtigen.
+* Geben Sie nur die Attribute zurück, die Ihre Konsumenten benötigen. 
+    - Vermeiden Sie es, interne Servicedetails zugänglich zu machen. Machen Sie nur Attribute zugänglich, die Konsumenten als Bestandteil der API benötigen.
 
 #### APIs konsumieren
 {: #robust-consumer}
@@ -90,9 +91,11 @@ Bei der Bereitstellung einer API für externe Clients müssen Sie beim Akzeptier
 Beim Konsumieren von APIs:
 
 * Validieren Sie die Anforderung nur anhand der Variablen oder Attribute, die Sie benötigen.
-    > Führen Sie keine Validierung anhand von Variablen aus, nur weil sie angegeben werden. Wenn Sie die Variablen nicht als Bestandteil Ihrer Anforderung verwenden, sollten Sie sich nicht darauf verlassen, dass sie vorhanden sind.
+    
+    - Führen Sie keine Validierung anhand von Variablen aus, nur weil sie angegeben werden. Wenn Sie die Variablen nicht als Bestandteil Ihrer Anforderung verwenden, sollten Sie sich nicht darauf verlassen, dass sie vorhanden sind.
 * Akzeptieren Sie unbekannte Attribute als Bestandteil der Antwort.
-    > Geben Sie keine Ausnahmebedingung aus, wenn Sie eine unerwartete Variable empfangen. Solange die Antwort die Informationen enthält, die Sie benötigen, spielen die zusätzlich gesendeten Informationen keine Rolle.
+    
+    - Geben Sie keine Ausnahmebedingung aus, wenn Sie eine unerwartete Variable empfangen. Solange die Antwort die Informationen enthält, die Sie benötigen, spielen die zusätzlich gesendeten Informationen keine Rolle.
 
 Diese Richtlinien sind besonders relevant für stark typisierte Sprachen wie Java, während die Serialisierung und Deserialisierung von JSON häufig indirekt auftritt, z. B. über die Jackson-Bibliotheken oder JSON-P/JSON-B. Suchen Sie nach Sprachmechanismen, mit denen Sie ein großzügigeres Verhalten wie das Ignorieren von unbekannten Attributen angeben oder die zu serialisierenden Attribute definieren oder filtern können.
 
@@ -158,7 +161,7 @@ Es gibt auch eine Vielzahl von browserbasierten Live-Parsing-Editoren, die Sie e
 ### API-Implementierung generieren
 {: #code-first}
 
-Sie können die Open-Source-Software [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") verwenden, um einen Projektentwurf für Ihre Serviceimplementierung aus einer OpenAPI-Definition zu erstellen. Sie können die Sprache oder das Framework für das Gerüst über die Befehlszeile angeben. Geben Sie beispielsweise den folgenden Befehl an, um ein Java-Projekt für die Beispiel-API PetStore zu erstellen, bei der Annotationen nach der generischen JAX-RS-Methode verwendet werden: 
+Sie können die Open-Source-Software [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") verwenden, um einen Projektentwurf für Ihre Serviceimplementierung aus einer OpenAPI-Definition zu erstellen. Sie können die Sprache oder das Framework für das Gerüst über die Befehlszeile angeben. Geben Sie beispielsweise den folgenden Befehl an, um ein Java-Projekt für die Beispiel-API PetStore zu erstellen, bei der Annotationen nach der generischen JAX-RS-Methode verwendet werden:
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-05-20"
 
 ---
 
@@ -29,7 +29,7 @@ lastupdated: "2019-04-30"
 
 這些屬性說明一個高度動態的系統，此系統由一起運作的獨立處理程序組成用來提供商業價值：分散式系統。
 
-分散式運算是一個可以追溯到幾十年前的概念。[分散式運算的謬誤](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示") 擷取由分散式系統架構設計師和設計師所做的下列假設（從長遠來看，證明是錯誤的）。 
+分散式運算是一個可以追溯到幾十年前的概念。[分散式運算的謬誤](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示") 擷取由分散式系統架構設計師和設計師所做的下列假設（從長遠來看，證明是錯誤的）。 
 
 * 網路是可靠的。
 * 網路是安全的。
