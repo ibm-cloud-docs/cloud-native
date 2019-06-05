@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -50,7 +50,8 @@ IBM's cloud platforms leverage Kubernetes for container orchestration. Therefore
 | Service | A well-known name that represents a set of relatively unstable Pod IP addresses. A Service can exist on the cluster private network only, or be exposed externally, usually using a cloud provider-specific load balancer. A Service is displayed as `kind: Service` in `.yaml` files. |
 | Ingress | Provides the ability to share a single network address with multiple services by way of virtual hosting or context-based routing. An Ingress can also perform network connection management activities like TLS termination. An Ingress is displayed as `kind: Ingress` in `.yaml` files. |
 | Secret | An object that stores sensitive information for Pod runtime use and separates the deployment-specific information from the container image or orchestration. A secret can be exposed to a Pod at runtime through either environment variables or virtual file system mounts. Without secrets, sensitive data is stored in either the container image or the orchestration, both of which create more opportunities for accidental exposure or unintended access. |
-| ConfigMap | Plays a similar role to Secrets in that it separates deployment specific information from the container orchestration. However, a ConfigMap is a general purpose configuration structure. It is used to bind information, such as command-line arguments, environment variables, and other configuration artifacts, to your Pod's containers and system components at run time. | 
+| ConfigMap | Plays a similar role to Secrets in that it separates deployment specific information from the container orchestration. However, a ConfigMap is a general purpose configuration structure. It is used to bind information, such as command-line arguments, environment variables, and other configuration artifacts, to your Pod's containers and system components at run time. |
+{: caption="Table 1. Kubernetes basic concepts." caption-side="bottom"}
 
 All resources are defined within the Kubernetes resource model, which can be configured either through the RESTful API or through configuration files submitted through the `kubectl` command line.
 

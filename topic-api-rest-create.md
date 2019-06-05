@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -43,11 +43,12 @@ Use relevant and useful HTTP status codes, as described in the following table:
 
 | HTTP Error Code | Usage Guidance |
 |-----------------|----------------|
-| `200 (OK)` | Use when everything is fine and there is data to return |
-| `204 (NO CONTENT)` | Use when everything is fine but there is no response data |
-| `201 (CREATED)` | Use for POST requests that result in the creation of a resource, whether there is a response body or not |
-| `409 (CONFLICT)` | Use when concurrent changes conflict |
-| `400 (BAD REQUEST)` | Use when parameters are malformed |
+| `200 (OK)` | Use when everything is fine and there is data to return. |
+| `204 (NO CONTENT)` | Use when everything is fine but there is no response data. |
+| `201 (CREATED)` | Use for POST requests that result in the creation of a resource, whether there is a response body or not. |
+| `409 (CONFLICT)` | Use when concurrent changes conflict. |
+| `400 (BAD REQUEST)` | Use when parameters are malformed. |
+{: caption="Table 1. HTTP status codes." caption-side="bottom"}
 
 For more information, see [Response status codes](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"). 
 
