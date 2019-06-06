@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -14,6 +14,7 @@ lastupdated: "2019-02-11"
 {:tip: .tip}
 {:note: .note}
 {:important: .important}
+{:external: target="_blank" .external}
 
 # Fault tolerance
 {: #fault-tolerance}
@@ -54,7 +55,7 @@ The interesting aspect of tuning timeouts this way is that all requests using th
 
 An application should define what happens when a request to a backing service fails. There are a few options, but the goal is to degrade gracefully when these services don't respond in a timely manner. When a remote service fails, you might retry the request, try a different request, or return cached data instead.
 
-Retrying the request is the easiest fallback mechanism at first glance. What isn't so apparent is that retrying requests can contribute to cascading system failures ("retry storms", a variation of the [thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem)). Application-level code is not aware enough of system or network health, and exponential backoff algorithms are hard to get right.
+Retrying the request is the easiest fallback mechanism at first glance. What isn't so apparent is that retrying requests can contribute to cascading system failures ("retry storms", a variation of the [thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external}). Application-level code is not aware enough of system or network health, and exponential backoff algorithms are hard to get right.
 
 Istio can perform retries much more effectively. It is already directly involved in request routing and it provides a consistent, language-agnostic implementation for retry policies. For example, we could define a policy like the following for our stock quote service:
 
@@ -76,7 +77,7 @@ spec:
 ```
 {: codeblock}
 
-With this simple configuration, requests made to the stock quote service through an Istio sidecar proxy or ingress gateway will be retried up to 3 times, with a 5 second timeout for each attempt. [Additional route matching rules](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPMatchRequest) could further restrict this retry policy to `GET` requests, for example.
+With this simple configuration, requests made to the stock quote service through an Istio sidecar proxy or ingress gateway will be retried up to 3 times, with a 5 second timeout for each attempt. [Additional route matching rules](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external} could further restrict this retry policy to `GET` requests, for example.
 
 There is a nuance here that is easy to miss: you are not specifying the retry interval. The sidecar determines the interval between retries, and deliberately introduces "jitter" between attempts to avoid bombarding overloaded services.
 
