@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-10"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -44,7 +44,7 @@ Configuring a readiness check very aggressively, such as with a low initial dela
 ## Best practices for configuring probes
 {: #probe-recommendation}
 
-When implementing a health probe by using HTTP, consider the following HTTP status codes for readiness, liveness, and health:
+When implementing a health probe by using HTTP, consider the following HTTP status codes for readiness, liveness, and health.
 
 | State    |  Readiness            |  Liveness             |
 |----------|-----------------------|-----------------------|
@@ -54,6 +54,7 @@ When implementing a health probe by using HTTP, consider the following HTTP stat
 | Stopping | 503 - Unavailable     | 200 - OK              |
 | Down     | 503 - Unavailable     | 503 - Unavailable     |
 | Errored  | 500 - Server Error    | 500 - Server Error    |
+{: caption="Table 1. HTTP status codes" caption-side="bottom"}
 
 Health check endpoints must not require authorization or authentication. Since these protections are not put into place on health probe endpoints, restrict any HTTP probe implementations to GET requests that do not modify any data. Never return data that identifies specifics about the environment, like the operating system, implementation language, or software versions, as these can be used to establish an attack vector.
 
@@ -77,6 +78,7 @@ Declare liveness and readiness probes alongside your Kubernetes deployment in th
 | *timeoutSeconds* | How quickly the probe times out. The default and minimum value is 1. |
 | *successThreshold* | The number of times the probe must be successful after a failure. The default and minimum value is 1. The value must be 1 for liveness probes. |
 | *failureThreshold* | The number of times that Kubernetes will try to restart a Pod before giving up when the Pod starts and the probe fails (see note). The minimum value is 1 and the default value is 3. |
+{: caption="Table 2. Configuration parameters for Kubernetes probes." caption-side="bottom"}
 
   For a liveness probe, giving up means restarting the Pod. For a readiness probe, giving up means marking the Pod as unready.
   {: note}
