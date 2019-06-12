@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-06-11"
 
 ---
 
@@ -23,7 +23,7 @@ Metrics are simple numerical measurements captured as key-value pairs. Some metr
 
 There are three general factors when talking about metrics in a distributed system: producers, aggregators, and processors. There are some fairly common combinations of these factors, such as using Prometheus as the aggregator with Grafana processing collected metrics for display in graphical dashboards, or using StatsD with graphite.
 
-![The three factors in distributed system metrics](images/metrics-systems.png "The three factors in distributed system metrics"){: caption="Figure 1. The three factors in distributed system metrics" caption-side="bottom"}
+![The three factors in distributed system metrics](images/metrics-systems.png "The three factors in distributed system metrics"){: caption="Figure 1. The three factors in distributed system metrics." caption-side="bottom"}
 
 The producer is, of course, the application itself. In some cases, the application is directly involved in producing metrics. In other cases, agents or other infrastructure either passively observe or actively instrument the application to produce metrics on its behalf. What happens next depends on the aggregator.
 
