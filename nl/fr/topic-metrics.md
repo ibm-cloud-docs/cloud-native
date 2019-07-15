@@ -1,8 +1,8 @@
-﻿---
+---
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-06-11"
 
 ---
 
@@ -23,7 +23,7 @@ Les métriques sont des mesures numériques simples capturées sous la forme cl�
 
 Trois facteurs généraux s'appliquent aux métriques d'un système distribué : producteurs, agrégateurs et processeurs. Il existe plusieurs combinaisons assez répandues de ces facteurs, comme l'utilisation de Prometheus lorsque l'agrégateur avec traitement Grafana collecte des métriques pour affichage dans les tableaux de bord graphiques ou l'utilisation de StatsD avec graphite.
 
-![Trois facteurs des métriques de système distribué](images/metrics-systems.png "Trois facteurs des métriques de système distribué"){: caption="Figure 1. Trois facteurs des métriques de système distribué" caption-side="bottom"}
+![Trois facteurs des métriques de système distribué](images/metrics-systems.png "Trois facteurs des métriques de système distribué")
 
 Le producteur est, bien évidemment, l'application elle-même. Dans certains cas, l'application est directement impliquée dans les métriques de production. Dans d'autres cas, les agents ou d'autres infrastructures observent passivement ou instrument activement l'application afin de produire des métriques en son nom. La suite des événements dépend de l'agrégateur.
 

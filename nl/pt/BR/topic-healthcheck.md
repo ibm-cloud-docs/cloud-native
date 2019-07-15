@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-10"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -44,7 +44,7 @@ A configuração excessivamente agressiva de uma verificação de prontidão, co
 ## Melhores práticas para configurar análises
 {: #probe-recommendation}
 
-Ao implementar uma análise de funcionamento usando HTTP, considere os códigos de status HTTP a seguir para prontidão, vivacidade e funcionamento:
+Ao implementar uma análise de funcionamento usando HTTP, considere os códigos de status HTTP a seguir para prontidão, atividade e funcionamento.
 
 | Status    |  Prontidão            |  Atividade             |
 |----------|-----------------------|-----------------------|
@@ -54,6 +54,7 @@ Ao implementar uma análise de funcionamento usando HTTP, considere os códigos 
 | Parando | 503 - Indisponível     | 200 - OK              |
 | Inativo     | 503 - Indisponível     | 503 - Indisponível     |
 | Com erro  | 500 - Erro do servidor    | 500 - Erro do servidor    |
+{: caption="Tabela 1. Códigos de status HTTP" caption-side="bottom"}
 
 Os terminais de verificação de funcionamento não devem requerer autorização ou autenticação. Como essas proteções não entram em vigor em terminais de análise de funcionamento, restrinja quaisquer implementações de análise de HTTP a solicitações GET que não modifiquem nenhum dado. Nunca retorne dados que identifiquem as especificidades sobre o ambiente, como o sistema operacional, a linguagem de implementação ou as versões de software, pois elas podem ser usadas para estabelecer um vetor de ataque.
 
@@ -77,6 +78,7 @@ Declare as análises de atividade e prontidão com a implementação do seu Kube
 | *timeoutSeconds* | Com que rapidez a análise atinge o tempo limite. O valor padrão e o mínimo é 1. |
 | *successThreshold* | O número necessário de execuções bem-sucedidas da análise após uma falha. O valor padrão e mínimo é 1. O valor deve ser 1 para as análises de vivacidade. |
 | *failureThreshold* | O número de tentativas de reinicialização de um Pod pelo Kubernetes antes de ele desistir quando o Pod é iniciado e a análise falha (consulte a nota). O valor mínimo é 1 e o valor padrão é 3. |
+{: caption="Tabela 2. Parâmetros de configuração para análises do Kubernetes." caption-side="bottom"}
 
   Para uma análise de atividade, desistir significa reiniciar o Pod. Para uma análise de prontidão, desistir significa marcar o Pod como não preparado.
   {: note}

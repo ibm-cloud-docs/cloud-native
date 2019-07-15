@@ -18,7 +18,7 @@ lastupdated: "2019-04-09"
 # Observabilidade, telemetria e monitoramento
 {: #observability-cn}
 
-Há uma mudança de cultura a respeito do monitoramento resultante de uma migração para a abordagem nativa de nuvem. Embora seja esperado que os aplicativos em ambos os ambientes local e na nuvem sejam altamente disponíveis e resilientes a falhas, os métodos usados para alcançar esses objetivos são muito diferentes. Como resultado, o propósito do monitoramento muda: em vez de monitorar para evitar falhas, monitore para gerenciá-las.
+Há uma mudança de cultura a respeito do monitoramento resultante de uma migração para a abordagem nativa de nuvem. Embora seja esperado que os aplicativos em ambos os ambientes local e na nuvem sejam altamente disponíveis e resilientes a falhas, os métodos usados para alcançar esses objetivos são muito diferentes. Como resultado, o propósito do monitoramento muda: em vez de monitorar para evitar falhas, monitore para gerenciá-las. 
 {:shortdesc}
 
 Em ambientes locais, a infraestrutura e o middleware são provisionados com base nos padrões de capacidade planejada e alta disponibilidade, por exemplo, ativo/ativo ou ativo/passivo. Falhas inesperadas podem ser complexas nesse ambiente, exigindo um esforço significativo para a determinação de problemas e a recuperação. O monitoramento externo é executado por agentes que examinam a utilização de recursos para evitar as classes conhecidas de falhas. Como um exemplo, considere o ajuste do tamanho de heap, os tempos limite e as políticas de coleta de lixo para aplicativos Java.

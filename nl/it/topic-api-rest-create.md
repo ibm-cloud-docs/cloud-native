@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -43,11 +43,12 @@ Utilizza i codici di stato HTTP pertinenti e utili, come descritto nella seguent
 
 | Codice errore HTTP | Guida all'uso |
 |-----------------|----------------|
-| `200 (OK)` | Da utilizzare quando va tutto bene e non ci sono dati da restituire |
-| `204 (NO CONTENT)` | Da utilizzare quando va tutto bene ma non ci sono dati di risposta |
-| `201 (CREATED)` | Da utilizzare per le richieste POST che determinano la creazione di una risposta, che sia presente un corpo della risposta o meno |
-| `409 (CONFLICT)` | Da utilizzare quando delle modifiche simultanee sono in conflitto |
-| `400 (BAD REQUEST)` | Da utilizzare quando i parametri sono in formato non corretto |
+| `200 (OK)` | Da utilizzare quando va tutto bene e ci sono dati da restituire. |
+| `204 (NO CONTENT)` | Da utilizzare quando va tutto bene ma non ci sono dati di risposta. |
+| `201 (CREATED)` | Da utilizzare per le richieste POST che determinano la creazione di una risorsa, che sia presente un corpo della risposta o meno. |
+| `409 (CONFLICT)` | Da utilizzare quando delle modifiche simultanee sono in conflitto. |
+| `400 (BAD REQUEST)` | Da utilizzare quando i parametri sono in formato non corretto. |
+{: caption="Tabella 1. Codici di stato HTTP." caption-side="bottom"}
 
 Per ulteriori informazioni, vedi [Response Status Codes](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno"). 
 
@@ -82,7 +83,7 @@ Quando fornisci una API a client esterni, ci sono due cose che devi fare quando 
 * Accetta attributi sconosciuti come parte della richiesta.
     
     - Se un servizio richiama la tua API con attributi non necessari, semplicemente sbarazzati di questi valori. La restituzione di un errore in questo scenario può causare delle condizioni di errore non necessarie, con ripercussioni negative sull'utente finale.
-* Restituisci solo gli attributi richiesti dai tuoi consumatori 
+* Restituisci solo gli attributi richiesti dai tuoi consumatori
     - Evita di esporre dettagli del servizio interno. Esponi solo gli attributi di cui i consumatori hanno bisogno come parte della API.
 
 #### Consumo di API

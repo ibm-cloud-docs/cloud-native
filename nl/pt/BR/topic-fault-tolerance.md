@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -14,6 +14,7 @@ lastupdated: "2019-02-11"
 {:tip: .tip}
 {:note: .note}
 {:important: .important}
+{:external: target="_blank" .external}
 
 # Tolerância a Fal
 {: #fault-tolerance}
@@ -54,7 +55,7 @@ O aspecto interessante dos tempos limite de ajuste é que todas as solicitaçõe
 
 Um aplicativo deve definir o que acontece quando uma solicitação para um serviço auxiliar falha. Existem algumas poucas opções, mas o objetivo é que o comprometimento aconteça normalmente quando esses serviços não responderem de maneira oportuna. Quando um serviço remoto falha, é possível tentar executar novamente a solicitação, executar uma solicitação diferente ou retornar dados em cache em vez disso.
 
-Tentar executar a solicitação novamente é o mecanismo de fallback mais fácil, à primeira vista. O que não é tão aparente é que as solicitações de nova tentativa podem contribuir para falhas do sistema em cascata ("tempestades de novas tentativas", uma variação do [problema de thundering herd](https://en.wikipedia.org/wiki/Thundering_herd_problem)). O código no nível do aplicativo não está ciente o suficiente do funcionamento da rede ou do sistema e algoritmos de backoff exponencial são difíceis de corrigir.
+Tentar executar a solicitação novamente é o mecanismo de fallback mais fácil, à primeira vista. O que não é tão aparente é que as solicitações de nova tentativa podem contribuir para falhas do sistema em cascata ("tempestades de novas tentativas", uma variação do [problema de thundering herd](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external}). O código no nível do aplicativo não está ciente o suficiente do funcionamento da rede ou do sistema e algoritmos de backoff exponencial são difíceis de corrigir.
 
 O Istio pode realizar novas tentativas de maneira muito mais efetiva. Ele já está diretamente envolvido no roteamento de solicitações e fornece uma implementação consistente e com abrangência de linguagem para políticas de nova tentativa. Por exemplo, poderíamos definir uma política como a seguinte para o nosso serviço de cotação de ações:
 
@@ -76,7 +77,7 @@ spec:
 ```
 {: codeblock}
 
-Com essa configuração simples, as solicitações feitas ao serviço de cotação de ações por meio de um proxy de sidecar ou gateway de ingresso do Istio terão novas tentativas realizadas até 3 vezes, com um tempo limite de 5 segundos para cada uma. [Regras de correspondência de rota adicional](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPMatchRequest) poderiam restringir ainda mais essa política de nova tentativa para solicitações `GET`, por exemplo.
+Com essa configuração simples, as solicitações feitas ao serviço de cotação de ações por meio de um proxy de sidecar ou gateway de ingresso do Istio terão novas tentativas realizadas até 3 vezes, com um tempo limite de 5 segundos para cada uma. [Regras de correspondência de rota adicional](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external} poderiam restringir ainda mais essa política de nova tentativa para solicitações `GET`, por exemplo.
 
 Nesse caso, há uma nuance que deve ser notada: você não está especificando o intervalo de nova tentativa. O sidecar determina o intervalo entre as novas tentativas e, deliberadamente, introduz "jitter" entre elas para evitar grandes volumes em serviços sobrecarregados.
 

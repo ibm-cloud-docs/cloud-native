@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -14,6 +14,7 @@ lastupdated: "2019-02-11"
 {:tip: .tip}
 {:note: .note}
 {:important: .important}
+{:external: target="_blank" .external}
 
 # Tolérance aux pannes
 {: #fault-tolerance}
@@ -54,7 +55,7 @@ L'avantage de définir les délais d'attente en procédant ainsi réside dans le
 
 Une application doit définir ce qui se passe lorsqu'une demande auprès d'un service de sauvegarde échoue. Il existe plusieurs options mais l'objectif est d'effectuer une dégradation lorsque ces services ne répondent pas dans le délai imparti. Lorsqu'un service distant échoue, vous pouvez émettre à nouveau la demande, effectuer une nouvelle demande ou renvoyer les données mises en cache à la place.
 
-A premier abord, émettre à nouveau la demande semble être le mécanisme de rétromigration le plus simple. Cependant, on ne pense pas immédiatement que le fait d'émettre à nouveau les demandes peut générer des erreurs système en cascade ("rafale de tentatives", variation du problème présenté sur la page [Thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem)). Le code de niveau d'application ne prend pas suffisamment en compte l'état du système ou du réseau. De plus, il est difficile d'obtenir les algorithmes d'incrément exponentiel corrects.
+A premier abord, émettre à nouveau la demande semble être le mécanisme de rétromigration le plus simple. Cependant, on ne pense pas immédiatement que le fait d'émettre à nouveau les demandes peut générer des erreurs système en cascade ("rafale de tentatives", variation du problème présenté sur la page [Thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external}). Le code de niveau d'application ne prend pas suffisamment en compte l'état du système ou du réseau. De plus, il est difficile d'obtenir les algorithmes d'incrément exponentiel corrects.
 
 Istio peut effectuer de nouvelles tentatives de manière beaucoup plus efficace. Il est directement impliqué dans le routage de demande et il fournit une implémentation cohérente ne prenant pas en charge le langage pour les règles de nouvelle tentative. Par exemple, il est possible de définir une règle d'administration, semblable à l'élément suivant, pour notre service de cours d'action :
 
@@ -76,7 +77,7 @@ spec:
 ```
 {: codeblock}
 
-Avec cette configuration simple, les demandes effectuées auprès du service de cours des actions via un proxy de composant sidecar Istio ou la passerelle Ingress sont soumises à nouveau jusqu'à 3 fois, avec un délai de 5 secondes entre chaque tentative. Les [règles de correspondance de route supplémentaires](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPMatchRequest) peuvent restreindre cette règle de nouvelle tentative aux demandes `GET`, par exemple.
+Avec cette configuration simple, les demandes effectuées auprès du service de cours des actions via un proxy de composant sidecar Istio ou la passerelle Ingress sont soumises à nouveau jusqu'à 3 fois, avec un délai de 5 secondes entre chaque tentative. Les [règles de correspondance de route supplémentaires](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external} peuvent restreindre cette règle de nouvelle tentative aux demandes `GET`, par exemple.
 
 Il existe une nuance qu'il est néanmoins facile de ne pas remarquer : vous ne spécifiez pas d'intervalle entre les nouvelles tentatives. Le composant sidecar détermine cet intervalle et définit de manière délibérée une période d'instabilité entre les différentes tentatives afin d'éviter de bombarder les services surchargés.
 

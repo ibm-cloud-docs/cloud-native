@@ -26,7 +26,7 @@ Assurez-vous d'écrire des entrées de journal directement dans les flux d'erreu
 Vous devez être vigilant lors de la gestion des fichiers journaux si une application conteneurisée ne peut pas être configurée pour écrire des journaux dans le flux de sortie standard ou d'erreurs standard.
 
 * Une option consiste à utiliser un volume pour les données de journal, soit un montage d'association simple pour le test et le développement locaux, soit un volume persistant approprié faisant partie d'un déploiement Kubernetes. Un [agent de consignation ou un composant sidecar dédié](https://kubernetes.io/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") peut lire des données dans un volume partagé afin de transmettre les journaux à un agrégateur centralisé. Il est nécessaire de configurer explicitement la rotation de journal pour contrôler la quantité de données de journal stockée sur les volumes.
-* Une autre option consiste à utiliser les agents ou les bibliothèques d'applications pour transmettre les journaux directement aux agrégateurs. L'utilisation de cette option peut être à l'origine d'une configuration complexe dans les environnements de déploiement. 
+* Une autre option consiste à utiliser les agents ou les bibliothèques d'applications pour transmettre les journaux directement aux agrégateurs. L'utilisation de cette option peut être à l'origine d'une configuration complexe dans les environnements de déploiement.
 
 ## Journalisation JSON
 {: #json-logging}

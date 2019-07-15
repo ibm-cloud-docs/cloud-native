@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-10"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -44,7 +44,7 @@ La configuration agressive d'une vérification de préparation (avec un faible d
 ## Meilleures pratiques pour la configuration des sondes
 {: #probe-recommendation}
 
-Lors de l'implémentation d'une sonde d'intégrité en utilisant HTTP, prenez en compte les codes d'état HTTP suivants pour la préparation, la vivacité et l'intégrité :
+Lors de l'implémentation d'une sonde d'intégrité en utilisant HTTP, prenez en compte les codes d'état HTTP suivants pour la préparation, la vivacité et l'intégrité.
 
 | Etat    |  Préparation            |  Vivacité             |
 |----------|-----------------------|-----------------------|
@@ -54,8 +54,9 @@ Lors de l'implémentation d'une sonde d'intégrité en utilisant HTTP, prenez en
 | Arrêt | 503 - Unavailable     | 200 - OK              |
 | Inactif     | 503 - Unavailable     | 503 - Unavailable     |
 | Erreur  | 500 - Server Error    | 500 - Server Error    |
+{: caption="Tableau 1. Codes d'état HTTP" caption-side="bottom"}
 
-Les noeuds finaux de diagnostic d'intégrité n'exigent aucune autorisation ou authentification. Etant donné que ces protections ne sont pas appliquées sur les noeuds finaux de sonde d'intégrité, restreignez les implémentations de sonde HTTP aux demandes GET qui ne modifient pas les données. Ne renvoyez jamais les données qui identifient des caractéristiques de l'environnement, comme le système d'exploitation, le langage d'implémentation ou les versions logicielles, car elles peuvent être utilisées pour établir un vecteur d'attaque.
+Les noeuds finaux de diagnostic d'intégrité n'exigent aucune autorisation ou authentification. Comme ces protections ne sont pas appliquées sur les noeuds finaux de sonde d'intégrité, restreignez les implémentations de sonde HTTP aux demandes GET qui ne modifient pas les données. Ne renvoyez jamais les données qui identifient des caractéristiques de l'environnement, comme le système d'exploitation, le langage d'implémentation ou les versions logicielles, car elles peuvent être utilisées pour établir un vecteur d'attaque.
 
 Une sonde de vivacité doit être très précise sur les éléments à vérifier, car un échec entraîne un arrêt immédiat du processus. Evitez d'utiliser des métriques ambiguës qui indiquent parfois uniquement un processus défaillant, par exemple un noeud final HTTP simple qui renvoie toujours `{"status": "UP"}` avec un code d'état 200. Cette vérification n'aboutit pas pour la plupart des processus à l'état inopérant, ce qui déclenche à raison un redémarrage.
 
@@ -77,6 +78,7 @@ Déclarez les sondes de préparation et de vivacité lors du déploiement Kubern
 | *timeoutSeconds* | Rapidité à laquelle la sonde arrive à échéance. La valeur par défaut et minimale est 1. |
 | *successThreshold* | Nombre de fois où la sonde doit aboutir après un échec. La valeur par défaut et minimale est 1. La valeur doit être 1 pour les sondes de vivacité. |
 | *failureThreshold* | Nombre de fois où Kubernetes tente de redémarrer un pod avant d'abandonner lorsque le pod démarre et que la sonde échoue (voir remarque). La valeur minimale est 1 et la valeur par défaut est 3. |
+{: caption="Tableau 2. Paramètres de configuration pour les sondes Kubernetes" caption-side="bottom"}
 
   Pour une sonde de vivacité, le fait d'abandonner redémarre le pod. Pour une sonde de préparation, le fait d'abandonner marque le pod comme n'étant pas prêt.
   {: note}

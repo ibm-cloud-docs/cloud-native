@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -14,6 +14,7 @@ lastupdated: "2019-02-11"
 {:tip: .tip}
 {:note: .note}
 {:important: .important}
+{:external: target="_blank" .external}
 
 # 容錯
 {: #fault-tolerance}
@@ -54,7 +55,7 @@ spec:
 
 應用程式應該定義對支援服務的要求失敗時會發生什麼情況。有幾個選擇，但目標是在這些服務未及時回應時溫和地降級。遠端服務失敗時，您可以重試要求、嘗試不同的要求，或改為傳回快取的資料。
 
-乍看之下，重試要求是最簡單的撤回機制。但不明顯的是，重試要求可能會導致階層式系統失敗（「重試風暴」，這是 [Thundering Herd Problem](https://en.wikipedia.org/wiki/Thundering_herd_problem) 的變異）。應用程式層次程式碼無法足夠瞭解系統或網路性能，而且指數後退演算法很難正確處理。
+乍看之下，重試要求是最簡單的撤回機制。但不明顯的是，重試要求可能會導致階層式系統失敗（「重試風暴」，這是 [Thundering Herd Problem](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external} 的變異）。應用程式層次程式碼無法足夠瞭解系統或網路性能，而且指數後退演算法很難正確處理。
 
 Istio 可以更有效地執行重試。它已直接涉入要求遞送，並為重試原則提供一致的不限語言實作。例如，我們可以為股票報價服務定義下列這類原則：
 
@@ -76,7 +77,7 @@ spec:
 ```
 {: codeblock}
 
-使用此簡單配置，透過 Istio Sidecar Proxy 或 Ingress 閘道對股票報價服務提出的要求會重試最多 3 次，而且每次嘗試都有 5 秒的逾時。例如，[其他路徑比對規則](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPMatchRequest)可以進一步將此重試原則限制為 `GET` 要求。
+使用此簡單配置，透過 Istio Sidecar Proxy 或 Ingress 閘道對股票報價服務提出的要求會重試最多 3 次，而且每次嘗試都有 5 秒的逾時。例如，[其他路徑比對規則](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external}可以進一步將此重試原則限制為 `GET` 要求。
 
 這裡有一個容易遺漏的細微差異：您未指定重試間隔。Sidecar 會判定重試之間的間隔，並故意在嘗試之間加入「雜訊」，以避免不斷攻擊超載服務。
 

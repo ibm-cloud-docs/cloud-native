@@ -63,7 +63,7 @@ lastupdated: "2019-02-08"
 {
    "cloudant_password": {
       "searchPatterns": [
-         "cloudfoundry:$['cloudant'][0].credentials.password",
+      "cloudfoundry:$['cloudant'][0].credentials.password",
          "env:cloudant_password",
          "file:/server/localdev-config.json:$.cloudant_password"
       ]

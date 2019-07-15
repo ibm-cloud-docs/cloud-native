@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -43,11 +43,12 @@ REST API 應該使用標準 HTTP 動詞來進行「建立」、「擷取」、�
 
 | HTTP 錯誤碼 | 用法指引 |
 |-----------------|----------------|
-| `200 (OK)` | 一切正常且有資料要傳回時使用 |
-| `204 (NO CONTENT)` | 一切正常但沒有回應資料時使用 |
-| `201 (CREATED)` | 用於導致建立資源的 POST 要求，指出是否有回應內文 |
-| `409 (CONFLICT)` | 並行變更衝突時使用 |
-| `400 (BAD REQUEST)` | 參數的格式錯誤時使用 |
+| `200 (OK)` | 一切正常且有資料要傳回時使用。|
+| `204 (NO CONTENT)` | 一切正常但沒有回應資料時使用。|
+| `201 (CREATED)` | 用於導致建立資源的 POST 要求，指出是否有回應內文。|
+| `409 (CONFLICT)` | 並行變更衝突時使用。|
+| `400 (BAD REQUEST)` | 參數的格式錯誤時使用。|
+{: caption="表 1. HTTP 狀態碼。" caption-side="bottom"}
 
 如需相關資訊，請參閱[回應狀態碼](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示")。 
 
@@ -147,7 +148,7 @@ Accept 標頭是定義版本的明顯位置，但卻是其中一個最難測試�
 
 您可以使用選擇的任何工具來編寫 OpenAPI YAML 檔案。不過，使用純文字編輯器可能容易發生錯誤。部分編輯器對 YAML 具有基本支援，且部分編輯器可能具有支援 OpenAPI 定義的其他延伸。例如，您可以使用 [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示") 或 [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![外部鏈結圖示](../icons/launch-glyph.svg "外部鏈結圖示") 這類 Visual Studio Code 延伸，來驗證指定規格版本的 OpenAPI 定義，並在預覽窗格中呈現 Web 視圖：
 
-![OpenAPI 預覽](images/create-api-image1.png "OpenAPI 預覽"){: caption="圖 1. OpenAPI 預覽" caption-side="bottom"}  
+![OpenAPI 預覽](images/create-api-image1.png "OpenAPI 預覽"){: caption="圖 1. OpenAPI 預覽" caption-side="bottom"} 
 
 您也可以在線上或本端使用各種瀏覽器型線上剖析編輯器。以下是部分範例：
 

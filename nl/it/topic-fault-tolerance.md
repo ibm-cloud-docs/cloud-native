@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -14,6 +14,7 @@ lastupdated: "2019-02-11"
 {:tip: .tip}
 {:note: .note}
 {:important: .important}
+{:external: target="_blank" .external}
 
 # Tolleranza agli errori
 {: #fault-tolerance}
@@ -54,7 +55,7 @@ L'aspetto interessante della regolazione dei timeout in questo modo è che tutte
 
 Un'applicazione deve definire cosa succede quando una richiesta a un servizio di supporto non riesce. Ci sono diverse opzioni ma l'obiettivo è quello di procedere a una riduzione non brusca quando tali servizi non rispondono in modo tempestivo. Quando un servizio remoto non riesce, è possibile ritentare la richiesta, provare una richiesta differente o restituire invece i dati memorizzati nella cache.
 
-Ritentare la richiesta è, a prima vista, il meccanismo di fallback più facile. Quello che non è così evidente è che le richieste di nuovi tentativi possono contribuire a condizioni di errore del sistema a cascata (le cosiddette "tempeste di nuovi tentativi" (retry storm), una variazione del problema di collasso per attivazione simultanea di un elevato numero di thread di esecuzione ([thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem)). Il codice a livello dell'applicazione non rileva con sufficiente precisione l'integrità del sistema o della rete ed è difficile ottenere degli algoritmi di backoff esponenziale validi.
+Ritentare la richiesta è, a prima vista, il meccanismo di fallback più facile. Quello che non è così evidente è che le richieste di nuovi tentativi possono contribuire a condizioni di errore del sistema a cascata (le cosiddette "tempeste di nuovi tentativi" (retry storm), una variazione del problema di collasso per attivazione simultanea di un elevato numero di thread di esecuzione ([thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external}). Il codice a livello dell'applicazione non rileva con sufficiente precisione l'integrità del sistema o della rete ed è difficile ottenere degli algoritmi di backoff esponenziale validi.
 
 Istio può eseguire i nuovi tentativi in modo molto più efficace. È già direttamente coinvolto nell'instradamento delle richieste e fornisce un'implementazione congruente e indipendente dai linguaggi per le politiche di nuovi tentativi. Ad esempio, possiamo definire una politica come la seguente per il nostro servizio di quotazione azionaria:
 
@@ -76,7 +77,7 @@ spec:
 ```
 {: codeblock}
 
-Con questa semplice configurazione, le richieste fatte al servizio di quotazione azionaria mediante un gateway ingress o un proxy sidecar Istio verranno ritentate fino a 3 volte, con un timeout di 5 secondi per ogni tentativo. Delle [regole di corrispondenza degli instradamenti aggiuntive](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPMatchRequest) possono limitare ulteriormente questa politica di nuovi tentativi alle richieste `GET`, ad esempio.
+Con questa semplice configurazione, le richieste fatte al servizio di quotazione azionaria mediante un gateway ingress o un proxy sidecar Istio verranno ritentate fino a 3 volte, con un timeout di 5 secondi per ogni tentativo. Delle [regole di corrispondenza degli instradamenti aggiuntive](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external} possono limitare ulteriormente questa politica di nuovi tentativi alle richieste `GET`, ad esempio.
 
 C'è una sfumatura che facilmente potrebbe sfuggire, qui: non stai specificando l'intervallo dei nuovi tentativi. Il sidecar determina l'intervallo tra i nuovi tentativi e introduce deliberatamente il "jitter" tra i tentativi per evitare di bombardare i servizi sovraccaricati.
 

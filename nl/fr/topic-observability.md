@@ -18,12 +18,12 @@ lastupdated: "2019-04-09"
 # Observabilité, télémétrie et surveillance
 {: #observability-cn}
 
-L'arrivée du concept Cloud Native a entraîné une modification de la surveillance. Bien qu'il soit attendu que les applications des environnements sur site et des environnements Cloud native soient hautement disponibles et résistantes aux défaillances, les méthodes utilisées pour atteindre ces objectifs sont très différentes. Par conséquent, l'objectif de la surveillance a changé : au lieu d'effectuer la surveillance pour éviter des défaillances, effectuez la surveillance pour gérer les défaillances.
+L'arrivée du concept Cloud Native a entraîné une modification de la surveillance. Bien qu'il soit attendu que les applications des environnements sur site et des environnements Cloud native soient hautement disponibles et résistantes aux défaillances, les méthodes utilisées pour atteindre ces objectifs sont très différentes. Par conséquent, l'objectif de la surveillance a changé : au lieu d'effectuer la surveillance pour éviter des défaillances, effectuez la surveillance pour gérer les défaillances. 
 {:shortdesc}
 
 Dans des environnements sur site, l'infrastructure et les logiciels intermédiaires sont mis à disposition en fonction de la capacité planifiée et des modèle de haute disponibilité, par exemple active-active ou active-passive. Des défaillances inattendues peuvent être complexes dans cet environnement, ce qui exige des efforts importants pour la détermination des problèmes et leur résolution. La surveillance externe est effectuée par des agents qui examinent l'utilisation des ressources afin d'éviter des classes connues de défaillances. Pensez à optimiser la taille de segment de mémoire, les délais d'attente et les règles de récupération de place pour les applications Java.
 
-Une application Cloud native est composée de microservices indépendants et de services de sauvegarde requis. Même si une application Cloud native dans son ensemble doit rester disponible et continuer de fonctionner, des instances de service individuelles seront démarrées ou arrêtées lorsque cela est nécessaire en fonction des exigences de capacité ou pour la restauration après une défaillance.  
+Une application Cloud native est composée de microservices indépendants et de services de sauvegarde requis. Même si une application Cloud native dans son ensemble doit rester disponible et continuer de fonctionner, des instances de service individuelles seront démarrées ou arrêtées lorsque cela est nécessaire en fonction des exigences de capacité ou pour la restauration après une défaillance. 
 
 ## Observabilité
 {: #observability}

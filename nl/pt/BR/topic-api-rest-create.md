@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -43,11 +43,12 @@ Use códigos de status HTTP relevantes e úteis, conforme descrito na tabela a s
 
 | Código de erro HTTP | Orientação de uso |
 |-----------------|----------------|
-| `200 (OK)` | Use quando tudo estiver correto e houver dados a serem retornados |
-| `204 (NO CONTENT)` | Use quando tudo estiver correto, mas não houver dados de resposta |
-| `201 (CREATED)` | Use para solicitações POST que resultam na criação de um recurso, haja ou não um corpo de resposta |
-| `409 (CONFLICT)` | Use quando mudanças simultâneas entrarem em conflito |
-| `400 (BAD REQUEST)` | Use quando os parâmetros estiverem malformados |
+| `200 (OK)` | Use quando tudo estiver bem e houver dados para retornar. |
+| `204 (NO CONTENT)` | Use quando tudo estiver bem, mas não houver dados de resposta. |
+| `201 (CREATED)` | Use para solicitações de POST que resultam na criação de um recurso, se há um corpo de resposta ou não. |
+| `409 (CONFLICT)` | Use quando as mudanças simultâneas entrarem em conflito. |
+| `400 (BAD REQUEST)` | Use quando os parâmetros estiverem malformados. |
+{: caption="Tabela 1. Códigos de status de HTTP." caption-side="bottom"}
 
 Para obter mais informações, consulte [Códigos de status de resposta](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo"). 
 
@@ -146,7 +147,7 @@ Em qualquer caso, trabalhar com uma definição OpenAPI pode ajudar a identifica
 ### Criando uma API por meio de uma Definição OpenAPI
 {: #openapi-first}
 
-É possível criar seu arquivo YAML de OpenAPI em qualquer ferramenta que você escolher. Usar um editor de texto sem formatação, no entanto, pode aumentar a probabilidade de erros. Alguns editores têm suporte básico para YAML e alguns podem ter extensões adicionais para suportar definições OpenAPI. Por exemplo, é possível usar extensões do Visual Studio Code, como o [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") ou o [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![, para validar sua definição OpenAPI com relação a uma versão de especificações especificada e renderizar uma visualização da web na área de janela de visualização:( ../icons/launch-glyph.svg  "Ícone de link externo"), para validar sua definição OpenAPI com relação a uma versão de especificações especificada e renderizar uma visualização da web na área de janela de visualização:
+É possível criar seu arquivo YAML de OpenAPI em qualquer ferramenta que você escolher. Usar um editor de texto sem formatação, no entanto, pode aumentar a probabilidade de erros. Alguns editores têm suporte básico para YAML e alguns podem ter extensões adicionais para suportar definições OpenAPI. Por exemplo, é possível usar extensões do Visual Studio Code, como o [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") ou o [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") para validar sua definição OpenAPI com relação a uma versão de especificações especificada e renderizar uma visualização da web na área de janela de visualização:
 
 ![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview") 
 

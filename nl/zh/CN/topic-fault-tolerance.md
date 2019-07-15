@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -14,6 +14,7 @@ lastupdated: "2019-02-11"
 {:tip: .tip}
 {:note: .note}
 {:important: .important}
+{:external: target="_blank" .external}
 
 # 容错
 {: #fault-tolerance}
@@ -54,7 +55,7 @@ spec:
 
 应用程序应该定义对后备服务的请求失败时执行的操作。对此有若干选项，但目标是在这些服务无法及时响应时进行正常降级。远程服务失败时，您可能会重试请求，尝试其他请求，或改为返回高速缓存的数据。
 
-乍一看，重试请求似乎是最容易的回退机制。但不太明显的问题是重试请求可能会造成级联系统故障（“重试风暴”，这是[惊群问题](https://en.wikipedia.org/wiki/Thundering_herd_problem)的一种变体）。应用程序级别的代码对系统或网络运行状况的了解不足，并且指数退避算法很难调整恰当。
+乍一看，重试请求似乎是最容易的回退机制。但不太明显的问题是重试请求可能会造成级联系统故障（“重试风暴”，这是[惊群问题](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external}的一种变体）。应用程序级别的代码对系统或网络运行状况的了解不足，并且指数退避算法很难调整恰当。
 
 Istio 执行重试的方式要有效得多。Istio 已直接参与请求路由，并为重试策略提供了一致且与语言无关的实现。例如，我们可以为股票报价服务定义类似于以下内容的策略：
 
@@ -76,7 +77,7 @@ spec:
 ```
 {: codeblock}
 
-使用此简单配置时，通过 Istio 侧柜代理或 Ingress 网关对股票报价服务发出的请求将最多重试 3 次，每次尝试的超时为 5 秒。[其他路由匹配规则](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPMatchRequest)可进一步限制此重试策略，例如限制为 `GET` 请求。
+使用此简单配置时，通过 Istio 侧柜代理或 Ingress 网关对股票报价服务发出的请求将最多重试 3 次，每次尝试的超时为 5 秒。[其他路由匹配规则](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external}可进一步限制此重试策略，例如限制为 `GET` 请求。
 
 此处有一个很容易忽略的细微差别：您未指定重试时间间隔。侧柜会确定重试时间间隔，并故意在两次尝试之间引入“抖动”，以避免连续对超负荷的服务进行访问。
 

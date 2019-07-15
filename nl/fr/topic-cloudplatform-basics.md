@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -50,7 +50,8 @@ Les plateformes de cloud d'IBM optimisent Kubernetes pour l'orchestration de con
 | Service | Nom connu qui représente un ensemble d'adresses IP de pod relativement instables. Un service peut exister sur le réseau privé de cluster uniquement ou être exposé en externe, généralement en utilisant un équilibreur de charge spécifique au fournisseur de cloud. Un service s'affiche sous la forme de `kind: Service` dans les fichiers `.yaml`. |
 | Ingress | Permet de partager une adresse réseau unique avec plusieurs services via l'hébergement virtuel ou le routage contextuel. Un élément Ingress peut également effectuer des activités de gestion des connexions réseau, comme l'arrêt TLS. Un élément Ingress s'affiche comme `kind: Ingress` dans les fichiers `.yaml`. |
 | Secret | Objet qui stocke les informations sensibles pour l'utilisation d'environnement d'exécution de Pod et sépare les informations spécifiques au déploiement de l'orchestration ou de l'image de conteneur. Un secret peut être exposé à un pod lors de l'exécution via des variables d'environnement ou des montages de système de fichiers virtuels. Sans secret, les données sensibles sont stockées dans l'orchestration ou l'image de conteneur. Ainsi, les risques d'exposition accidentelle ou d'accès indésirable sont plus élevés. |
-| ConfigMap | Joue un rôle similaire aux secrets par le fait que cet élément sépare les informations spécifiques au déploiement de l'orchestration de conteneur. Toutefois, un élément ConfigMap constitue une structure de configuration générale. Il permet d'associer des informations, comme des arguments de ligne de commande, des variables d'environnement et d'autres artefacts de configuration, à vos conteneurs de pod et à vos composants système lors de l'exécution. | 
+| ConfigMap | Joue un rôle similaire aux secrets par le fait que cet élément sépare les informations spécifiques au déploiement de l'orchestration de conteneur. Toutefois, un élément ConfigMap constitue une structure de configuration générale. Il permet d'associer des informations, comme des arguments de ligne de commande, des variables d'environnement et d'autres artefacts de configuration, à vos conteneurs de pod et à vos composants système lors de l'exécution. |
+{: caption="Tableau 1. Concepts de base Kubernetes" caption-side="bottom"}
 
 Toutes les ressources sont définies dans le modèle de ressource Kubernetes, qui peut être configuré via l'API RESTful ou via les fichiers de configuration soumis à partir de la ligne de commande `kubectl`.
 
@@ -81,7 +82,7 @@ Au niveau le plus élevé, Istio étend la plateforme Kubernetes, offrant sécur
 * Observabilité : Collecte les métriques et les journaux pour une meilleure visibilité des applications s'exécutant dans votre cluster.
 * Règles : Applique des contrôles d'accès, des limites de débit et des quotas pour protéger vos applications.
 
-Voir la page [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") pour plus d'informations.
+Voir la page [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") .
 
 
 

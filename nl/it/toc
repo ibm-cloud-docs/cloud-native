@@ -2,11 +2,11 @@
 {:topicgroup: .topicgroup}
 
 {: .toc subcollection="cloud-native" audience="platform" href="/docs/cloud-native/overview.html" path="cloud-native"}
-Sviluppo nativo del cloud
+Sviluppo nativo cloud
 
     {: .navgroup id="learn"}
     {: .topicgroup}
-    Sviluppo nativo del cloud
+    Sviluppo nativo cloud
         overview.md
         topic-cloudplatform-basics.md
         topic-api-rest-create.md

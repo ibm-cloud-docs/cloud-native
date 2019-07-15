@@ -1,8 +1,8 @@
-﻿---
+---
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -37,17 +37,18 @@ Les API REST doivent utiliser des instructions HTTP standard pour les opération
 ### Résultats descriptifs et conviviaux
 {: #rest-results}
 
-Etant donné que les API sont appelées par un logiciel et non par des êtres humains, il est primordial de communiquer des informations à l'appelant de manière la plus efficace possible.
+Comme les API sont appelées par un logiciel et non par des êtres humains, il est primordial de communiquer des informations à l'appelant de manière la plus efficace possible.
 
 Utilisez des codes d'état HTTP appropriés et utiles, dont les descriptions sont présentées dans le tableau suivant : 
 
 | Code d'erreur HTTP | Conseils d'utilisation |
 |-----------------|----------------|
-| `200 (OK)` | A utiliser lorsque la situation est normale et qu'il existe des données à renvoyer |
-| `204 (NO CONTENT)` | A utiliser lorsque la situation est normale mais qu'il n'existe aucune données de réponse |
-| `201 (CREATED)` | A utiliser pour les demandes POST qui génèrent la création d'une ressource, qu'il existe un corps de réponse ou non |
-| `409 (CONFLICT)` | A utiliser lorsque des modifications simultanées sont en conflit |
-| `400 (BAD REQUEST)` | A utiliser lorsque les paramètres sont formés de manière incorrecte |
+| `200 (OK)` | A utiliser lorsque la situation est normale et qu'il existe des données à renvoyer. |
+| `204 (NO CONTENT)` | A utiliser lorsque la situation est normale mais qu'il n'existe aucune données de réponse. |
+| `201 (CREATED)` | A utiliser pour les demandes POST qui génèrent la création d'une ressource, qu'il existe un corps de réponse ou non. |
+| `409 (CONFLICT)` | A utiliser lorsque des modifications simultanées sont en conflit. |
+| `400 (BAD REQUEST)` | A utiliser lorsque les paramètres sont incorrectement formés. |
+{: caption="Tableau 1. Codes d'erreur HTTP" caption-side="bottom"}
 
 Pour plus d'informations, voir [Response status codes](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe"). 
 
@@ -80,7 +81,6 @@ La page [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: ne
 Lors de la mise à disposition d'une API auprès de clients externes, vous devez effectuer deux actions lors de l'acceptation des demandes et l'envoi des réponses : 
 
 * Acceptez les attributs inconnus comme partie de la demande.
-    
     - Si un service appelle votre API avec des attributs non nécessaires, rejetez ces valeurs. Lorsqu'une erreur est générée dans ce scénario, des défaillances peuvent survenir, ayant un impact négatif sur l'utilisateur final.
 * Renvoyez uniquement les attributs requis par vos consommateurs
     - Evitez d'exposer les détails de service internes. Exposez uniquement les attributs dont les consommateurs ont besoin dans l'API.
@@ -91,10 +91,8 @@ Lors de la mise à disposition d'une API auprès de clients externes, vous devez
 Lors de la consommation d'API :
 
 * Validez uniquement la requête par rapport aux variables ou aux attributs dont vous avez besoin.
-    
     - N'effectuez pas de validation en fonction de variables uniquement parce qu'elles sont disponibles. Si vous ne les utilisez pas dans la demande, ne comptez pas sur le fait qu'elles soient présentes.
 * Acceptez les attributs inconnus comme partie de la réponse.
-    
     - Ne générez pas d'exception si vous recevez une variable inattendue. Tant que la réponse contient les informations dont vous avez besoin, le reste des données n'a aucune importance.
 
 Ces instructions sont particulièrement adaptées aux langages fortement typés comme Java, où la sérialisation et la désérialisation JSON surviennent souvent indirectement, par exemple via les bibliothèques Jackson ou JSON-P/JSON-B. Recherchez les mécanismes de langage qui permettent de spécifier un comportement plus généreux, comme le fait d'ignorer des attributs inconnus ou de définir ou filtrer les attributs à sérialiser.
@@ -102,7 +100,7 @@ Ces instructions sont particulièrement adaptées aux langages fortement typés 
 ### Gestion des versions des API RESTful
 {: #version-api}
 
-Un des avantages principaux des microservices réside dans le fait que les services ont la possibilité d'évoluer indépendamment. Etant donné que les microservices appellent d'autres services, cette indépendance implique une restriction importante : vous ne pouvez pas provoquer de modification problématique dans votre API.
+Un des avantages principaux des microservices réside dans le fait que les services ont la possibilité d'évoluer indépendamment. Comme les microservices appellent d'autres services, cette indépendance implique une restriction importante : vous ne pouvez pas provoquer de modification problématique dans votre API.
 
 Si le principe de robustesse est suivi, le délai peut être assez long avant qu'une modification problématique ne soit requise. Lorsque cette modification problématique finalement survient, vous pouvez choisir de générer entièrement un autre service et de progressivement arrêter d'utiliser celui d'origine.
 
@@ -150,7 +148,7 @@ Dans tous les cas, l'utilisation d'une définition OpenAPI peut vous aider à id
 
 Vous pouvez créer votre fichier YAML OpenAPI en utilisant l'outil de votre choix. Toutefois, l'utilisation d'un éditeur de texte en clair peut générer des erreurs. Certains éditeurs ont un support de base pour YAML et certains peuvent avoir des extensions supplémentaires pour la prise en charge des définitions OpenAPI. Par exemple, vous pouvez utiliser des extensions Visual Studio Code, telles [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") ou [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![Icône de lien externe](../icons/launch-glyph.svg "Icône de lien externe") pour valider votre définition OpenAPI par rapport à une version de spécification indiquée et afficher une vue Web dans le panneau de prévisualisation :
 
-![Aperçu OpenAPI](images/create-api-image1.png "Aperçu OpenAPI"){: caption="Figure 1. Aperçu OpenAPI" caption-side="bottom"} 
+![Aperçu OpenAPI](images/create-api-image1.png "Aperçu OpenAPI") 
 
 Il existe également plusieurs éditeurs d'analyse syntaxique basés sur navigateur que vous pouvez utiliser en ligne ou localement. Voici quelques exemples :
 

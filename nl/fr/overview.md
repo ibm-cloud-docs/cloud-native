@@ -1,4 +1,4 @@
-﻿---
+---
 
 copyright:
   years: 2019
@@ -67,7 +67,7 @@ Il n'est pas nécessaire de suivre strictement ces facteurs pour obtenir un envi
 
 Un *microservice* est un ensemble de petits composants architecturaux indépendants, chacun ayant un but spécifique, qui établit une communication via une API légère standard. Chaque microservice de l'exemple simple suivant est une application à douze facteurs qui utilise des services de sauvegarde remplaçables pour stocker des données et transmettre des messages :
 
-![Applications de microservices](images/microservice.png "Application de microservices"){: caption="Figure 1. Application de microservices" caption-side="bottom"}
+![Applications de microservices](images/microservice.png "Application de microservices")
 
 Les microservices sont indépendants. L'agilité constitue un des avantages des architectures de microservice, mais cette fonction est disponible uniquement lorsque les services peuvent être complètement réécrits sans affecter les autres services. Cette situation se produit rarement mais cela explique cette exigence. Des limites d'API précises offrent à l'équipe utilisant un service une forte flexibilité pour faire évoluer l'implémentation. Cette caractéristique permet la persistance et la programmation polyglotte.
 

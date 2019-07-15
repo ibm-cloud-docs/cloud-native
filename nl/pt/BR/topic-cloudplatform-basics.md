@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-02-18"
 Esta seção fornece uma breve visão geral das principais tecnologias e conceitos com as quais os desenvolvedores interagem ao construir aplicativos nativos da nuvem, iniciando com contêineres, Kubernetes, Helm e Istio.
 {:shortdesc}
 
-## Contêineres
+## Containers
 {: #containers}
 
 Os contêineres são um mecanismo padrão para empacotar um aplicativo e todas as suas dependências em uma unidade única e autocontida. Eles resolvem o problema da portabilidade: o artefato contêiner (imagem) garante que tudo que um aplicativo precise executar esteja no local correto, possibilitando que os mecanismos de contêiner foquem na execução de contêineres como processos isolados, de forma eficiente e segura.
@@ -50,7 +50,8 @@ As plataformas em nuvem da IBM utilizam o Kubernetes para a orquestração de co
 | Serviço | Um nome bem conhecido que representa um conjunto de endereços IP de Pod relativamente instáveis. Um Serviço somente pode existir na rede privada do cluster ou pode ser exposto externamente, geralmente por meio de um balanceador de carga específico do provedor em nuvem. Um Serviço é exibido como `kind: Service` em arquivos `.yaml`. |
 | Entrada | Fornece a capacidade de compartilhar um único endereço de rede com diversos serviços por meio de hospedagem virtual ou de roteamento baseado em contexto. Um Ingresso também pode executar atividades de gerenciamento de conexão de rede, como a finalização de TLS. Um Ingresso é exibido como `kind: Ingress` em arquivos `.yaml`. |
 | Segredo | Um objeto que armazena informações confidenciais para o uso do tempo de execução do Pod e separa as informações específicas da implementação da orquestração ou da imagem de contêiner. Um segredo pode ser exposto a um Pod no tempo de execução por meio de variáveis de ambiente ou de montagens do sistema de arquivos virtual. Sem segredos, os dados sensíveis são armazenados na imagem do contêiner ou na orquestração, criando mais oportunidades para a exposição acidental ou o acesso indesejado. |
-| ConfigMap | Desempenha uma função semelhante àquela dos Segredos na separação das informações específicas da implementação com relação à orquestração de contêiner. No entanto, um ConfigMap é uma estrutura de configuração de propósito geral. Ele é usado para ligar informações, como argumentos de linha de comandos, variáveis de ambiente e outros artefatos de configuração, aos contêineres e componentes do sistema do seu Pod no tempo de execução. | 
+| ConfigMap | Desempenha uma função semelhante àquela dos Segredos na separação das informações específicas da implementação com relação à orquestração de contêiner. No entanto, um ConfigMap é uma estrutura de configuração de propósito geral. Ele é usado para ligar informações, como argumentos de linha de comandos, variáveis de ambiente e outros artefatos de configuração, aos contêineres e componentes do sistema do seu Pod no tempo de execução. |
+{: caption="Tabela 1. Conceitos básicos do Kubernetes." caption-side="bottom"}
 
 Todos os recursos são definidos dentro do modelo de recurso do Kubernetes, que pode ser configurado pela API RESTful ou pelos arquivos de configuração enviados por meio da linha de comandos `kubectl`.
 

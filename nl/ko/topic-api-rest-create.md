@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -48,6 +48,7 @@ REST API는 CRUD(Create, Retrieve, Update, Delete) 조작에 표준 HTTP verb를
 | `201 (CREATED)` | 응답 본문이 있는지 여부에 관계없이 리소스를 생성하게 되는 POST 요청에 사용합니다. |
 | `409 (CONFLICT)` | 동시 변경이 충돌할 때 사용합니다. |
 | `400 (BAD REQUEST)` | 매개변수가 잘못 구성되었을 때 사용합니다. |
+{: caption="표 1. HTTP 상태 코드" caption-side="bottom"}
 
 자세한 정보는 [응답 상태 코드](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![외부 링크아이콘](../icons/launch-glyph.svg "외부 링크 아이콘")를 참조하십시오. 
 
@@ -147,7 +148,7 @@ Accept 헤더는 버전을 정의할 수 있는 명백한 위치이지만 테스
 
 선택한 도구가 무엇이든 이를 사용하여 OpenAPI YAML 파일을 작성할 수 있습니다. 단, 일반 텍스트 편집기를 사용하면 오류가 발생할 수 있습니다. 일부 편집기에는 YAML에 대한 기본적인 지원이 있으며 일부 편집기에는 OpenAPI 정의를 지원하기 위한 추가 확장기능이 있을 수 있습니다. 예를 들어 Visual Studio Code 확장기능(예: [Swagger 뷰어](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘") 또는 [OpenAPI 미리보기](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![외부 링크 아이콘](../icons/launch-glyph.svg "외부 링크 아이콘")를 사용하여 특정 스펙 버전에 대해 OpenAPI 정의를 유효성 검증하고 미리보기 분할창에서 웹 보기를 렌더링할 수 있습니다.
 
-![OpenAPI 미리보기](images/create-api-image1.png "OpenAPI 미리보기"){: caption="그림 1. OpenAPI 미리보기" caption-side="bottom"} 
+![OpenAPI 미리보기](images/create-api-image1.png "OpenAPI 미리보기") 
 
 또한 온라인 또는 로컬에서 사용할 수 있는 다양한 브라우저 기반의 활성 구문 분석 편집기도 있습니다. 다음은 일부 예입니다.
 

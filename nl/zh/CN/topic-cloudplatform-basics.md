@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -43,14 +43,16 @@ COPY server.xml /config/
 
 IBM 的云平台利用 Kubernetes 来进行容器编排。因此，除了了解容器基础知识外，开发者还必须熟悉 Kubernetes 基础知识，包括基本命令和部署工件。下表包含一些重要的 Kubernetes 概念：
 
-|概念|描述|
+|概念|描述
+|
 |---------|-------------|
 |Pod|一组本地化容器，一起部署为单个单元。Pod 是相对不可变的，需要通过替换原始 Pod 来修改 Pod 的各种属性。典型应用程序包含一个容器，容器具有核心业务逻辑和可选的附加 Pod，这些 Pod 在 Pod 的详细级别提供平台功能。|
 |部署|无状态 Pod 的可重复模板，用于为 Pod 概念添加缩放维度。此外，还可以更新模板化的定义，并替换底层的 Pod 实例。Kubernetes 部署配置由 Kubernetes 部署控制器进行监视，以确保对于给定部署保持声明数量的 Pod。部署在 `.yaml` 文件中显示为 `kind: Deployment`。|
 |服务|为人熟知的名称，表示一组相对不稳定的 Pod IP 地址。服务只能存在于集群专用网络上，或者可以在外部公开，通常使用特定于云提供者的负载均衡器。服务在 `.yaml` 文件中显示为 `kind: Service`。|
 |Ingress|通过虚拟托管或基于上下文的路由，提供在多个服务中共享单个网络地址的能力。Ingress 还可以执行网络连接管理活动，如 TLS 终止。Ingress 在 `.yaml` 文件中显示为 `kind: Ingress`。|
 |私钥|一个对象，用于存储 Pod 运行时使用的敏感信息，并将特定于部署的信息与容器映像或编排相分离。私钥可以通过环境变量或虚拟文件系统安装，在运行时公开给 Pod。不使用私钥时，敏感数据会存储在容器映像或编排中，这两种情况都会带来意外公开或意外访问这些数据的更多机会。|
-|ConfigMap|作用与私钥类似，可将特定于部署的信息与容器编排相分离。但是，ConfigMap 是通用配置结构。它用于在运行时将信息（例如，命令行自变量、环境变量和其他配置工件）绑定到 Pod 的容器和系统组件。| 
+|ConfigMap|作用与私钥类似，可将特定于部署的信息与容器编排相分离。但是，ConfigMap 是通用配置结构。它用于在运行时将信息（例如，命令行自变量、环境变量和其他配置工件）绑定到 Pod 的容器和系统组件。|
+{: caption="表 1. Kubernetes 基本概念。" caption-side="bottom"}
 
 所有资源都在 Kubernetes 资源模型中进行定义，可以通过 RESTful API 或通过使用 `kubectl` 命令行提交的配置文件进行配置。
 
@@ -81,7 +83,8 @@ Istio 使用侧柜模型来运行。侧柜（Envoy 代理）是一个单独的�
 * 可观察性：收集度量值和日志，以更好地了解集群中运行的应用程序。
 * 策略：强制实施访问控制、速率限制和配额，以保护应用程序。
 
-请参阅 [Istio 是什么？](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")，以获取更多信息。
+请参阅 [Istio 是什么？](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![外部链接图标](../icons/launch-glyph.svg "外部链接图标")，。
+
 
 
 

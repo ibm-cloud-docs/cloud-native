@@ -15,7 +15,7 @@ lastupdated: "2019-02-08"
 {:note: .note}
 {:important: .important}
 
-# Configurazione
+# Configurazione:
 {: #configuration}
 
 Le applicazioni native del cloud devono essere portatili. Dovresti essere in grado di utilizzare la stessa risorsa fissa per la distribuzione a più ambienti, dall'hardware locale agli ambienti di test e di produzione basati su cloud, senza modificare il codice o esercitare percorsi di codice altrimenti non testati.
