@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-10"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -44,7 +44,7 @@ La configuración de una prueba de preparación de manera muy agresiva, por ejem
 ## Métodos recomendados para configurar pruebas
 {: #probe-recommendation}
 
-Al implementar una prueba de estado utilizando HTTP, tenga en cuenta los códigos de estado HTTP siguientes para preparación, actividad y estado de salud:
+Al implementar una prueba de estado utilizando HTTP, tenga en cuenta los códigos de estado HTTP siguientes para preparación, actividad y estado de salud.
 
 | Estado    |  Preparación            |  Actividad             |
 |----------|-----------------------|-----------------------|
@@ -54,6 +54,7 @@ Al implementar una prueba de estado utilizando HTTP, tenga en cuenta los código
 | Deteniéndose | 503 - No disponible     | 200 - Correcto              |
 | Inactivo     | 503 - No disponible     | 503 - No disponible     |
 | Con errores  | 500 - Error del servidor    | 500 - Error del servidor    |
+{: caption="Tabla 1. Códigos de estado HTTP" caption-side="bottom"}
 
 Los puntos finales de comprobación de estado no requieren autorización ni autenticación. Dado que estas protecciones no se ponen en marcha en puntos finales de pruebas de estado, limite las implementaciones de pruebas HTTP a las solicitudes GET que no modifiquen ningún dato. No devuelva nunca datos que identifiquen detalles específicos del entorno, como el sistema operativo, el lenguaje de implementación o las versiones de software, ya que se pueden utilizar para establecer un vector de ataque.
 
@@ -78,6 +79,7 @@ Declare pruebas de actividad y preparación junto a su despliegue de Kubernetes 
 | *timeoutSeconds* | Rapidez con la que se agota el tiempo de espera de la prueba. El valor predeterminado y mínimo es 1. |
 | *successThreshold* | El número de veces que la prueba debe ser correcta tras un fallo. El valor predeterminado y mínimo es 1. El valor debe ser 1 en las pruebas de actividad. |
 | *failureThreshold* | El número de veces que Kubernetes intentará reiniciar un pod antes de desistir cuando el pod se inicia y la prueba falla (ver nota). El valor mínimo es 1 y el valor predeterminado es 3. |
+{: caption="Tabla 2. Parámetros de configuración para los analizadores de Kubernetes." caption-side="bottom"}
 
   Para una prueba de actividad, desistir implica reiniciar el pod. Para una prueba de preparación, desistir significa marcar el pod como no preparado.
   {: note}

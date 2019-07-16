@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -43,11 +43,12 @@ Utilice códigos de estado HTTP relevantes y útiles, tal como se describe en la
 
 | Código de error HTTP | Instrucciones de uso |
 |-----------------|----------------|
-| `200 (OK)` | Utilizar cuando todo sea correcto y existan datos que devolver |
-| `204 (NO CONTENT)` | Utilizar cuando todo sea correcto pero no existan datos de respuesta |
-| `201 (CREATED)` | Utilizar para solicitudes POST que provoquen que se cree un recurso, exista o no un cuerpo de respuesta |
-| `409 (CONFLICT)` | Utilizar cuando haya un conflicto de cambios simultáneos |
-| `400 (BAD REQUEST)` | Utilizar cuando los parámetros tengan un formato incorrecto |
+| `200 (OK)` | Utilizar cuando todo sea correcto y existan datos que devolver. |
+| `204 (NO CONTENT)` | Utilizar cuando todo sea correcto pero no existan datos de respuesta. |
+| `201 (CREATED)` | Utilizar para solicitudes POST que provoquen que se cree un recurso, exista o no un cuerpo de respuesta. |
+| `409 (CONFLICT)` | Utilizar cuando haya un conflicto de cambios simultáneos. |
+| `400 (BAD REQUEST)` | Utilizar cuando los parámetros tengan un formato incorrecto. |
+{: caption="Tabla 1. Códigos de estado HTTP." caption-side="bottom"}
 
 Para obtener más información, consulte [Códigos de estado de respuesta](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). 
 
@@ -80,7 +81,6 @@ El [Principio de solidez](https://tools.ietf.org/html/rfc1122#page-12){: new_win
 Al proporcionar una API a clientes externos, hay dos acciones que se deben realizar al aceptar solicitudes y devolver respuestas: 
 
 * Aceptar atributos desconocidos como parte de la solicitud.
-    
     - Si un servicio llama a la API con atributos innecesarios, simplemente descarte dichos valores. La devolución de un error en esta situación puede provocar fallos innecesarios, afectando negativamente al usuario final.
 * Devolver solo los atributos necesarios para los consumidores
     - Evite exponer detalles internos del servicio. Exponga solo los atributos que necesiten los consumidores como parte de la API.
@@ -91,10 +91,8 @@ Al proporcionar una API a clientes externos, hay dos acciones que se deben reali
 Al consumir las API:
 
 * Valide la solicitud únicamente con las variables o atributos que necesite.
-    
     - No valide con las variables solo por el hecho de que se proporcionen. Si no las utiliza como parte de su solicitud, no se base simplemente en que estén ahí.
 * Acepte atributos desconocidos como parte de la respuesta.
-    
     - No emita una excepción si recibe una variable no esperada. Siempre que la respuesta contenga la información que necesita, no importa que venga algo más en el camino.
 
 Estas directrices son especialmente relevantes para lenguajes fuertemente tipados como Java, donde la serialización y deserialización de JSON a menudo se produce indirectamente, por ejemplo, mediante bibliotecas Jackson o JSON-P/JSON-B. Busque mecanismos del lenguaje que le permitan especificar un comportamiento más generoso, como ignorar atributos desconocidos, o definir o filtrar qué atributos se deben serializar.

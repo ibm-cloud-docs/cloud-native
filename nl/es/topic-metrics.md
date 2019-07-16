@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-04-30"
+lastupdated: "2019-06-11"
 
 ---
 
@@ -24,7 +24,6 @@ Las métricas son mediciones numéricas simples que se capturan como pares de cl
 Existen tres factores generales cuando se habla de métricas en un sistema distribuido: productores, agregadores y procesadores. Existen algunas combinaciones comunes de estos factores, como el uso de Prometheus como agregador con Grafana como procesador de las métricas recopiladas para mostrarlas en paneles de control gráficos, o el uso de StatsD con graphite.
 
 ![Los tres factores en las métricas de sistemas distribuidos](images/metrics-systems.png "Los tres factores en las métricas de sistemas distribuidos")
-{: caption="Figura 1. Los tres factores en las métricas de sistemas distribuidos" caption-side="bottom"}
 
 El productor es, por supuesto, la propia aplicación. En algunos casos, la aplicación está implicada directamente en producir métricas. En otros casos, los agentes u otra infraestructura observan de manera pasiva o equipan de forma activa la aplicación para producir métricas en su nombre. Lo que ocurre después dependerá del agregador.
 

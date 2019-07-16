@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-06-05"
 
 ---
 
@@ -54,7 +54,8 @@ Las plataformas de nube de IBM aprovechan Kubernetes para la orquestación de co
 `.yaml`. |
 | Ingress | Proporciona la capacidad de compartir una dirección de red individual con varios servicios por medio del alojamiento virtual o de direccionamiento basado en el contexto. Ingress también puede realizar actividades de gestión de conexiones de red como la terminación TLS. Ingress se visualiza como `kind: Ingress` en los archivos `.yaml`. |
 | Secreto | Un objeto que almacena información confidencial para su uso por parte del tiempo de ejecución de pod y que separa la información específica del despliegue de la coordinación o la imagen del contenedor. Se puede exponer un secreto a un pod en tiempo de ejecución a través de variables de entorno o de montajes de sistema de archivos virtual. Sin los secretos, los datos confidenciales se almacenan en la imagen de contenedor o la coordinación, creando los dos más oportunidades de exposición accidental o de acceso no deseado. |
-| ConfigMap | Juega un papel similar a los secretos en cuanto a que separa la información específica del despliegue de la coordinación del contenedor. No obstante, un ConfigMap es una estructura de configuración de propósito general. Se utiliza para enlazar información, como argumentos de línea de mandatos, variables de entorno y otros artefactos de configuración, con los componentes del sistema y contenedores del pod en tiempo de ejecución. | 
+| ConfigMap | Juega un papel similar a los secretos en cuanto a que separa la información específica del despliegue de la coordinación del contenedor. No obstante, un ConfigMap es una estructura de configuración de propósito general. Se utiliza para enlazar información, como argumentos de línea de mandatos, variables de entorno y otros artefactos de configuración, con los componentes del sistema y contenedores del pod en tiempo de ejecución. |
+{: caption="Tabla 1. Conceptos básicos de Kubernetes." caption-side="bottom"}
 
 Todos los recursos se definen dentro del modelo de recursos de Kubernetes, que se puede configurar a través de la API RESTful o a través de los archivos de configuración enviados mediante la línea de mandatos de `kubectl`.
 

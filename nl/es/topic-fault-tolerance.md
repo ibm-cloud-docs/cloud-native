@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-11"
+lastupdated: "2019-06-06"
 
 ---
 
@@ -14,6 +14,7 @@ lastupdated: "2019-02-11"
 {:tip: .tip}
 {:note: .note}
 {:important: .important}
+{:external: target="_blank" .external}
 
 # Tolerancia a errores
 {: #fault-tolerance}
@@ -55,7 +56,7 @@ El aspecto interesante de ajustar los tiempos de espera de esta manera es que to
 Una aplicación debe definir qué ocurre cuando falla una solicitud a un servicio de respaldo. Existen varias opciones, pero el objetivo es la degradación de forma ordenada cuando estos servicios no respondan de una manera precisa. Cuando falla un servicio remoto, puede volver a intentar la solicitud, intentar una solicitud distinta o devolver datos almacenados en memoria caché en su lugar.
 
 El reintento de una solicitud es el mecanismo de retroceso más sencilla a primera vista. Lo que no resulta tan aparente es que el reintento de solicitudes puede contribuir a encadenar errores del sistema ("tormentas de reintentos", una variación del
-[problema de la manada atronadora](https://en.wikipedia.org/wiki/Thundering_herd_problem)). El código a nivel de aplicación no tiene conocimiento suficiente del estado de salud del sistema o de la red, y es difícil llevar a cabo correctamente un algoritmo de retroceso exponencial.
+[problema de la manada atronadora](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external}). El código a nivel de aplicación no tiene conocimiento suficiente del estado de salud del sistema o de la red, y es difícil llevar a cabo correctamente un algoritmo de retroceso exponencial.
 
 Istio puede realizar reintentos de manera mucho más efectiva. Ya está directamente involucrado en el direccionamiento de solicitudes y proporciona una implementación coherente e independiente del lenguaje para las políticas de reintento. Por ejemplo, podríamos definir una política como la siguiente para el servicio de cotización en bolsa:
 
@@ -77,7 +78,7 @@ spec:
 ```
 {: codeblock}
 
-Con esta configuración simple, las solicitudes realizadas al servicio de cotizaciones bursátiles a través de un proxy sidecar de Istio o una pasarela Ingress se reintentarán hasta 3 veces, con un tiempo de espera de 5 segundos para cada intento. Esta política de reintentos se puede restringir aún más con [reglas de coincidencia de rutas adicionales](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPMatchRequest), por ejemplo, a las solicitudes `GET`.
+Con esta configuración simple, las solicitudes realizadas al servicio de cotizaciones bursátiles a través de un proxy sidecar de Istio o una pasarela Ingress se reintentarán hasta 3 veces, con un tiempo de espera de 5 segundos para cada intento. Esta política de reintentos se puede restringir aún más con [reglas de coincidencia de rutas adicionales](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external}, por ejemplo, a las solicitudes `GET`.
 
 Existe un matiz aquí que es fácil pasar por alto: no está especificando ningún intervalo de reintento. El sidecar determina el intervalo entre reintentos e introduce "jitter" deliberadamente entre intentos para evitar el bombardeo de servicios sobrecargados.
 
