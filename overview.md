@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-07-16"
 
 ---
 
@@ -24,12 +24,12 @@ Cloud computing environments are dynamic, with on-demand allocation and release 
 According to the [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), cloud-native systems have the following attributes:
 
 - Applications or processes are run in software containers as isolated units.
-- Processes are managed by central orchestration processes to improve resource utilization and reduce maintenance costs.
+- Processes are managed by central orchestration processes to improve resource usage and reduce maintenance costs.
 - Applications or services (microservices) are loosely coupled with explicitly described dependencies.
 
-These attributes describe a highly dynamic system that is composed of independent processes working together to provide business value: a distributed system.
+These attributes describe a highly dynamic system that is composed of independent processes that work together to provide business value: a distributed system.
 
-Distributed computing is a concept with roots stretching back decades. [Fallacies of Distributed Computing](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") captures the following assumptions made by architects and designers of distributed systems that prove wrong in the long run. 
+Distributed computing is a concept with roots that stretch back decades. [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") captures the following assumptions that are made by architects and designers of distributed systems that prove wrong in the end. 
 
 * The network is reliable.
 * The network is secure.
@@ -45,9 +45,9 @@ Cloud technologies like Kubernetes and Istio aim to address these concerns in th
 ## Twelve factors
 {: #twelve-factors}
 
-The [twelve-factor application](https://12factor.net){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") methodology was drafted by developers at Heroku. The characteristics mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service applications). The twelve factors are provided in the following list:
+The [twelve-factor application](https://12factor.net){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") methodology was drafted by developers at Heroku. The characteristics that are mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service application). The twelve factors are provided in the following list:
 
-1. There is a one-to-one association between a versioned codebase, for example, a git repository, and a deployed service. The same codebase is used for many deployments.
+1. There is a one-to-one association between a versioned codebase, for example, a Git repository, and a deployed service. The same codebase is used for many deployments.
 2. Services explicitly declare all dependencies, and do not rely on the presence of system-level tools or libraries.
 3. Configuration that varies between deployment environments is stored in the environment, specifically in environment variables.
 4. All backing services are treated as attached resources, which are managed (attached and detached) by the execution environment.
@@ -60,46 +60,61 @@ The [twelve-factor application](https://12factor.net){: new_window} ![External l
 11. Applications produce logs as event streams, for example, writing to `stdout` and `stderr`, and trust the execution environment to aggregate streams.
 12. If one-off admin tasks are needed, they are kept in source control and packaged alongside the application to ensure they are run with the same environment as the application.
 
-You don't have to strictly follow these factors to achieve a quality microservice environment; however, keeping them in mind enables you to build and maintain portable applications or services in continuous delivery environments.
+You don't need to strictly follow these factors to achieve a quality microservice environment. But with them you can build and maintain portable applications or services in continuous delivery environments.
+
+## Applications
+{: #apps-intro}
+
+An app comprises code, data, services, and toolchains. For example, the {{site.data.keyword.cloud_notm}} mobile app contains device code, along with back-end logic, data storage, analytics and security services, and is set up for continuous delivery.
+
+![Reuse](images/garage_reuse2.png "With Developer Experience, you can reuse and avoid reinventing")
+
+You can create and manage an app by using any {{site.data.keyword.cloud_notm}} developer portal or the {{site.data.keyword.dev_cli_notm}}.
+
+You can create simple blank apps directly or create more complex apps by using starter kits. If you choose to create blank apps without the help of a starter kit, you can do so from the [{{site.data.keyword.cloud_notm}} dashboard ![External link icon](../icons/launch-glyph.svg "External link icon")](https://{DomainName}){: new_window} without visiting a portal.
+
+You can use a code pattern to quickly create your app and deploy it to {{site.data.keyword.cloud_notm}}. From the [IBM Developer website ![External link icon](../icons/launch-glyph.svg "External link icon")](https://developer.ibm.com/patterns/){:new_window}, choose a code pattern. You can either view the code in GitHub or create and build an app on {{site.data.keyword.cloud_notm}}, where you can use a DevOps toolchain to automatically deploy your app.
 
 ## Microservices
 {: #microservices}
 
-A *microservice* is a set of small, independent architectural components, each with a single purpose, that communicate over a common lightweight API. Each microservice in the following simple example is a twelve factor application that uses replaceable backing services to store data and pass messages:
+A *microservice* is a set of small, independent architectural components that communicate over a common lightweight API. Each microservice in the following simple example is a twelve factor application that uses replaceable backing services to store data and pass messages:
 
 ![A microservices application](images/microservice.png "A microservices application"){: caption="Figure 1. A microservices application" caption-side="bottom"}
 
-Microservices are independent. Agility is one of the benefits of microservice architectures, but it only exists when services are capable of being completely re-written without disturbing other services. That isn't likely to happen often, but it explains the requirement. Clear API boundaries give the team working on a service the most flexibility to evolve the implementation. This characteristic is what enables polyglot programming and persistence.
+Microservices are independent. Agility is one of the benefits of microservice architectures, but it exists only when services can be rewritten without disturbing other services. 
 
-Microservices are resilient. Application stability depends on individual microservices being robust to failure. This is a big difference from traditional architectures, where the supporting infrastructure handles failures for you. Each service needs to apply isolation patterns, such as circuit breakers and bulkheads, to contain failures and define appropriate fallback behaviors to protect upstream services.
+Clear API boundaries give teams that work on a service the most flexibility to evolve the implementation. This characteristic is what enables polyglot programming and persistence.
 
-Microservices are stateless, transient processes. This is not the same as saying microservices can't have state! It means state should be stored in external backing cloud services, like Redis, rather than in-memory. Fast startup and graceful shutdown behavior further allow microservices to work well in automated environments that create and destroy instances in response to load or to maintain system health.
+Microservices are resilient. Application stability depends on individual microservices being robust to failure. This is a significant difference from traditional architectures, where the supporting infrastructure handles failures for you. Each service needs to apply isolation patterns, such as circuit breakers and bulkheads, to contain failures and define appropriate fallback behaviors to protect upstream services.
+
+Microservices are stateless and are stored in external backing cloud services, like Redis. Fast startup and graceful shutdown behavior further allow microservices to work well in automated environments that create and remove instances in response to load or to maintain system health.
 
 ### The meaning of "small"
 {: #small-microsvc}
 
-The use of the word "small", as applied to a microservice, essentially means that it is focused in purpose: it should do one thing and do that one thing well. Many descriptions make parallels between the roles of individual microservices and chained commands on the Unix command line:
+The use of the word "small", as applied to a microservice, means that it is focused in purpose. Many descriptions make parallels between the roles of individual microservices and chained commands on the Unix command line:
 
 ```
 ls | grep 'service' | sort -r
 ```
 {:pre}
 
-These Unix commands each perform distinctly different tasks, and you can chain them together regardless of programming language or quantity of code.
+These UNIX commands each perform distinctly different tasks, and you can chain them together regardless of programming language or quantity of code.
 
 ## Polyglot applications: choosing the right tool for the job
 {: #polyglot-apps}
 
-Polyglot is a frequently cited benefit of microservice-based architectures. On one hand, the ability to choose the appropriate language or data store for the function a service is providing can be very powerful, and can bring a lot of efficiency. On the other hand, the use of obscure technologies can complicate long-term maintenance and inhibit the movement of developers between teams. 
+Polyglot is a frequently cited benefit of microservice-based architectures. Create a balance between by creating a list of supported technologies to choose from, with a defined policy for extending the list with new technologies over time. Ensure that non-functional or regulatory requirements like maintainability, auditability, and data security can be satisfied, while preserving agility and supporting innovation through experimentation.
 
-Create a balance between the two by creating a list of supported technologies to choose from at the outset, with a defined policy for extending the list with new technologies over time. Ensure that non-functional or regulatory requirements like maintainability, auditability, and data security can be satisfied, while preserving agility and supporting innovation through experimentation.
+... :FIXME: unpack? Language table here?:...
 
 ## REST and JSON
 {: #rest-json}
 
 Polyglot applications are only possible with language-agnostic protocols. REST architecture patterns define guidelines for creating uniform interfaces that separate the on-the-wire data representation from the implementation of the service.
 
-JSON has emerged in microservices architectures as the wire format of choice for text-based data, displacing XML with its comparative simplicity and conciseness. As a comparison, the following example is a basic record that contains data about an employee in JSON:
+JSON, in microservices architectures, is the wire format of choice for text-based data, displacing XML with its comparative simplicity and conciseness. As a comparison, the following example is a basic record that contains data about an employee in JSON:
 
 ```json
 {
@@ -135,4 +150,4 @@ And the following example is the same employee record in XML:
 ```
 {: codeblock}
 
-JSON uses attribute-value pairs to represent data objects in a concise syntax that preserves information about a few basic types, such as numbers, strings, arrays, and objects. Both JSON and XML clearly represent the nested address object in the previous examples, but you need the associated XML schema to determine  the type of the `serial` element. In JSON, the syntax makes it clear that the value of `serial` is a number and not a string.
+JSON uses attribute-value pairs to represent data objects in a concise syntax that preserves information about a few basic types, such as numbers, strings, arrays, and objects. Both JSON and XML clearly represent the nested address object in the previous examples, but you need the associated XML schema to determine the type of the `serial` element. In JSON, the syntax makes it clear that the value of `serial` is a number and not a string.

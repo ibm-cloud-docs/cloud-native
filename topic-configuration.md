@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-08"
+lastupdated: "2019-07-18"
 
 ---
 
@@ -18,36 +18,35 @@ lastupdated: "2019-02-08"
 # Configuration
 {: #configuration}
 
-Cloud-native applications must be portable. You should be able to use the same fixed artifact to deploy to multiple environments, from local hardware to cloud-based test and production environments, without changing code or exercising otherwise untested code paths.
+Cloud-native applications must be portable. You can use the same fixed artifact to deploy to multiple environments without changing code or exercising otherwise untested code paths.
 {:shortdesc}
 
 Three factors from the [twelve factor methodology](https://12factor.net/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") directly relate to this practice:
 
-* The first factor recommends a 1-to-1 correlation between a running service and a versioned codebase. This means creating a fixed deployment artifact, like a Docker image, from a versioned codebase that can be deployed, unchanged, to multiple environments.
-* The third factor recommends a separation between application-specific configuration, which should be part of the fixed artifact, and environment-specific configuration, which should be provided to the service at deployment time.
+* The first factor recommends a 1-to-1 correlation between a running service and a versioned codebase. Create a fixed deployment artifact, like a Docker image, from a versioned codebase that can be deployed, unchanged, to multiple environments.
+* The third factor recommends a separation between application-specific configuration, which is be part of the fixed artifact, and environment-specific configuration, which is be provided to the service at deployment time.
 * The tenth factor recommends keeping all environments as similar as possible. Environment-specific code paths are difficult to test, and increase the risk of failures as you deploy to different environments. This also applies to backing services. If you develop and test with an in-memory database, unexpected failures might occur in test, staging, or production environments because they use a database that has different behavior.
 
 ## Configuration sources
 {: #config-inject}
 
-Application-specific configuration should be part of the fixed artifact. For example, applications that run on WebSphere Liberty define a list of installed features that control the binaries and services that are active in the runtime. This configuration is specific to the application, and should be included in the Docker image. Docker images also define the listening, or exposed, port as the execution environment handles the port mapping when starting the container.
+Application-specific configuration is part of the fixed artifact. For example, applications that run on WebSphere Liberty define a list of installed features that control the binaries and services that are active in the runtime. This configuration is specific to the application, and is included in the Docker image. Docker images also define the listening or exposed port as the execution environment handles the port mapping when the container starts. 
 
-Environment-specific configuration, like the host and port used to communicate with other services, database users, or resource utilization constraints, are provided to the container by the deployment environment. The management of service configuration and credentials can vary significantly:
+Environment-specific configuration, like the host and port that is used to communicate with other services, database users, or resource utilization constraints, are provided to the container by the deployment environment. The management of service configuration and credentials can vary significantly:
 
-* Kubernetes stores configuration values (stringified JSON or flat attributes) in either ConfigMaps or Secrets. These can be passed to the containerized application as environment variables or virtual file system mounts. The mechansim used by a service is specified in the deployment metadata, either in Kubernetes YAML or the helm chart).
+* Kubernetes stores configuration values (stringified JSON or flat attributes) in either ConfigMaps or Secrets. These can be passed to the containerized application as environment variables or virtual file system mounts. The mechanism that is used by a service is specified in the deployment metadata, either in Kubernetes YAML or the helm chart).
 * Local development environments are often simplified variants that use simple key-value environment variables.
 * Cloud Foundry stores configuration attributes and service binding details in stringified JSON objects that are passed to the application as an environment variable, for example, `VCAP_APPLICATION` and `VCAP_SERVICES`.
 * Using a backing service, like etcd, hashicorp Vault, Netflix Archaius, or Spring Cloud config, to store and retrieve environment-specific configuration attributes is also an option in any environment.
 
-In most cases, an application processes an environment-specific configuration at start time. The value of environment variables, for example, cannot be changed after a process has started. Kubernetes and backing configuration services, however, provide mechanisms for applications to dynamically respond to configuration updates. This is an optional capability. In the case of stateless, transient processes, restarting the service is often sufficient.
-{: note}
+In most cases, an application processes an environment-specific configuration at start time. The value of environment variables, for example, cannot be changed after a process starts. However, kubernetes and backing configuration services provide mechanisms for applications to dynamically respond to configuration updates. This is an optional capability. If stateless, transient processes, restarting the service is often sufficient.
 
 Many languages and frameworks provide standard libraries to aid applications in both application-specific and environment-specific configurations so that you can focus on the core logic of your application and abstract these foundational capabilities.
 
 ### Working with service credentials
 {: #portable-credentials}
 
-The management of service configuration and credentials (service bindings) varies between platforms. Cloud Foundry stores service binding details in a stringified JSON object that is passed to the application as a `VCAP_SERVICES` environment variable. Kubernetes stores service bindings as stringified JSON or flat `ConfigMaps` or `Secrets` attributes in, which can be passed to the containerized application as environment variables or mounted as a temporary volume. In the case of local development, which has its own configuration, local testing is often a simplified version of whatever is running in the cloud. Working across these variations in a portable way without having environment-specific code paths can be challenging.
+The management of service configuration and credentials (service bindings) varies between platforms. Cloud Foundry stores service binding details in a stringified JSON object that is passed to the application as a `VCAP_SERVICES` environment variable. Kubernetes stores service bindings as stringified JSON or flat `ConfigMaps` or `Secrets` attributes in, which can be passed to the containerized application as environment variables or mounted as a temporary volume. If local development, which has its own configuration, local testing is often a simplified version of whatever is running in the cloud. Working across these variations in a portable way without having environment-specific code paths can be challenging.
 
 In Cloud Foundry and Kubernetes environments, you can use [service brokers](https://cloud.ibm.com/apidocs/ibm-cloud-osb-api){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to manage binding to a backing service and injecting the associated credentials into the application's environment. This can impact application portability as credentials might not be provided to the application the same way in different environments.
 
@@ -75,7 +74,7 @@ In the following example `mappings.json` file, `cloudant-password` is the key th
 The library searches the following places for the cloudant password:
 
 * The `['cloudant'][0].credentials.password` JSON path in the Cloud Foundry `VCAP_SERVICES` environment variable.
-* A case-insensitive environment variable named `cloudant_password`.
+* A case-insensitive environment variable named cloudant_password`.
 * A **cloudant_password** JSON field in a **`localdev-config.json`** file that is kept in a language-specific resource location.
 
 For more information, see:
@@ -116,7 +115,7 @@ spec:
 ### Helm variables
 {: #config-helm}
 
-As previously mentioned, Helm uses templates to create charts so that values can be substituted later. You can achieve the same result as in the preceding example, with more flexibility across environments, by using the following example in the `mychart/templates/pod.yaml` file template:
+Helm uses templates to create charts so that values can be substituted later. You can achieve the same result as in the preceding example, with more flexibility across environments, by using the following example in the `mychart/templates/pod.yaml` file template:
 
 ```yaml
 apiVersion: v1
@@ -175,7 +174,7 @@ spec:
 ### ConfigMap
 {: #kubernetes-configmap}
 
-A ConfigMap is a unique Kubernetes artifact that defines data as a set of key-value pairs. A ConfigMap for the environment variables shown in the preceding examples can look like the following example:
+A ConfigMap is a unique Kubernetes artifact that defines data as a set of key-value pairs. A ConfigMap for the environment variables that are shown in the preceding examples can look like the following example:
 
 ```yaml
 apiVersion: v1
@@ -209,7 +208,7 @@ spec:
 ```
 {: codeblock}
 
-The ConfigMap is now a completely separate artifact from the Pod. It can have a completely different lifecycle. You can update or change the values in the ConfigMap without having to redeploy the Pod in this case. You can also update and manipulate a ConfigMap directly from the command line, which can be useful in the dev/test/debug cycle.
+The ConfigMap is now a separate artifact from the Pod. It can have a different lifecycle. You can update or change the values in the ConfigMap without having to redeploy the Pod in this case. You can also update and manipulate a ConfigMap directly from the command line, which can be useful in the dev/test/debug cycle.
 
 When used with Helm, you can use variables in your ConfigMap declaration. Those variables are resolved as usual when the chart is deployed.
 
@@ -218,7 +217,7 @@ For more information, see [Kubernetes ConfigMaps](https://kubernetes.io/docs/tas
 ### Credentials and Secrets
 {: #kubernetes-secrets}
 
-Configuration is generally provided to containers running in Kubernetes by way of either environment variables or ConfigMaps. In either case, config values can be discovered fairly quickly. This is why Kubernetes uses Secrets to store sensitive information.
+Configuration is generally provided to containers that run in Kubernetes by way of either environment variables or ConfigMaps. In either case, config values can be discovered fairly quickly. This is why Kubernetes uses Secrets to store sensitive information.
 
 Secrets are independent objects that contain base64 encoded values:
 
@@ -234,7 +233,7 @@ data:
 ```
 {: codeblock}
 
-Secrets can then be used as files in a volume mounted on one or more of a Pod's containers:
+Secrets can then be used as files in a volume that is mounted on one or more of a Pod's containers:
 
 ```yaml
 containers:
@@ -273,7 +272,7 @@ containers:
 ```
 {: codeblock}
 
-Kubernetes does the base64 decoding for you. The container running in the Pod recognizes the base64 decoded value when retrieving the environment variable.
+Kubernetes does the base64 decoding for you. The container that runs in the Pod recognizes the base64 decoded value when retrieving the environment variable.
 
 As with ConfigMaps, Secrets can be created and manipulated from the command line, which comes in handy when dealing with SSL certificates.
 

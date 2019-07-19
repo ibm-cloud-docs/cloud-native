@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-06-05"
+lastupdated: "2019-07-16"
 
 ---
 
@@ -18,18 +18,18 @@ lastupdated: "2019-06-05"
 # Creating RESTful microservices
 {: #rest-api}
 
-Cloud-native applications produce and consume APIs, whether in a microservices architecture or not. Some APIs are considered internal, or private, and some are considered external. 
+Cloud-native applications produce and use APIs, whether in a microservices architecture or not. Some APIs are considered internal, or private, and some are considered external. 
 {:shortdesc}
 
-Internal APIs are used only within a firewalled environment for backend services to communicate with each other. External APIs present a unified entry point for consumers, and are often **managed** by tools like {{site.data.keyword.apiconnect_long}}, which can impose rate limiting or other usage contraints. An example of an API like this is the [GitHub Developer API](https://developer.github.com/v3/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"). It provides one unified API with consistent use of HTTP verbs and return codes, pagination behavior, and so on, without exposing internal implementation details. This API can be backed by one monolithic application, or it can be backed by a collection of microservices; that detail is not exposed to the consumer, which leaves GitHub free to evolve their internal systems as necessary.
+Internal APIs are used only within a firewalled environment for backend services to communicate with each other. External APIs present a unified entry point for consumers, and are often **managed** by tools like {{site.data.keyword.apiconnect_long}}, which can impose rate limits or other usage constraints. An example of this kind of API is the [GitHub Developer API](https://developer.github.com/v3/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"). It provides a unified API with consistent use of HTTP verbs, return codes, and pagination behavior without showing internal implementation details. This API can be backed by one large application, or it can be backed by a collection of microservices. That detail isn't shown to the consumer, so GitHub can evolve their internal systems as necessary.
 
 ## Best practices for RESTful APIs
 {: #bps-apis}
 
-REST APIs should use standard HTTP verbs for Create, Retrieve, Update, and Delete (CRUD) operations, with special attention paid to whether the operation is idempotent (safe to retry multiple times).
+REST APIs use standard HTTP verbs for Create, Retrieve, Update, and Delete (CRUD) operations, with special attention that is paid to whether the operation is idempotent (safe to retry multiple times).
 
 * POST operations can be used to create or update resources. POST operations can't be invoked repeatedly. For example, if a POST request is used to create resources, and it is invoked multiple times, a new, unique resource is created as a result of each invocation.
-* GET operations must be able to be invoked repeatedly and must not cause side effects. They should only be used to retrieve information. GET requests with query parameters should not be used to change or update information. Use the POST, PUT, or PATCH operations instead.
+* GET operations must be able to be invoked repeatedly and must not cause side effects. They're to be used to retrieve information. GET requests with query parameters are not to be used to change or update information. Use the POST, PUT, or PATCH operations instead.
 * PUT operations can be used to update resources. PUT operations usually include a complete copy of the resource to be updated, making it possible to invoke the operation multiple times.
 * PATCH operations allow partial update of resources. They can be invoked repeatedly depending on how the delta is specified and then applied to the resource. For example, if a PATCH operation indicates that a value should be changed from A to B, it can be invoked repeatedly. There is no effect if it is invoked multiple times and the value is already B.
 * DELETE operations can be invoked multiple times, as a resource can be deleted only once. However, the return code varies, as the first operation succeeds (`200` or `204`), while subsequent invocations do not find the resource (`404` or `410`).
@@ -37,27 +37,26 @@ REST APIs should use standard HTTP verbs for Create, Retrieve, Update, and Delet
 ### Machine-friendly, descriptive results
 {: #rest-results}
 
-Given that APIs are invoked by software instead of by humans, care should be taken to communicate information to the caller in the most effective and efficient way possible.
+Given that APIs are invoked by software instead of by humans, take care to communicate information to the caller in the most effective and efficient way possible.
 
 Use relevant and useful HTTP status codes, as described in the following table: 
 
 | HTTP Error Code | Usage Guidance |
 |-----------------|----------------|
-| `200 (OK)` | Use when everything is fine and there is data to return. |
-| `204 (NO CONTENT)` | Use when everything is fine but there is no response data. |
-| `201 (CREATED)` | Use for POST requests that result in the creation of a resource, whether there is a response body or not. |
-| `409 (CONFLICT)` | Use when concurrent changes conflict. |
-| `400 (BAD REQUEST)` | Use when parameters are malformed. |
-{: caption="Table 1. HTTP status codes." caption-side="bottom"}
+| `200 (OK)` | Use when everything is fine and there is data to return |
+| `204 (NO CONTENT)` | Use when everything is fine but there is no response data |
+| `201 (CREATED)` | Use for POST requests that result in the creation of a resource, whether there is a response body or not |
+| `409 (CONFLICT)` | Use when concurrent changes conflict |
+| `400 (BAD REQUEST)` | Use when parameters are malformed |
 
 For more information, see [Response status codes](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"). 
 
-You should also consider what data to return in your responses to make communication efficient. For example, when a resource is created with a POST request, the response should include the location of the newly created resource in a Location header. The created resource is often included in the response body as well, to eliminate the extra GET request to fetch the created resource. The same applies for PUT and PATCH requests.
+Consider what data to return in your responses to make communication efficient. For example, when a resource is created with a POST request, the response must include the location of the newly created resource in a Location header. The created resource is often included in the response body as well to eliminate the extra GET request to fetch the created resource. The same applies for PUT and PATCH requests.
 
 ### RESTful resource URIs
 {: #rest-uris}
 
-There are varying opinions about some aspects of RESTful resource URIs. In general, there is agreement that resources should be nouns, not verbs, and that endpoints should be plural. This results in a clear structure for CRUD operations:
+There are varying opinions about some aspects of RESTful resource URIs. In general, there is agreement that resources must be nouns, not verbs, and endpoints must be plural. This results in a clear structure for CRUD operations:
 
 * `POST /accounts`: Create a new account.
 * `GET /accounts`: Retrieve a list of accounts.
@@ -66,45 +65,48 @@ There are varying opinions about some aspects of RESTful resource URIs. In gener
 * `PATCH /accounts/16`: Update a specific account.
 * `DELETE /accounts/16`: Delete a specific account.
 
-Relationships are modeled using hierarchical URIs, for example, ` /accounts/16/credentials` for managing credentials associated with an account.
+Relationships are modeled by using hierarchical URIs, for example, ` /accounts/16/credentials` for managing credentials associated with an account.
 
-There is less agreement about what should happen with operations associated with the resource that don't fit within this usual structure. There is no single correct way to manage these operations: do what works best for the consumer of the API.
+There is no single way to manage operations with a resource that doesn't fit within a typical structure. These operations: do what works best for the consumer of the API.
+
+<!-- Operation example -->
 
 ### Robustness and RESTful APIs
 {: #robust-api}
 
-The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") provides the best guidance: "Be liberal in what you accept, and conservative in what you send." Assume that APIs will evolve over time and be tolerant of data you do not understand.
+The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") provides the best guidance: "Be liberal in what you accept, and conservative in what you send". Assume that APIs will evolve over time and be tolerant of data you do not understand.
 
 #### Producing APIs
 {: #robust-producer}
 
-When providing an API to external clients there are two things you must do when accepting requests and returning responses: 
+When providing an API to external clients, there are two things you must do when you accept requests and return responses: 
 
 * Accept unknown attributes as part of the request.
-    - If a service calls your API with unnecessary attributes, just throw those values away. Returning an error in this scenario can cause unnecessary failures, negatively impacting the end user.
-* Only return the attributes required by your consumers
-    - Avoid exposing internal service details. Only expose attributes that consumers need as part of the API.
+    > If a service calls your API with unnecessary attributes, throw those values away. Returning an error in this scenario can cause unnecessary failures, negatively impacting the user.
+* Return the attributes required by your consumers
+    > Avoid exposing internal service details. Expose attributes that consumers need as part of the API.
 
 #### Consuming APIs
 {: #robust-consumer}
 
 When consuming APIs:
 
-* Only validate the request against the variables or attributes that you need.
-    - Do not validate against variables just because they are provided. If you are not using them as part of your request, do not rely on them being there.
-* Accept unknown attributes as part of the response.
-    - Do not issue an exception if you receive an unexpected variable. As long as the response contains the information you need, it does not matter what else comes along for the ride.
+* Validate the request against the variables or attributes that you need.
+    > Do not validate against variables just because they are provided. If you are not using them as part of your request, do not rely on them being there.
 
-These guidelines are especially relevant for strongly-typed languages like Java, where JSON serialization and deserialization often occurs indirectly, for example, by way of the Jackson libraries, or JSON-P/JSON-B. Look for language mechanisms that allow you to specify more generous behavior like ignoring unknown attributes, or to define or filter which attributes should be serialized.
+* Accept unknown attributes as part of the response.
+    > Do not issue an exception if you receive an unexpected variable. If the response contains the information you need, it doesn't matter what else comes along for the ride.
+
+These guidelines are especially relevant for strongly typed languages like Java, where JSON serialization and deserialization often occurs indirectly. For example, the Jackson libraries, or JSON-P/JSON-B. Look for language mechanisms that let you specify more generous behavior like ignoring unknown attributes, or to define or filter which attributes must be serialized.
 
 ### Versioning RESTful APIs
 {: #version-api}
 
 One of the major benefits of microservices is the ability to allow services to evolve independently. Given that microservices call other services, that independence comes with a giant caveat: you can't cause breaking changes in your API.
 
-If the robustness principle is followed, it can take a long while before a breaking change is required. When that breaking change finally comes, you can opt to build a different service entirely and retire the original over time.
+If the robustness principle is followed, it can take a long while before a breaking change is required. When that breaking change happens, you can opt to build a different service entirely and retire the original over time.
 
-In the event that you do need to make breaking API changes for an existing service, decide how to manage those changes: will the service handle all versions of the API, will you maintain independent versions of the service to support each version of the API, or will your service support only the newest version of the API and rely on other adaptive layers to convert to and from the older API?
+If you do need to make breaking API changes for an existing service, decide how to manage those changes: will the service handle all versions of the API, will you maintain independent versions of the service to support each version of the API, or will your service support only the newest version of the API and rely on other adaptive layers to convert to and from the older API?
 
 After you determine how to manage the changes, the much easier problem to solve is how to reflect the version in your API. There are generally three ways to version a REST resource:
 
