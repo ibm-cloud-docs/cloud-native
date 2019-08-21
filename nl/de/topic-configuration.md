@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-08"
+lastupdated: "2019-07-18"
 
 ---
 
@@ -18,29 +18,28 @@ lastupdated: "2019-02-08"
 # Konfiguration
 {: #configuration}
 
-Cloudnative Anwendungen müssen portierbar sein. Es sollte möglich sein, dasselbe feste Artefakt für die Bereitstellung in mehreren Umgebungen zu verwenden, von der lokalen Hardware bis hin zu cloudbasierten Test- und Produktionsumgebungen, ohne Code zu ändern oder anderweitig nicht getestete Codepfade zu nutzen.
+Cloudnative Anwendungen müssen portierbar sein. Sie können dasselbe feste Artefakt für die Bereitstellung in mehreren Umgebungen verwenden, ohne Code zu ändern oder anderweitig nicht getestete Codepfade zu nutzen.
 {:shortdesc}
 
 Drei Faktoren aus der [Zwölf-Faktor-Methodik](https://12factor.net/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") beziehen sich direkt auf diesen Aspekt:
 
-* Der erste Faktor empfiehlt eine 1-zu-1-Korrelation zwischen einem aktiven Service und einer versionsgesteuerten Codebasis. Dies bedeutet, dass ein festes Bereitstellungsartefakt wie ein Docker-Image aus einer versionsgesteuerten Codebasis erstellt wird, das unverändert in mehreren Umgebungen bereitgestellt werden kann.
-* Der dritte Faktor empfiehlt eine Trennung zwischen der anwendungsspezifischen Konfiguration, die Teil des festen Artefakts sein sollte, und der umgebungsspezifischen Konfiguration, die dem Service zur Bereitstellungszeit zur Verfügung gestellt werden sollte.
+* Der erste Faktor empfiehlt eine 1-zu-1-Korrelation zwischen einem aktiven Service und einer versionsgesteuerten Codebasis. Erstellen Sie ein festes Bereitstellungsartefakt, wie z. B. ein Docker-Image, aus einer versionierten Codebasis, das unverändert in mehreren Umgebungen bereitgestellt werden kann.
+* Der dritte Faktor empfiehlt eine Trennung zwischen der anwendungsspezifischen Konfiguration, die Teil des festen Artefakts ist, und eine umgebungsspezifische Konfiguration, die dem Service zur Bereitstellungszeit zur Verfügung gestellt wird.
 * Der zehnte Faktor empfiehlt, dass alle Umgebungen so ähnlich wie möglich sein sollten. Umgebungsspezifische Codepfade sind schwierig zu testen und erhöhen das Risiko von Fehlern bei der Bereitstellung in unterschiedlichen Umgebungen. Dies gilt auch für Unterstützungsservices. Wenn Sie die Entwicklung und den Test mit einer speicherinternen Datenbank ausführen, können in Test-, Staging- oder Produktionsumgebungen unerwartete Fehler auftreten, da in diesen Umgebungen eine andere Datenbank verwendet wird, die sich anders verhält.
 
 ## Konfigurationsquellen
 {: #config-inject}
 
-Die anwendungsspezifische Konfiguration sollte Teil des festen Artefakts sein. In unter WebSphere Liberty ausgeführten Anwendungen wird beispielsweise eine Liste der installierten Funktionen definiert, die die in der Laufzeit aktiven Binärdateien und Services steuern. Diese Konfiguration ist für die Anwendung spezifisch und sollte in das Docker-Image aufgenommen werden. In Docker-Images ist auch der empfangsbereite oder zugängliche Port definiert, da die Ausführungsumgebung beim Starten des Containers die Portzuordnung ausführt.
+Die anwendungsspezifische Konfiguration ist Teil des festen Artefakts. In unter WebSphere Liberty ausgeführten Anwendungen wird beispielsweise eine Liste der installierten Funktionen definiert, die die in der Laufzeit aktiven Binärdateien und Services steuern. Diese Konfiguration ist für die Anwendung spezifisch und ist im Docker-Image enthalten. In Docker-Images ist auch der empfangsbereite oder zugängliche Port definiert, da die Ausführungsumgebung beim Starten des Containers die Portzuordnung ausführt. 
 
 Die umgebungsspezifische Konfiguration (z. B. der Host und der Port, der für die Kommunikation mit anderen Services oder Datenbankbenutzern verwendet wird, oder Einschränkungen für die Ressourcennutzung) wird dem Container von der Bereitstellungsumgebung zur Verfügung gestellt. Die Verwaltung der Servicekonfiguration und der Berechtigungsnachweise kann erheblich variieren:
 
-* Kubernetes speichert Konfigurationswerte (in Zeichenfolgen konvertierte JSON- oder unstrukturierte Attribute) entweder in ConfigMaps oder in Secrets. Diese können als Umgebungsvariablen oder virtuelle Dateisystemmounts an die containerisierte Anwendung übergeben werden. Das von einem Service verwendete Verfahren wird in den Bereitstellungsmetadaten angegeben, entweder in einer Kubernetes-YAML-Datei oder im Helm-Chart.
+* Kubernetes speichert Konfigurationswerte (in Zeichenfolgen konvertierte JSON- oder unstrukturierte Attribute) entweder in ConfigMaps oder in Secrets. Diese können als Umgebungsvariablen oder virtuelle Dateisystemmounts an die containerisierte Anwendung übergeben werden. Das von einem Service verwendete Verfahren wird in den Bereitstellungsmetadaten angegeben, entweder in einer Kubernetes-YAML-Datei oder im Helm-Diagramm.
 * Lokale Entwicklungsumgebungen sind häufig vereinfachte Varianten, die einfache Schlüssel/Wert-Umgebungsvariablen verwenden.
 * Cloud Foundry speichert Konfigurationsattribute und Details zur Servicebindung in JSON-Objekten, die in Zeichenfolgen konvertiert wurden und als Umgebungsvariablen an die Anwendung übergeben werden, z. B. `VCAP_APPLICATION` und `VCAP_SERVICES`.
 * Die Verwendung eines Unterstützungsservice wie etcd, hashicorp Vault, Netflix Archaius oder Spring Cloud config zum Speichern und Abrufen von umgebungsspezifischen Konfigurationsattributen ist ebenfalls in jeder Umgebung möglich.
 
 In den meisten Fällen verarbeitet eine Anwendung eine umgebungsspezifische Konfiguration beim Start. Der Wert von Umgebungsvariablen kann beispielsweise nicht geändert werden, nachdem ein Prozess gestartet wurde. Kubernetes und unterstützende Konfigurationsservices stellen jedoch Mechanismen zur Verfügung, die Anwendungen die dynamische Reaktion auf Konfigurationsaktualisierungen ermöglichen. Dies ist eine optionale Funktion. Bei statusunabhängigen, transienten Prozessen ist der Neustart des Service häufig ausreichend.
-{: note}
 
 Viele Sprachen und Frameworks stellen Standardbibliotheken zur Verfügung, um Anwendungen in anwendungsspezifischen und umgebungsspezifischen Konfigurationen zu unterstützen, sodass Sie sich auf die zentrale Logik Ihrer Anwendung konzentrieren und diese grundlegenden Funktionen abstrahieren können.
 
@@ -75,7 +74,7 @@ In der folgenden Beispieldatei `mappings.json` ist `cloudant-password` der Schl�
 Die Bibliothek durchsucht die folgenden Positionen nach dem Cloudant-Kennwort:
 
 * Den JSON-Pfad `['cloudant'][0].credentials.password` in der Cloud Foundry-Umgebungsvariable `VCAP_SERVICES`.
-* Eine von der Groß-/Kleinschreibung unabhängige Umgebungsvariable mit dem Namen `cloudant_password`.
+* Eine von der Groß-/Kleinschreibung unabhängige Umgebungsvariable mit dem Namen 'cloudant_password'.
 * Das JSON-Feld **cloudant_password** in einer Datei **`localdev-config.json`**, die an einer sprachspezifischen Ressourcenposition gespeichert ist.
 
 Weitere Informationen siehe:
@@ -116,7 +115,7 @@ spec:
 ### Helm-Variablen
 {: #config-helm}
 
-Wie bereits erwähnt, verwendet Helm Vorlagen, um Charts zu erstellen, sodass Werte später ersetzt werden können. Sie erzielen dasselbe Ergebnis wie beim vorherigen Beispiel mit mehr Flexibilität über die Umgebungen hinweg, indem Sie das folgende Beispiel in der Dateivorlage `mychart/templates/pod.yaml` verwenden:
+Helm verwendet Vorlagen, um Diagramme zu erstellen, sodass Werte später ersetzt werden können. Sie erzielen dasselbe Ergebnis wie beim vorherigen Beispiel mit mehr Flexibilität über die Umgebungen hinweg, indem Sie das folgende Beispiel in der Dateivorlage `mychart/templates/pod.yaml` verwenden:
 
 ```yaml
 apiVersion: v1
@@ -209,9 +208,9 @@ spec:
 ```
 {: codeblock}
 
-Die ConfigMap ist jetzt ein vollständig vom Pod getrenntes Artefakt. Sie kann einen völlig anderen Lebenszyklus haben. Sie können die Werte in der ConfigMap aktualisieren oder ändern, ohne dass in diesem Fall der Pod erneut bereitgestellt werden muss. Sie können eine ConfigMap auch direkt über die Befehlszeile aktualisieren und bearbeiten. Dies kann im Entwicklungs-/Test-/Debug-Zyklus sehr nützlich sein.
+Die ConfigMap ist jetzt ein vom Pod getrenntes Artefakt. Sie kann einen anderen Lebenszyklus haben. Sie können die Werte in der ConfigMap aktualisieren oder ändern, ohne dass in diesem Fall der Pod erneut bereitgestellt werden muss. Sie können eine ConfigMap auch direkt über die Befehlszeile aktualisieren und bearbeiten. Dies kann im Entwicklungs-/Test-/Debug-Zyklus sehr nützlich sein.
 
-Bei der Verwendung mit Helm können Sie Variablen in Ihrer ConfigMap-Deklaration nutzen. Diese Variablen werden wie üblich aufgelöst, wenn das Chart bereitgestellt wird.
+Bei der Verwendung mit Helm können Sie Variablen in Ihrer ConfigMap-Deklaration nutzen. Diese Variablen werden wie üblich aufgelöst, wenn das Diagramm bereitgestellt wird.
 
 Weitere Informationen finden Sie in [Kubernetes ConfigMaps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link").
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-06-05"
+lastupdated: "2019-07-16"
 
 ---
 
@@ -18,18 +18,18 @@ lastupdated: "2019-06-05"
 # Creazione di microservizi RESTful
 {: #rest-api}
 
-Le applicazioni native del cloud producono e consumano le API, in un'architettura di microservizi o meno. Alcune API sono considerate interne, o private, e alcune sono considerate esterne. 
+Le applicazioni native del cloud producono e utilizzano le API, in un'architettura di microservizi o meno. Alcune API sono considerate interne, o private, e alcune sono considerate esterne. 
 {:shortdesc}
 
-Le API interne sono utilizzate solo all'interno di un ambiente protetto da firewall per consentire ai servizi di backend di comunicare tra loro. Le API esterne presentano un punto di ingresso unificato per i consumatori e sono spesso **gestite** da strumenti come {{site.data.keyword.apiconnect_long}}, che possono imporre una limitazione della frequenza o altri vincoli di utilizzo. Un esempio di una API del genere è l'[API GitHub Developer](https://developer.github.com/v3/){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno"). Fornisce una singola API unificata con un utilizzo congruente dei codici di restituzione e dei verbi HTTP, della modalità di funzionamento della paginazione e così via, senza esporre i dettagli dell'implementazione interna. Questa API può essere supportata da una singola applicazione unica oppure può essere supportata da una raccolta di microservizi: questo dettaglio non è esposto al consumatore, che lascia che GitHub sia libera di evolvere i suoi sistemi interni come necessario.
+Le API interne sono utilizzate solo all'interno di un ambiente protetto da firewall per consentire ai servizi di backend di comunicare tra loro. Le API esterne presentano un punto di ingresso unificato per i consumatori e sono spesso **gestite** da strumenti come {{site.data.keyword.apiconnect_long}}, che possono imporre limiti alla frequenza o altri vincoli di utilizzo. Un esempio di questo tipo di API è l'[API GitHub Developer](https://developer.github.com/v3/){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno"). Fornisce un'API unificata con un utilizzo coerente dei verbi HTTP, dei codici di restituzione e della modalità di funzionamento della paginazione senza mostrare i dettagli dell'implementazione interna. Questa API può essere supportata da una grande applicazione oppure può essere supportata da una raccolta di microservizi. Tali dettagli non vengono mostrati al consumatore, per cui GitHub può evolvere i propri sistemi interni se necessario.
 
 ## Prassi ottimali per le API RESTful
 {: #bps-apis}
 
-Le API REST devono utilizzare i verbi HTTP standard per le operazioni CRUD (Create, Retrieve, Update, and Delete), prestando speciale attenzione al fatto che l'operazione sia idempotente, ossia che sia possibile ripeterla più volte senza alcun problema.
+Le API REST utilizzano i verbi HTTP standard per le operazioni CRUD (Create, Retrieve, Update, and Delete), prestando speciale attenzione al fatto che l'operazione sia idempotente, ossia che sia possibile ripeterla più volte senza alcun problema.
 
 * Le operazioni POST possono essere utilizzate per creare o aggiornare le risorse. Le operazioni POST non possono essere richiamate ripetutamente. Ad esempio, se una richiesta POST viene utilizzata per creare le risorse ed è richiamata più volte, viene creata una nuova risorsa univoca come risultato di ciascun richiamo.
-* Le operazioni GET devono poter essere richiamate ripetutamente e non devono causare effetti collaterali. Devono essere utilizzate solo per richiamare le informazioni. Le richieste GET con i parametri di query non devono essere utilizzate per modificare o aggiornare le informazioni. Utilizza invece le operazioni POST, PUT o PATCH.
+* Le operazioni GET devono poter essere richiamate ripetutamente e non devono causare effetti collaterali. Non devono essere utilizzate per richiamare le informazioni. Le richieste GET con i parametri di query non devono essere utilizzate per modificare o aggiornare le informazioni. Utilizza invece le operazioni POST, PUT o PATCH.
 * Le operazioni PUT possono essere utilizzate per aggiornare le risorse. Le operazioni PUT di norma includono una copia completa della risorsa da aggiornare, rendendo così possibile richiamare l'operazione più volte.
 * Le operazioni PATCH consentono l'aggiornamento parziale delle risorse. Possono essere richiamate ripetutamente, a seconda di come viene specificato il delta, e poi applicate alla risorsa. Ad esempio, se un'operazione PATCH indica che un valore deve essere modificato da A a B, può essere richiamata ripetutamente. Non succede niente se viene richiamata più volte e il valore è già B.
 * Le operazioni DELETE possono essere richiamate più volte, in quanto una risorsa può essere eliminata una sola volta. Tuttavia, il codice di restituzione varia, poiché la prima operazione ha esito positivo (`200` o `204`), mentre i richiami successivi non trovano la risorsa (`404` o `410`).
@@ -37,27 +37,26 @@ Le API REST devono utilizzare i verbi HTTP standard per le operazioni CRUD (Crea
 ### Risultati descrittivi e adatti per le macchine
 {: #rest-results}
 
-Tenuto conto del fatto che le API vengono richiamate da software piuttosto che da esseri umani, è necessario prestare attenzione a comunicare informazioni al chiamante nel modo più efficace ed efficiente possibile.
+Tenuto conto del fatto che le API vengono richiamate da software piuttosto che da esseri umani, ricordati di comunicare le informazioni al chiamante nel modo più efficace ed efficiente possibile.
 
 Utilizza i codici di stato HTTP pertinenti e utili, come descritto nella seguente tabella: 
 
 | Codice errore HTTP | Guida all'uso |
 |-----------------|----------------|
-| `200 (OK)` | Da utilizzare quando va tutto bene e ci sono dati da restituire. |
-| `204 (NO CONTENT)` | Da utilizzare quando va tutto bene ma non ci sono dati di risposta. |
-| `201 (CREATED)` | Da utilizzare per le richieste POST che determinano la creazione di una risorsa, che sia presente un corpo della risposta o meno. |
-| `409 (CONFLICT)` | Da utilizzare quando delle modifiche simultanee sono in conflitto. |
-| `400 (BAD REQUEST)` | Da utilizzare quando i parametri sono in formato non corretto. |
-{: caption="Tabella 1. Codici di stato HTTP." caption-side="bottom"}
+| `200 (OK)` | Da utilizzare quando va tutto bene e non ci sono dati da restituire |
+| `204 (NO CONTENT)` | Da utilizzare quando va tutto bene ma non ci sono dati di risposta |
+| `201 (CREATED)` | Da utilizzare per le richieste POST che determinano la creazione di una risposta, che sia presente un corpo della risposta o meno |
+| `409 (CONFLICT)` | Da utilizzare quando delle modifiche simultanee sono in conflitto |
+| `400 (BAD REQUEST)` | Da utilizzare quando i parametri sono in formato non corretto |
 
 Per ulteriori informazioni, vedi [Response Status Codes](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno"). 
 
-Devi anche valutare quali dati restituire nella tua risposta per rendere efficienti le comunicazioni. Ad esempio, quando una risorsa viene creata con una richiesta POST, la risposta deve includere l'ubicazione della risorsa appena creata in un'intestazione Location. La risorsa creata è spesso inclusa anche nel corpo della risposta per eliminare la richiesta GET supplementare per recuperare la risorsa creata. Lo stesso vale per le richieste PUT e PATCH.
+Devi valutare quali dati restituire nelle tue risposte per rendere efficienti le comunicazioni. Ad esempio, quando una risorsa viene creata con una richiesta POST, la risposta deve includere l'ubicazione della risorsa appena creata in un'intestazione Location. La risorsa creata è spesso inclusa anche nel corpo della risposta per eliminare la richiesta GET supplementare per recuperare la risorsa creata. Lo stesso vale per le richieste PUT e PATCH.
 
 ### URI di risorsa RESTful
 {: #rest-uris}
 
-Ci sono opinioni diverse su alcuni aspetti degli URI di risorsa RESTful. In generale, si è d'accordo che le risorse debbano essere dei nomi, non dei verbi, e che gli endpoint siano plurali. Ciò produce una struttura chiara per le operazioni CRUD.
+Ci sono opinioni diverse su alcuni aspetti degli URI di risorsa RESTful. In generale, si è d'accordo che le risorse devono essere dei nomi, non dei verbi, e che gli endpoint devono essere plurali. Ciò produce una struttura chiara per le operazioni CRUD.
 
 * `POST /accounts`: crea un nuovo account.
 * `GET /accounts`: richiama un elenco di account.
@@ -68,12 +67,14 @@ Ci sono opinioni diverse su alcuni aspetti degli URI di risorsa RESTful. In gene
 
 Le relazioni sono modellate utilizzando degli URI gerarchici, ad esempio ` /accounts/16/credentials` per la gestione delle credenziali associate a un account.
 
-Si è meno d'accordo su cosa dovrebbe accadere con le operazioni associate alla risorsa che non rientrano in questa solita struttura. Non c'è un singolo modo corretto per gestire queste operazioni: fai quello che funziona meglio per il consumatore della API.
+Non esiste un solo modo per gestire le operazioni con una risorsa che non si adatta a una struttura tipica. Queste operazioni: fai quello che funziona meglio per il consumatore della API.
+
+<!-- Operation example -->
 
 ### Solidità e API RESTful
 {: #robust-api}
 
-Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window}, ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") fornisce l'orientamento migliore, invitandoti a "essere liberale con quanto accetti e conservativo con quanto invii." Presumi inoltre che le API si evolveranno nel corso del tempo e sii tollerante con i dati che non comprendi.
+Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window}, ![Icona link esterno](../icons/launch-glyph.svg "Icona link esterno") fornisce l'orientamento migliore, invitandoti a "essere liberale con quanto accetti e conservativo con quanto invii". Presumi inoltre che le API si evolveranno nel corso del tempo e sii tollerante con i dati che non comprendi.
 
 #### Produzione di API
 {: #robust-producer}
@@ -81,33 +82,31 @@ Il principio di solidità, in inglese [Robustness Principle](https://tools.ietf.
 Quando fornisci una API a client esterni, ci sono due cose che devi fare quando accetti richieste e restituisci risposte: 
 
 * Accetta attributi sconosciuti come parte della richiesta.
-    
-    - Se un servizio richiama la tua API con attributi non necessari, semplicemente sbarazzati di questi valori. La restituzione di un errore in questo scenario può causare delle condizioni di errore non necessarie, con ripercussioni negative sull'utente finale.
-* Restituisci solo gli attributi richiesti dai tuoi consumatori
-    - Evita di esporre dettagli del servizio interno. Esponi solo gli attributi di cui i consumatori hanno bisogno come parte della API.
+    > Se un servizio richiama la tua API con attributi non necessari, sbarazzati di questi valori. La restituzione di un errore in questo scenario può causare delle condizioni di errore non necessarie, con ripercussioni negative sull'utente.
+* Restituisci gli attributi richiesti dai tuoi consumatori
+    > Evita di esporre dettagli del servizio interno. Esponi gli attributi di cui i consumatori hanno bisogno come parte della API.
 
 #### Consumo di API
 {: #robust-consumer}
 
 Quando utilizzi le API:
 
-* Convalida la richiesta solo rispetto alle variabili o agli attributi di cui hai bisogno.
-    
-    - Non eseguire una convalida rispetto a delle variabili solo perché vengono fornite. Se non le stai usando come parte della tua chiesta, non fare affidamento su fatto che ci siano.
-* Accetta valori sconosciuti come parte della risposta.
-    
-    - Non emettere un'eccezione se ricevi una variabile imprevista. È sufficiente che la risposta contenga le informazioni di cui hai bisogno, il resto non conta.
+* Convalida la richiesta rispetto alle variabili o agli attributi di cui hai bisogno.
+    > Non eseguire una convalida rispetto a delle variabili solo perché vengono fornite. Se non le stai usando come parte della tua chiesta, non fare affidamento su fatto che ci siano.
 
-Queste linee guida sono particolarmente rilevanti per linguaggi fortemente tipizzati come Java, dove la serializzazione e la deserializzazione JSON spesso si verifica in modo indiretto, ad esempio mediante librerie Jackson, o JSON-P/JSON-B. Cerca i meccanismi di linguaggio che ti consentono di specificare una modalità di funzionamento più generosa, come ad esempio ignorare gli attributi sconosciuti, o di definire o filtrare quali attributi devono essere serializzati.
+* Accetta valori sconosciuti come parte della risposta.
+    > Non emettere un'eccezione se ricevi una variabile imprevista. Se la risposta contiene le informazioni di cui hai bisogno, il resto non conta.
+
+Queste linee guida sono particolarmente rilevanti per linguaggi fortemente tipizzati come Java, dove la serializzazione e la deserializzazione JSON spesso si verifica in modo indiretto. Ad esempio, le librerie Jackson o JSON-P/JSON-B. Cerca i meccanismi di linguaggio che ti consentono di specificare una modalità di funzionamento più generosa, come ad esempio ignorare gli attributi sconosciuti, o di definire o filtrare quali attributi devono essere serializzati.
 
 ### Controllo delle versioni delle API RESTful
 {: #version-api}
 
 Uno dei vantaggi principali dei microservizi è la capacità di consentire ai servizi di evolversi in modo indipendente. Tenuto conto del fatto che i microservizi richiamano altri servizi, questa indipendenza porta con sé un importante monito: non puoi causare delle modifiche importanti nella tua API.
 
-Se viene rispettato il principio di solidità, puoi volerci del tempo prima che sia necessaria una modifica importante. Quando infine arriva il momento di una modifica importante, puoi scegliere di creare un servizio del tutto differente e ritirare gradualmente quello originale.
+Se viene rispettato il principio di solidità, puoi volerci del tempo prima che sia necessaria una modifica importante. Quando si verifica il momento di una modifica importante, puoi scegliere di creare un servizio del tutto differente e ritirare gradualmente quello originale.
 
-Nel caso in cui tu debba apportare delle modifiche importanti alla API per un servizio esistente, decidi come gestire queste modifiche: sarà il servizio a gestire tutte le versioni della API o manterrai delle versioni indipendenti del servizio per supportare ciascuna versione della API oppure sarà il tuo servizio a supportare solo la versione più recente della API e farà affidamento sugli altri livelli adattivi per eseguire la conversione verso e dalla API meno recente?
+Se non devi apportare delle modifiche importanti alla API per un servizio esistente, decidi come gestire queste modifiche: sarà il servizio a gestire tutte le versioni della API o manterrai delle versioni indipendenti del servizio per supportare ciascuna versione della API oppure sarà il tuo servizio a supportare solo la versione più recente della API e farà affidamento sugli altri livelli adattivi per eseguire la conversione verso e dalla API meno recente?
 
 Dopo che hai determinato come gestire le modifiche, il problema molto più facile da risolvere è come riflettere la versione nella tua API. Ci sono generalmente tre modi per controllare la versione di una risorsa REST:
 

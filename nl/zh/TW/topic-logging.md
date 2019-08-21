@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-10"
+lastupdated: "2019-07-19"
 
 ---
 
@@ -18,10 +18,10 @@ lastupdated: "2019-02-10"
 # 記載
 {: #logging}
 
-日誌訊息這類字串包含建立日誌項目時，與微服務的狀態和活動相關的環境定義資訊。需要有日誌，才能診斷服務失敗的程度和原因。它們扮演監視應用程式性能之度量值的支援角色。
+日誌訊息這類字串具有建立日誌項目時，與微服務的狀態和活動相關的環境定義資訊。需要有日誌，才能診斷服務失敗的程度和原因。它們扮演監視應用程式性能之度量值的支援角色。
 {:shortdesc}
 
-請確保將日誌項目直接寫入至標準輸出和錯誤串流。這會使用指令行工具來檢視日誌項目，並容許在基礎架構層次配置日誌轉遞服務（例如 Logstash、Filebeat 或 Fluentd）來管理日誌收集和資料管理。
+請確保將日誌項目直接寫入至標準輸出和錯誤串流。這會使用指令行工具來檢視日誌項目，並容許在基礎架構層次配置日誌轉遞服務來管理日誌收集和資料管理。
 
 處理日誌檔時，需要深入思考是否無法將容器化應用程式配置成將日誌寫入至標準輸出或標準錯誤。
 
@@ -52,7 +52,7 @@ kubectl logs trader-54b4d579f7-4zvzk -n stock-trader -c trader | \
 
 透過主控台或具有 `kubectl logs <podname>` 格式的 `kubectl` 指令方式，即可在 Kubernetes 中檢視傳送至標準輸出和錯誤串流的日誌。
 
-如果您使用 stock-trader 這類自訂名稱空間，請在指令中包括該名稱空間，例如，`kubectl logs -n stock-trader <podname>`。
+如果您使用 stock-trader 這類自訂名稱空間，請在 `kubectl logs -n stock-trader <podname>` 指令中包括該名稱空間。
 
 如果每個 Pod 都有多個容器，則像使用 Istio Sidecar 時一樣，您也需要指定容器。在下列範例中，使用 stock-trader 名稱空間來檢視 `portfolio-54b4d579f7-4zvzk` Pod 的 `portfolio` 容器中的日誌：
 
@@ -68,5 +68,5 @@ kubectl logs trader-54b4d579f7-4zvzk -n stock-trader -c trader | grep message | 
 ```
 {: pre}
 
-透過 `grep` 對日誌項目進行管道處理，以確保 `jq` 僅剖析包含訊息欄位的數行。
+日誌項目透過 `grep` 進行管道傳輸，以確保 `jq` 對包含訊息字段的行進行剖析。
 {: note}

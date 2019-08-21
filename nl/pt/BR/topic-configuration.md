@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-08"
+lastupdated: "2019-07-18"
 
 ---
 
@@ -18,36 +18,35 @@ lastupdated: "2019-02-08"
 # Configuração
 {: #configuration}
 
-Os aplicativos nativos de nuvem devem ser móveis. Deve ser possível usar o mesmo artefato fixo para a implementação em diversos ambientes, do hardware local aos ambientes de teste e produção baseados em nuvem, sem mudar o código ou utilizar caminhos de código não testados.
+Os aplicativos nativos de nuvem devem ser móveis. É possível usar o mesmo artefato fixo para implementar em múltiplos ambientes sem mudar o código ou exercitar caminhos de código não testados.
 {:shortdesc}
 
 Três fatores da [metodologia de doze fatores](https://12factor.net/){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") se relacionam diretamente a essa prática:
 
-* O primeiro fator recomenda uma correlação de um para um entre um serviço em execução e um código base com versão. Isso significa criar um artefato de implementação fixo, como uma imagem do Docker, por meio de um código base com versão que possa ser implementado, sem mudanças, em diversos ambientes.
-* O terceiro fator recomenda uma separação entre a configuração específica do aplicativo, que deve fazer parte do artefato fixo, e a configuração específica do ambiente, que deve ser fornecida ao serviço no momento da implementação.
+* O primeiro fator recomenda uma correlação de um para um entre um serviço em execução e um código base com versão. Crie um artefato de implementação fixo, como uma imagem do Docker, por meio de um código base com versão que pode ser implementado, inalterado, para múltiplos ambientes.
+* O terceiro fator recomenda uma separação entre a configuração específica do aplicativo, que faz parte do artefato fixo e a configuração específica do ambiente, que deve ser fornecida para o serviço no momento da implementação.
 * O décimo fator recomenda manter todos os ambientes o mais semelhantes possível. Os caminhos de código específicos do ambiente são difíceis de testar e aumentam o risco de falhas, conforme a implementação em diferentes ambientes. Isso também se aplica aos serviços auxiliares. Se você desenvolver e testar com um banco de dados na memória, falhas inesperadas poderão ocorrer em ambientes de teste, preparação ou produção, pois eles usam um banco de dados que possui um comportamento diferente.
 
 ## Origens de configuração
 {: #config-inject}
 
-A configuração específica do aplicativo deve fazer parte do artefato fixo. Por exemplo, os aplicativos que são executados no WebSphere Liberty definem uma lista de recursos instalados que controlam os binários e serviços que estão ativos no tempo de execução. Essa configuração é específica para o aplicativo e deve ser incluída na imagem do Docker. As imagens do Docker também definem a porta de atendimento, ou exposta, à medida que o ambiente de execução manipula o mapeamento da porta ao iniciar o contêiner.
+A configuração específica do aplicativo é parte do artefato fixo. Por exemplo, os aplicativos que são executados no WebSphere Liberty definem uma lista de recursos instalados que controlam os binários e serviços que estão ativos no tempo de execução. Essa configuração é específica para o aplicativo e está incluída na imagem do Docker. As imagens do Docker também definem a porta exposta ou de atendimento, pois o ambiente de execução manipula o mapeamento de porta quando o contêiner é iniciado. 
 
-A configuração específica do ambiente, como o host e a porta usados para a comunicação com outros serviços, os usuários do banco de dados ou as restrições de utilização de recurso, é fornecida ao contêiner pelo ambiente de implementação. O gerenciamento da configuração de serviço e as credenciais podem variar significativamente:
+A configuração específica do ambiente, como o host e a porta que são usados para se comunicar com outros serviços, os usuários do banco de dados ou as restrições de utilização de recursos, é fornecida para o contêiner pelo ambiente de implementação. O gerenciamento da configuração de serviço e as credenciais podem variar significativamente:
 
-* O Kubernetes armazena valores de configuração (atributos JSON ou sem formatação em sequência) no ConfigMaps ou em Segredos. Eles podem ser transmitidos ao aplicativo conteinerizado como variáveis de ambiente ou montagens do sistema de arquivos virtual. O mecanismo usado por um serviço é especificado nos metadados da implementação (no YAML do Kubernetes ou no gráfico do Helm).
+* O Kubernetes armazena valores de configuração (atributos JSON ou sem formatação em sequência) no ConfigMaps ou em Segredos. Eles podem ser transmitidos ao aplicativo conteinerizado como variáveis de ambiente ou montagens do sistema de arquivos virtual. O mecanismo usado por um serviço é especificado nos metadados de implementação, seja no YAML do Kubernetes ou no gráfico do Helm).
 * Os ambientes de desenvolvimento local são frequentemente variantes simplificadas que usam variáveis de ambiente de chave/valor simples.
 * O Cloud Foundry armazena atributos de configuração e detalhes de ligação de serviço em objetos JSON em sequência que são transmitidos ao aplicativo como uma variável de ambiente, por exemplo, `VCAP_APPLICATION` e `VCAP_SERVICES`.
 * Usar um serviço auxiliar, como o etcd, o hashicorp Vault, o Netflix Archaius ou o Spring Cloud config, para armazenar e recuperar atributos de configuração específica do ambiente também é uma opção em qualquer ambiente.
 
-Na maioria dos casos, um aplicativo processa uma configuração específica do ambiente no horário de início. O valor das variáveis de ambiente, por exemplo, não pode ser mudado depois que um processo é iniciado. Os serviços de configuração auxiliares e do Kubernetes, no entanto, fornecem mecanismos para que os aplicativos respondam dinamicamente às atualizações de configuração. Este é um recurso opcional. No caso de processos temporários stateless, reiniciar o serviço é frequentemente suficiente.
-{: note}
+Na maioria dos casos, um aplicativo processa uma configuração específica do ambiente no horário de início. O valor das variáveis de ambiente, por exemplo, não pode ser mudado após o início de um processo. No entanto, o Kubernetes e os serviços de configuração auxiliares fornecem mecanismos para que os aplicativos respondam dinamicamente às atualizações de configuração. Este é um recurso opcional. Se processos temporários stateless, a reinicialização do serviço geralmente será suficiente.
 
 Muitas linguagens e estruturas fornecem bibliotecas padrão para auxiliar os aplicativos nas configurações específicas de aplicativo e de ambiente, para que seja possível se concentrar na lógica principal de seu aplicativo e abstrair esses recursos fundamentais.
 
 ### Trabalhando com credenciais de serviço
 {: #portable-credentials}
 
-O gerenciamento da configuração e das credenciais de serviço (ligações de serviço) varia entre as plataformas. O Cloud Foundry armazena detalhes de ligação de serviço em um objeto JSON em sequência que é passado para o aplicativo como uma variável de ambiente `VCAP_SERVICES`. O Kubernetes armazena as ligações de serviço como atributos `ConfigMaps` ou `Secrets` JSON ou sem formatação em sequência, que podem ser transmitidos ao aplicativo conteinerizado como variáveis de ambiente ou montados como um volume temporário. No caso do desenvolvimento local, que tem sua própria configuração, o teste local é frequentemente uma versão simplificada do que estiver em execução na nuvem. Trabalhar por essas variações de uma maneira móvel sem ter caminhos de código específicos do ambiente pode ser desafiador.
+O gerenciamento da configuração e das credenciais de serviço (ligações de serviço) varia entre as plataformas. O Cloud Foundry armazena detalhes de ligação de serviço em um objeto JSON em sequência que é passado para o aplicativo como uma variável de ambiente `VCAP_SERVICES`. O Kubernetes armazena as ligações de serviço como atributos `ConfigMaps` ou `Secrets` JSON ou sem formatação em sequência, que podem ser transmitidos ao aplicativo conteinerizado como variáveis de ambiente ou montados como um volume temporário. Se desenvolvimento local, que tem sua própria configuração, o teste local será, muitas vezes, uma versão simplificada do que estiver em execução na nuvem. Trabalhar por essas variações de uma maneira móvel sem ter caminhos de código específicos do ambiente pode ser desafiador.
 
 Em ambientes do Cloud Foundry e do Kubernetes, é possível usar [brokers de serviço](https://cloud.ibm.com/apidocs/ibm-cloud-osb-api){: new_window} ![Ícone de link externo](../icons/launch-glyph.svg "Ícone de link externo") para gerenciar a ligação a um serviço auxiliar e injetar as credenciais associadas no ambiente do aplicativo. Isso pode impactar a portabilidade do aplicativo, pois as credenciais podem não ser fornecidas ao aplicativo da mesma maneira em ambientes diferentes.
 
@@ -75,7 +74,7 @@ No arquivo `mappings.json` de exemplo a seguir, `cloudant-password` é a chave u
 A biblioteca procura a senha do cloudant nos locais a seguir:
 
 * O caminho JSON `['cloudant'][0].credentials.password` na variável de ambiente `VCAP_SERVICES` do Cloud Foundry.
-* Uma variável de ambiente que não faz distinção entre maiúsculas e minúsculas denominada `cloudant_password`.
+* Uma variável de ambiente sem distinção entre maiúsculas e minúsculas, denominada cloudant_password`.
 * Um campo JSON **cloudant_password** em um arquivo **`localdev-config.json`** mantido em um local de recurso específico da linguagem.
 
 Para obter mais informações, veja:
@@ -116,7 +115,7 @@ spec:
 ### Variáveis do Helm
 {: #config-helm}
 
-Conforme mencionado anteriormente, o Helm usa modelos para criar gráficos para que os valores possam ser substituídos posteriormente. É possível obter um resultado igual ao do exemplo anterior, com mais flexibilidade nos ambientes, usando o exemplo a seguir no modelo de arquivo `mychart/templates/pod.yaml`:
+O Helm utiliza modelos para criar gráficos para que os valores possam ser substituídos posteriormente. É possível obter um resultado igual ao do exemplo anterior, com mais flexibilidade nos ambientes, usando o exemplo a seguir no modelo de arquivo `mychart/templates/pod.yaml`:
 
 ```yaml
 apiVersion: v1
@@ -175,7 +174,7 @@ spec:
 ### ConfigMap
 {: #kubernetes-configmap}
 
-Um ConfigMap é um artefato exclusivo do Kubernetes que define dados como um conjunto de pares chave/valor. Um ConfigMap para as variáveis de ambiente mostradas nos exemplos anteriores pode ser semelhante ao exemplo a seguir:
+Um ConfigMap é um artefato exclusivo do Kubernetes que define dados como um conjunto de pares chave/valor. Um ConfigMap para as variáveis de ambiente que são mostradas nos exemplos anteriores pode ser semelhante ao exemplo a seguir:
 
 ```yaml
 apiVersion: v1
@@ -209,7 +208,7 @@ spec:
 ```
 {: codeblock}
 
-Agora, o ConfigMap é um artefato completamente separado do Pod. Ele pode ter um ciclo de vida completamente diferente. Neste caso, é possível atualizar ou mudar os valores no ConfigMap sem ter que reimplementar o Pod. Também é possível atualizar e manipular um ConfigMap diretamente na linha de comandos, o que pode ser útil no ciclo desenvolvimento/teste/depuração.
+O ConfigMap agora é um artefato separado do Pod. Ele pode ter um ciclo de vida diferente. Neste caso, é possível atualizar ou mudar os valores no ConfigMap sem ter que reimplementar o Pod. Também é possível atualizar e manipular um ConfigMap diretamente na linha de comandos, o que pode ser útil no ciclo desenvolvimento/teste/depuração.
 
 Quando ele é usado com o Helm, é possível utilizar variáveis em sua declaração ConfigMap. Essas variáveis são resolvidas normalmente quando o gráfico é implementado.
 
@@ -218,7 +217,7 @@ Para obter mais informações, consulte [Kubernetes ConfigMaps](https://kubernet
 ### Credenciais e Segredos
 {: #kubernetes-secrets}
 
-A configuração é geralmente fornecida para contêineres em execução no Kubernetes por meio de variáveis de ambiente ou do ConfigMaps. Em qualquer um dos casos, os valores de configuração podem ser descobertos rapidamente. É por isso que o Kubernetes usa os Segredos para armazenar informações confidenciais.
+A configuração geralmente é fornecida para contêineres que são executados em Kubernetes por meio de variáveis de ambiente ou ConfigMaps. Em qualquer um dos casos, os valores de configuração podem ser descobertos rapidamente. É por isso que o Kubernetes usa os Segredos para armazenar informações confidenciais.
 
 Os segredos são objetos independentes que contêm valores codificados em base64:
 
@@ -234,7 +233,7 @@ data:
 ```
 {: codeblock}
 
-Em seguida, os Segredos podem ser usados como arquivos em um volume montado em um ou mais contêineres de um Pod:
+Então, os segredos podem ser usados como arquivos em um volume que é montado em um ou mais dos contêineres de um pod:
 
 ```yaml
 containers:
@@ -273,7 +272,7 @@ containers:
 ```
 {: codeblock}
 
-O Kubernetes realiza a decodificação base64 para você. O contêiner em execução no Pod reconhece o valor decodificado base64 ao recuperar a variável de ambiente.
+O Kubernetes realiza a decodificação base64 para você. O contêiner que é executado no pod reconhece o valor decodificado base64 ao recuperar a variável de ambiente.
 
 Como com o ConfigMaps, os Segredos podem ser criados e manipulados na linha de comandos, o que é vantajoso ao lidar com certificados SSL.
 

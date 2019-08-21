@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-07-16"
 
 ---
 
@@ -24,12 +24,12 @@ Cloud-Computing-Umgebungen sind dynamisch und umfassen die Zuordnung und Freigab
 Gemäß der [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") weisen cloudnative Systeme die folgenden Attribute auf:
 
 - Anwendungen oder Prozesse werden in Softwarecontainern als isolierte Einheiten ausgeführt.
-- Prozesse werden von zentralen Orchestrierungsprozessen verwaltet, um die Ressourcennutzung zu verbessern und die Wartungskosten zu reduzieren.
+- Prozesse werden von zentralen Orchestrierungsprozessen verwaltet, um die Ressourcennutzung zu verbessern und die Wartungskosten zu senken.
 - Anwendungen oder Services (Mikroservices) sind lose mit explizit beschriebenen Abhängigkeiten gekoppelt.
 
-Diese Attribute beschreiben ein hochdynamisches System, das aus unabhängigen Prozessen besteht, die zusammenarbeiten, um einen geschäftlichen Nutzen bereitzustellen: ein verteiltes System.
+Diese Attribute beschreiben ein hochdynamisches System, das sich aus unabhängigen Prozessen zusammensetzt, die zusammenarbeiten, um einen geschäftlichen Nutzen zu bieten: ein verteiltes System.
 
-Die verteilte Datenverarbeitung ist ein Konzept mit Wurzeln, die Jahrzehnte zurückreichen. In [Fallacies of Distributed Computing](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") sind die folgenden Annahmen von Architekten und Entwicklern für verteilte Systeme aufgeführt, die sich langfristig als falsch erweisen. 
+Die verteilte Datenverarbeitung ist ein Konzept mit Wurzeln, die Jahrzehnte zurückreichen. In [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link") sind die folgenden Annahmen von Architekten und Entwicklern für verteilte Systeme aufgeführt, die sich am Ende als falsch erweisen. 
 
 * Das Netz ist zuverlässig.
 * Das Netz ist sicher.
@@ -51,7 +51,7 @@ Die Methodik der [Zwölf-Faktor-Anwendung](https://12factor.net){: new_window} !
 2. In den Services werden alle Abhängigkeiten explizit deklariert und das Vorhandensein von Tools oder Bibliotheken auf der Systemebene ist nicht erforderlich.
 3. Die Konfigurationsdaten, die zwischen Bereitstellungsumgebungen variieren, werden in der Umgebung gespeichert, insbesondere in Umgebungsvariablen.
 4. Alle Unterstützungsservices werden als angehängte Ressourcen behandelt, die durch die Ausführungsumgebung verwaltet (angehängt und abgehängt) werden.
-5. Die Delivery Pipeline beinhaltet strikt voneinander getrennte Phasen: Build, Release, Ausführung.
+5. Die Delivery Pipeline beinhaltet strikt voneinander getrennte Stages: Build, Release, Ausführung.
 6. Anwendungen werden in Form eines statusunabhängigen Prozesses oder mehrerer statusunabhängiger Prozesse bereitgestellt. Insbesondere transiente Prozesse sind statusunabhängig und verwenden keine Ressourcen gemeinsam. Persistente Daten werden in dem jeweiligen Unterstützungsservice gespeichert.
 7. Eigenständige Services machen sich selbst für andere Services verfügbar, indem sie an einem bestimmten Port empfangsbereit sind.
 8. Nebenläufigkeit wird durch die Skalierung einzelner Prozesse (horizontale Skalierung) erzielt.
@@ -60,25 +60,40 @@ Die Methodik der [Zwölf-Faktor-Anwendung](https://12factor.net){: new_window} !
 11. Anwendungen erzeugen Protokolle als Ereignisströme; sie schreiben z. B. in `stdout` und `stderr` und überlassen der Ausführungsumgebung die Aggregierung der Datenströme.
 12. Wenn einmalige Verwaltungstasks erforderlich sind, werden sie in der Quellcodeverwaltung aufbewahrt und zusammen mit der Anwendung gepackt, um sicherzustellen, dass sie mit derselben Umgebung wie die Anwendung ausgeführt werden.
 
-Sie müssen diese Faktoren nicht strikt einhalten, um eine qualitativ hochwertige Mikroserviceumgebung zu erzielen. Die Orientierung an diesen Faktoren hilft Ihnen jedoch, portierbare Anwendungen und Services in Continuous Delivery-Umgebungen zu erstellen und zu pflegen.
+Sie müssen diese Faktoren nicht strikt einhalten, um eine qualitativ hochwertige Mikroserviceumgebung zu erzielen. Sie helfen Ihnen jedoch, portierbare Anwendungen und Services in Continuous Delivery-Umgebungen zu erstellen und zu pflegen.
+
+## Anwendungen
+{: #apps-intro}
+
+Eine App bietet Code, Daten, Services und Toolchains. Beispielsweise enthält die mobile {{site.data.keyword.cloud_notm}}-App Einheitencode sowie Back-End-Logik, Analyse- und Sicherheitsservices und ist für Continuous Delivery eingerichtet.
+
+![Wiederverwenden](images/garage_reuse2.png "Mit Developer Experience können Sie Funktionalität wiederverwenden und eine Neuerfindung vermeiden")
+
+Sie können eine App über ein beliebiges {{site.data.keyword.cloud_notm}}-Entwicklerportal oder über die {{site.data.keyword.dev_cli_notm}} erstellen und verwalten.
+
+Sie können entweder einfache leere Apps direkt erstellen oder mithilfe von Starter-Kits komplexere Apps generieren. Wenn Sie leere Apps ohne die Hilfe eines Starter-Kits erstellen möchten, können Sie dies über das [{{site.data.keyword.cloud_notm}}-Dashboard ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link")](https://{DomainName}){: new_window} tun, ohne dass Sie ein Portal aufrufen müssen.
+
+Sie können ein Codemuster verwenden, um Ihre App rasch zu erstellen und in {{site.data.keyword.cloud_notm}} bereitzustellen. Wählen Sie auf der [IBM Developer-Website ![Symbol für externen Link](../icons/launch-glyph.svg "Symbol für externen Link")](https://developer.ibm.com/patterns/){:new_window} ein Codemuster aus. Sie können den Code entweder in GitHub anzeigen oder eine App auf {{site.data.keyword.cloud_notm}} erstellen und dort ihren Build erstellen. Außerdem können Sie dort Ihre App mithilfe einer DevOps-Toolchain automatisch bereitstellen.
 
 ## Mikroservices
 {: #microservices}
 
-Ein *Mikroservice* ist eine Gruppe von kleinen, unabhängigen Architekturkomponenten, die jeweils einen einzigen Zweck haben und über eine gemeinsame einfache API kommunizieren. Jeder Mikroservice im folgenden einfachen Beispiel ist eine Zwölf-Faktor-Anwendung, die austauschbare Unterstützungsservices verwendet, um Daten zu speichern und Nachrichten zu übergeben:
+Ein *Mikroservice* ist eine Gruppe von kleinen, unabhängigen Architekturkomponenten, die über eine gemeinsame einfache API kommunizieren. Jeder Mikroservice im folgenden einfachen Beispiel ist eine Zwölf-Faktor-Anwendung, die austauschbare Unterstützungsservices verwendet, um Daten zu speichern und Nachrichten zu übergeben:
 
 ![Eine Mikroserviceanwendung](images/microservice.png "Eine Mikroserviceanwendung")
 
-Mikroservices sind unabhängig. Agilität ist einer der Vorteile von Mikroservicearchitekturen. Sie ist jedoch nur vorhanden, wenn Services vollständig neu geschrieben werden können, ohne dass andere Services beeinträchtigt werden. Das ist wahrscheinlich nur selten der Fall, dient aber zur Erklärung der Anforderung. Klare API-Grenzen sorgen dafür, dass das Team, das einen Service bearbeitet, eine sehr hohe Flexibilität bei der Weiterentwicklung der Implementierung genießt. Dieses Merkmal ermöglicht die polyglotte Programmierung und Persistenz.
+Mikroservices sind unabhängig. Agilität ist einer der Vorteile von Mikroservicearchitekturen. Sie ist jedoch nur vorhanden, wenn Services neu geschrieben werden können, ohne dass andere Services beeinträchtigt werden. 
 
-Mikroservices sind ausfallsicher. Die Anwendungsstabilität hängt davon ab, dass die einzelnen Mikroservices gegen Fehler widerstandsfähig sind. Dies ist der große Unterschied zu traditionellen Architekturen, in denen die unterstützende Infrastruktur Fehler für die Anwendung verarbeitet. Jeder Service muss Isolierungsmuster wie Circuit Breakers und Bulkheads anwenden, um Fehler einzugrenzen und ein geeignetes Fallback-Verhalten zu definieren und dadurch vorgelagerte Services zu schützen.
+Klare API-Grenzen sorgen dafür, dass die Teams, die einen Service bearbeiten, eine sehr hohe Flexibilität bei der Weiterentwicklung der Implementierung genießen. Dieses Merkmal ermöglicht die polyglotte Programmierung und Persistenz.
 
-Mikroservices sind statusunabhängige, transiente Prozesse. Dies bedeutet nicht, dass Mikroservices keinen Status haben können! Es bedeutet, dass der Status in externen, unterstützenden Cloud-Services wie Redis und nicht speicherintern gespeichert werden sollte. Der schnelle Start und die ordnungsgemäße Beendigung tragen zudem dazu bei, dass Mikroservices sich gut für automatisierte Umgebungen eigenen, in denen Instanzen als Reaktion auf Last oder zur Aufrechterhaltung eines einwandfreien Systemstatus erstellt und gelöscht werden.
+Mikroservices sind ausfallsicher. Die Anwendungsstabilität hängt davon ab, dass die einzelnen Mikroservices gegen Fehler widerstandsfähig sind. Dies ist ein bedeutsamer Unterschied zu traditionellen Architekturen, in denen die unterstützende Infrastruktur Fehler für die Anwendung verarbeitet. Jeder Service muss Isolierungsmuster wie Circuit Breakers und Bulkheads anwenden, um Fehler einzugrenzen und ein geeignetes Fallback-Verhalten zu definieren und dadurch vorgelagerte Services zu schützen.
+
+Mikroservices sind statusunabhängig und werden in externen, unterstützenden Cloud-Services wie Redis gespeichert. Der schnelle Start und die ordnungsgemäße Beendigung tragen zudem dazu bei, dass Mikroservices sich gut für automatisierte Umgebungen eigenen, in denen Instanzen als Reaktion auf Last oder zur Aufrechterhaltung eines einwandfreien Systemstatus erstellt und entfernt werden.
 
 ### Bedeutung von "klein"
 {: #small-microsvc}
 
-Das Wort "klein" bedeutet im Zusammenhang mit einem Mikroservice, dass er fokussiert ist: er dient einem einzigen Zweck und soll diese Aufgabe gut erledigen. In vielen Beschreibungen werden Parallelen zwischen den Rollen einzelner Mikroservices und verketteten Befehlen in der UNIX-Befehlszeile gezogen:
+Das Wort "klein" bedeutet im Zusammenhang mit einem Mikroservice, dass er fokussiert ist. In vielen Beschreibungen werden Parallelen zwischen den Rollen einzelner Mikroservices und verketteten Befehlen in der UNIX-Befehlszeile gezogen:
 
 ```
 ls | grep 'service' | sort -r
@@ -90,16 +105,16 @@ Diese UNIX-Befehle führen jeweils ganz unterschiedliche Aufgaben aus und könne
 ## Polyglotte Anwendungen: das richtige Tool für die Aufgabe auswählen
 {: #polyglot-apps}
 
-Die Mehrsprachigkeit ist ein häufig genannter Vorteil einer Architektur, die auf Mikroservices basiert. Einerseits kann die Auswahl der geeigneten Sprache oder des geeigneten Datenspeichers für die Funktion, die ein Service bereitstellt, sehr leistungsfähig sein und die Effizienz enorm steigern. Andererseits kann die Verwendung von undurchsichtigen Technologien die Langzeitpflege des Codes und den Wechsel von Entwicklern in ein anderes Team erschweren. 
+Die Mehrsprachigkeit ist ein häufig genannter Vorteil einer Architektur, die auf Mikroservices basiert. Finden Sie einen Mittelweg, indem Sie eine Liste der zur Auswahl stehenden unterstützten Technologien erstellen und eine Richtlinie für die spätere Erweiterung der Liste mit neuen Technologien definieren. Stellen Sie sicher, dass nicht funktionale Anforderungen oder die Einhaltung gesetzlicher Bestimmungen wie Wartbarkeit, Überprüfbarkeit und Datensicherheit gewährleistet sind, während gleichzeitig die Agilität erhalten bleibt und Innovation durch Experimente unterstützt wird.
 
-Finden Sie einen Mittelweg, indem Sie zu Anfang eine Liste der zur Auswahl stehenden unterstützten Technologien erstellen und eine Richtlinie für die spätere Erweiterung der Liste mit neuen Technologien definieren. Stellen Sie sicher, dass nicht funktionale Anforderungen oder die Einhaltung gesetzlicher Bestimmungen wie Wartbarkeit, Überprüfbarkeit und Datensicherheit gewährleistet sind, während gleichzeitig die Agilität erhalten bleibt und Innovation durch Experimente unterstützt wird.
+... :FIXME: unpack? Language table here?:...
 
 ## REST und JSON
 {: #rest-json}
 
 Polyglotte Anwendungen sind nur mit sprachunabhängigen Protokollen möglich. REST-Architekturmuster definieren Richtlinien für die Erstellung einheitlicher Schnittstellen, die die Darstellung der Daten während der Übertragung von der Implementierung des Service trennen.
 
-Bei Mikroservicearchitekturen hat JSON sich als das Sendeformat der Wahl für textbasierte Daten entwickelt und mit seiner relativen Einfachheit und Kompaktheit XML verdrängt. Zum Vergleich enthält das folgende Beispiel einen Basisdatensatz mit Daten zu einem Mitarbeiter in JSON:
+Bei Mikroservicearchitekturen hat JSON sich als das Sendeformat der Wahl für textbasierte Daten etabliert und mit seiner relativen Einfachheit und Kompaktheit XML verdrängt. Zum Vergleich enthält das folgende Beispiel einen Basisdatensatz mit Daten zu einem Mitarbeiter in JSON:
 
 ```json
 {

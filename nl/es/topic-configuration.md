@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-08"
+lastupdated: "2019-07-18"
 
 ---
 
@@ -18,19 +18,19 @@ lastupdated: "2019-02-08"
 # Configuración
 {: #configuration}
 
-Las aplicaciones nativas de la nube deben ser portátiles. Debe poder utilizar el mismo artefacto fijo para el despliegue en varios entornos, desde entornos de hardware local a entornos de pruebas y producción basados en la nube, sin cambiar el código ni utilizar vías de acceso de código sin probar.
+Las aplicaciones nativas de la nube deben ser portátiles. Puede utilizar el mismo artefacto fijo para el despliegue en varios entornos sin cambiar el código ni utilizar vías de acceso de código sin probar.
 {:shortdesc}
 
 Tres de los factores de la [metodología de doce factores](https://12factor.net/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") están directamente relacionados con esta práctica:
 
-* El primer factor recomienda una correlación de 1 a 1 entre un servicio en ejecución y un código base con versión. Esto implica la creación de un artefacto de despliegue fijo, como una imagen de Docker, a partir de un código base con versión que se puede desplegar, sin cambios, en varios entornos.
-* El tercer factor recomienda una separación entre la configuración específica de la aplicación, que debe formar parte del artefacto fijo, y la configuración específica del entorno, que se debe proporcionar al servicio en el momento del despliegue.
+* El primer factor recomienda una correlación de 1 a 1 entre un servicio en ejecución y un código base con versión. Cree un artefacto de despliegue fijo, como una imagen de Docker, a partir de un código base con versión que se puede desplegar, sin cambios, en varios entornos.
+* El tercer factor recomienda una separación entre la configuración específica de la aplicación, que forma parte del artefacto fijo, y la configuración específica del entorno, que se proporciona al servicio en el momento del despliegue.
 * El décimo factor recomienda mantener todos los entornos de la forma más parecida posible. Las vías de acceso de código específicas del entorno son difíciles de probar y aumentan el riesgo de que se produzcan errores a medida que se realiza el despliegue en distintos entornos. Esto se aplica también a los servicios de respaldo. Si desarrolla y prueba con una base de datos en memoria, se posible que se produzcan errores no esperados en los entornos de pruebas, transferencia o producción, ya que utilizan una base de datos que tiene un comportamiento distinto.
 
 ## Orígenes de configuración
 {: #config-inject}
 
-La configuración específica de la aplicación debe formar parte del artefacto fijo. Por ejemplo, las aplicaciones que se ejecutan en WebSphere Liberty definen una lista de características instaladas que controlan los binarios y los servicios que están activos en el tiempo de ejecución. Esta configuración es específica de la aplicación y se debe incluir en la imagen de Docker. Las imágenes de Docker definen también el puerto de escucha o expuesto, ya que el entorno de ejecución gestiona la correlación de puertos al iniciar el contenedor.
+La configuración específica de la aplicación forma parte del artefacto fijo. Por ejemplo, las aplicaciones que se ejecutan en WebSphere Liberty definen una lista de características instaladas que controlan los binarios y los servicios que están activos en el tiempo de ejecución. Esta configuración es específica de la aplicación y se incluye en la imagen de Docker. Las imágenes de Docker definen también el puerto de escucha o expuesto, ya que el entorno de ejecución gestiona la correlación de puertos cuando se inicia el contenedor. 
 
 La configuración específica del entorno, como el host y el puerto utilizados para la comunicación con otros servicios, los usuarios de base de datos o las limitaciones de utilización de recursos, la proporciona el entorno de despliegue al contenedor. La gestión de la configuración y las credenciales del servicio puede variar de forma significativa:
 
@@ -39,8 +39,7 @@ La configuración específica del entorno, como el host y el puerto utilizados p
 * Cloud Foundry almacena atributos de configuración y detalles de enlace de servicio en objetos JSON en serie que se pasan a la aplicación como una variable de entorno, por ejemplo, `VCAP_APPLICATION` y `VCAP_SERVICES`.
 * El uso de un servicio de respaldo, como etcd, hashicorp Vault, Netflix Archaius o Spring Cloud config, para almacenar y recuperar atributos de configuración específicos del entorno es también una opción en cualquier entorno.
 
-En la mayoría de los casos, una aplicación procesa una configuración específica del entorno en el inicio. El valor de las variables de entorno, por ejemplo, no se puede modificar una vez que se haya iniciado un proceso. No obstante, Kubernetes y los servicios de configuración de respaldo proporcionan mecanismos para que las aplicaciones puedan responder de forma dinámica a actualizaciones en la configuración. Esta es una función opcional. En el caso de los procesos transitorios sin estado, suele ser suficiente con reiniciar del servicio.
-{: note}
+En la mayoría de los casos, una aplicación procesa una configuración específica del entorno en el inicio. El valor de las variables de entorno, por ejemplo, no se puede modificar una vez que inicia un proceso. No obstante, Kubernetes y los servicios de configuración de respaldo proporcionan mecanismos para que las aplicaciones puedan responder de forma dinámica a actualizaciones en la configuración. Esta es una función opcional. En el caso de procesos transitorios sin estado, reiniciar el servicio suele ser suficiente.
 
 Muchos lenguajes e infraestructuras proporcionan bibliotecas estándar para ayudar a las aplicaciones en las configuraciones específicas de la aplicación y específicas del entorno, de manera que puede centrarse en la lógica principal de la aplicación y abstraerse de estas funciones fundamentales.
 
@@ -80,7 +79,7 @@ La biblioteca busca la contraseña de cloudant en los lugares siguientes:
 
 * La vía de acceso JSON `['cloudant'][0].credentials.password` en la variable de entorno
 `VCAP_SERVICES` de Cloud Foundry.
-* Una variable de entorno que no distingue entre mayúsculas y minúsculas denominada `cloudant_password`.
+* Una variable de entorno que no distingue entre mayúsculas y minúsculas denominada cloudant_password`.
 * Un campo JSON **cloudant_password** en un archivo **`localdev-config.json`** que se guarda en una ubicación de recursos específica del lenguaje.
 
 Para obtener más información, consulte:
@@ -122,7 +121,7 @@ spec:
 ### Variables de Helm
 {: #config-helm}
 
-Como se ha mencionado anteriormente, Helm utiliza plantillas para crear diagramas, de manera que los valores se puedan sustituir posteriormente. Puede conseguir el mismo resultado que en el ejemplo anterior, con mayor flexibilidad entre entornos, utilizando el ejemplo siguiente en la plantilla del archivo `mychart/templates/pod.yaml`:
+Helm utiliza plantillas para crear diagramas, de manera que los valores se puedan sustituir posteriormente. Puede conseguir el mismo resultado que en el ejemplo anterior, con mayor flexibilidad entre entornos, utilizando el ejemplo siguiente en la plantilla del archivo `mychart/templates/pod.yaml`:
 
 ```yaml
 apiVersion: v1
@@ -181,7 +180,7 @@ spec:
 ### ConfigMap
 {: #kubernetes-configmap}
 
-Un ConfigMap es un artefacto de Kubernetes exclusivo que define los datos como un conjunto de pares de clave/valor. Un ConfigMap para las variables de entorno mostradas en los ejemplos anteriores puede tener un aspecto similar al del ejemplo siguiente:
+Un ConfigMap es un artefacto de Kubernetes exclusivo que define los datos como un conjunto de pares de clave/valor. Un ConfigMap para las variables de entorno que se muestran en los ejemplos anteriores puede tener un aspecto similar al del ejemplo siguiente:
 
 ```yaml
 apiVersion: v1
@@ -215,7 +214,7 @@ spec:
 ```
 {: codeblock}
 
-El ConfigMap es ahora un artefacto completamente independiente del pod. Puede tener un ciclo de vida totalmente distinto. Puede actualizar o cambiar los valores del ConfigMap sin tener que volver a desplegar el pod en este caso. También puede actualizar y manipular un ConfigMap directamente desde la línea de mandatos, lo que puede resultar útil en el ciclo de desarrollo/pruebas/depuración.
+El ConfigMap es ahora un artefacto independiente del pod. Puede tener un ciclo de vida distinto. Puede actualizar o cambiar los valores del ConfigMap sin tener que volver a desplegar el pod en este caso. También puede actualizar y manipular un ConfigMap directamente desde la línea de mandatos, lo que puede resultar útil en el ciclo de desarrollo/pruebas/depuración.
 
 Cuando se utiliza con Helm, puede utilizar variables en la declaración del ConfigMap. Dichas variables se resuelven de la manera habitual cuando se despliega el diagrama.
 
@@ -225,7 +224,7 @@ Para obtener más información, consulte
 ### Credenciales y secretos
 {: #kubernetes-secrets}
 
-Generalmente, la configuración se proporciona a los contenedores que se ejecutan en Kubernetes mediante variables de entorno o ConfigMaps. En cualquier caso, los valores de configuración se pueden descubrir bastante rápido. Este es el motivo por el que Kubernetes utiliza secretos para almacenar información confidencial.
+Generalmente, se proporciona una configuración a los contenedores que se ejecutan en Kubernetes mediante variables de entorno o ConfigMaps. En cualquier caso, los valores de configuración se pueden descubrir bastante rápido. Este es el motivo por el que Kubernetes utiliza secretos para almacenar información confidencial.
 
 Los secretos son objetos independientes que contienen valores codificados en base64:
 

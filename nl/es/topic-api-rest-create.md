@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-06-05"
+lastupdated: "2019-07-16"
 
 ---
 
@@ -18,18 +18,18 @@ lastupdated: "2019-06-05"
 # Creación de microservicios RESTful
 {: #rest-api}
 
-Las aplicaciones nativas en la nube producen y consumen API, ya sea en una arquitectura de microservicios o no. Algunas API se consideran internas, o privadas, y algunas se consideran externas. 
+Las aplicaciones nativas de la nube producen y utilizan API, ya sea en una arquitectura de microservicios o no. Algunas API se consideran internas, o privadas, y algunas se consideran externas. 
 {:shortdesc}
 
-Las API internas solo se utilizan dentro de un entorno con cortafuegos para que los servicios de fondo se puedan comunicar entre sí. Las API externas presentan un punto de entrada unificado para los consumidores y, con frecuencia, son **gestionadas** por herramientas como {{site.data.keyword.apiconnect_long}}, que pueden imponer una limitación de velocidad u otras restricciones de uso. Un ejemplo de una API como esta es la [API de desarrollador de GitHub](https://developer.github.com/v3/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Proporciona una API unificada con el uso coherente de códigos de retorno y verbos HTTP, comportamiento de paginación, etc., sin exponer los detalles de la implementación interna. Esta API puede estar respaldada por una aplicación monolítica, o por una colección de microservicios; dicho detalle no se expone al consumidor, lo que deja libertad a GitHub para evolucionar sus propios sistemas internos según sea necesario.
+Las API internas solo se utilizan dentro de un entorno con cortafuegos para que los servicios de fondo se puedan comunicar entre sí. Las API externas presentan un punto de entrada unificado para los consumidores y generalmente se **gestionan** mediante herramientas como {{site.data.keyword.apiconnect_long}}, que pueden imponer una limitación de velocidad u otras restricciones de uso. Un ejemplo de este tipo de API es la [API de desarrollador de GitHub](https://developer.github.com/v3/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Proporciona una API unificada con el uso coherente de verbos HTTP, códigos de retorno y comportamiento de paginación sin mostrar los detalles de la implementación interna. Esta API puede estar respaldada por una aplicación grande o por una colección de microservicios. Ese detalle no se muestra al consumidor, por lo que GitHub puede modificar sus sistemas internos según sea necesario.
 
 ## Métodos recomendados para las API RESTful
 {: #bps-apis}
 
-Las API REST deben utilizar verbos HTTP estándar para las operaciones de crear, recuperar, actualizar y suprimir (CRUD), prestando especial atención a si la operación es o no idempotente (segura para su reintento en múltiples ocasiones).
+Las API REST utilizan verbos HTTP estándar para las operaciones de crear, recuperar, actualizar y suprimir (CRUD), prestando especial atención a si la operación es o no idempotente (se puede reintentar varias veces de forma segura).
 
 * Las operaciones POST se pueden utilizar para crear o actualizar recursos. Las operaciones POST no se pueden invocar repetidamente. Por ejemplo, si se utiliza una solicitud POST para crear recursos y se invoca varias veces, se crea un nuevo recurso exclusivo como resultado de cada invocación.
-* Las operaciones GET se deben poder invocar repetidamente y no deben provocar efectos secundarios. Solo se deben utilizar para recuperar información. No se deben utilizar solicitudes GET con parámetros de consulta para cambiar o actualizar la información. Utilice las operaciones POST, PUT o PATCH en su lugar.
+* Las operaciones GET se deben poder invocar repetidamente y no deben provocar efectos secundarios. No están diseñadas para que se utilicen para recuperar información. Las solicitudes GET no se deben utilizar con parámetros de consulta para cambiar o actualizar información. Utilice las operaciones POST, PUT o PATCH en su lugar.
 * Las operaciones PUT se pueden utilizar para actualizar recursos. Las operaciones PUT incluyen habitualmente una copia completa del recurso a actualizar, haciendo que sea posible invocar la operación varias veces.
 * Las operaciones PATCH permiten la actualización parcial de los recursos. Se pueden invocar repetidamente dependiendo de cómo se especifique el delta y se aplique luego al recurso. Por ejemplo, si una operación PATCH indica que un valor se debe cambiar de A a B, se puede invocar repetidamente. No hay ningún efecto si se invoca varias veces y el valor ya es B.
 * Las operaciones DELETE se pueden invocar varias veces, ya que un recurso solo se puede suprimir una vez. No obstante, el código de retorno varía, ya que la primer operación tiene éxito (`200` o `204`), mientras que las invocaciones posteriores no encuentran el recurso (`404` o `410`).
@@ -37,27 +37,26 @@ Las API REST deben utilizar verbos HTTP estándar para las operaciones de crear,
 ### Resultados descriptivos y legibles para la máquina
 {: #rest-results}
 
-Dado que las API las invoca el software en lugar del usuario, tenga cuidado de que se comunique la información al proceso llamante de la forma más efectiva y eficiente posible.
+Dado que las API las invoca el software en lugar del usuario, intente siempre comunicar información al emisor de la llamada de la forma más efectiva y eficiente posible.
 
 Utilice códigos de estado HTTP relevantes y útiles, tal como se describe en la tabla siguiente: 
 
 | Código de error HTTP | Instrucciones de uso |
 |-----------------|----------------|
-| `200 (OK)` | Utilizar cuando todo sea correcto y existan datos que devolver. |
-| `204 (NO CONTENT)` | Utilizar cuando todo sea correcto pero no existan datos de respuesta. |
-| `201 (CREATED)` | Utilizar para solicitudes POST que provoquen que se cree un recurso, exista o no un cuerpo de respuesta. |
-| `409 (CONFLICT)` | Utilizar cuando haya un conflicto de cambios simultáneos. |
-| `400 (BAD REQUEST)` | Utilizar cuando los parámetros tengan un formato incorrecto. |
-{: caption="Tabla 1. Códigos de estado HTTP." caption-side="bottom"}
+| `200 (OK)` | Utilizar cuando todo sea correcto y existan datos que devolver |
+| `204 (NO CONTENT)` | Utilizar cuando todo sea correcto pero no existan datos de respuesta |
+| `201 (CREATED)` | Utilizar para solicitudes POST que provoquen que se cree un recurso, exista o no un cuerpo de respuesta |
+| `409 (CONFLICT)` | Utilizar cuando haya un conflicto de cambios simultáneos |
+| `400 (BAD REQUEST)` | Utilizar cuando los parámetros tengan un formato incorrecto |
 
 Para obtener más información, consulte [Códigos de estado de respuesta](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). 
 
-También debe tener en cuenta qué datos devolver en las respuestas para hacer que la comunicación sea eficiente. Por ejemplo, cuando se crea un recurso con una solicitud POST, la respuesta debe incluir la ubicación del recurso recién creado en una cabecera Location. El recurso creado se suele incluir también en el cuerpo de la respuesta, para evitar que una solicitud GET adicional tenga que buscar el recurso creado. Lo mismo se aplica a las solicitudes PUT y PATCH.
+Tenga en cuenta los datos que se van a devolver en las respuestas para conseguir que la comunicación sea eficiente. Por ejemplo, cuando se crea un recurso con una solicitud POST, la respuesta debe incluir la ubicación del recurso recién creado en una cabecera Location. El recurso creado se suele incluir también en el cuerpo de la respuesta, para evitar que una solicitud GET adicional tenga que buscar el recurso creado. Lo mismo se aplica a las solicitudes PUT y PATCH.
 
 ### URI de recursos RESTful
 {: #rest-uris}
 
-Existen diferentes opiniones acerca de algunos aspectos de los URI de recursos RESTful. En general, hay consenso en que los recursos deben ser nombres, no verbos, y que los puntos finales deben ser plurales. Esto resulta en una estructura clara para las operaciones CRUD:
+Existen diferentes opiniones acerca de algunos aspectos de los URI de recursos RESTful. En general, hay consenso respecto a que los recursos deben ser nombres, no verbos, y que los puntos finales deben ser plurales. Esto resulta en una estructura clara para las operaciones CRUD:
 
 * `POST /accounts`: crear una nueva cuenta.
 * `GET /accounts`: recuperar una lista de cuentas.
@@ -68,43 +67,46 @@ Existen diferentes opiniones acerca de algunos aspectos de los URI de recursos R
 
 Las relaciones se modelan utilizando URI jerárquicos, por ejemplo, ` /accounts/16/credentials`, para gestionar las credenciales asociadas a una cuenta.
 
-Hay menos consenso en relación con qué debe ocurrir con las operaciones asociadas al recurso que no se ajusten a esta estructura habitual. No hay una única manera correcta de gestionar estas operaciones: haga lo que funcione mejor para el consumidor de la API.
+No hay una sola manera de gestionar operaciones con un recurso que no se ajusta a una estructura típica. Con respecto a estas operaciones: haga lo que mejor funcione para el consumidor de la API.
+
+<!-- Operation example -->
 
 ### Solidez y API RESTful
 {: #robust-api}
 
-El [Principio de solidez](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") proporciona la mejor guía: "Sea liberal en lo que acepta y conservador en lo que envía". Suponga que las API evolucionarán con el tiempo y sea tolerante con los datos que no entienda.
+El [principio de solidez](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") proporciona la mejor guía: "Sea liberal en lo que acepta y conservador en lo que envía". Suponga que las API evolucionarán con el tiempo y sea tolerante con los datos que no entienda.
 
 #### Producción de API
 {: #robust-producer}
 
-Al proporcionar una API a clientes externos, hay dos acciones que se deben realizar al aceptar solicitudes y devolver respuestas: 
+Cuando proporcione una API a clientes externos, hay dos cosas que se deben hacer cuando acepte solicitudes y devuelva respuestas: 
 
 * Aceptar atributos desconocidos como parte de la solicitud.
-    - Si un servicio llama a la API con atributos innecesarios, simplemente descarte dichos valores. La devolución de un error en esta situación puede provocar fallos innecesarios, afectando negativamente al usuario final.
-* Devolver solo los atributos necesarios para los consumidores
-    - Evite exponer detalles internos del servicio. Exponga solo los atributos que necesiten los consumidores como parte de la API.
+    > Si un servicio llama a la API con atributos innecesarios, descarte dichos valores. La devolución de un error en esta situación puede provocar fallos innecesarios, lo que afecta negativamente al usuario.
+* Devolver los atributos que necesitan los consumidores
+    > Evite la exposición de detalles internos de servicio. Exponga los atributos que necesiten los consumidores como parte de la API.
 
 #### Consumo de API
 {: #robust-consumer}
 
-Al consumir las API:
+Cuando consuma API:
 
-* Valide la solicitud únicamente con las variables o atributos que necesite.
-    - No valide con las variables solo por el hecho de que se proporcionen. Si no las utiliza como parte de su solicitud, no se base simplemente en que estén ahí.
+* Valide la solicitud con las variables o atributos que necesite.
+    > No valide con las variables solo por el hecho de que se proporcionen. Si no las utiliza como parte de su solicitud, no se base simplemente en que estén ahí.
+
 * Acepte atributos desconocidos como parte de la respuesta.
-    - No emita una excepción si recibe una variable no esperada. Siempre que la respuesta contenga la información que necesita, no importa que venga algo más en el camino.
+    > No emita una excepción si recibe una variable no esperada. Si la respuesta contiene la información que necesita, no importa que contenga algo más.
 
-Estas directrices son especialmente relevantes para lenguajes fuertemente tipados como Java, donde la serialización y deserialización de JSON a menudo se produce indirectamente, por ejemplo, mediante bibliotecas Jackson o JSON-P/JSON-B. Busque mecanismos del lenguaje que le permitan especificar un comportamiento más generoso, como ignorar atributos desconocidos, o definir o filtrar qué atributos se deben serializar.
+Estas directrices resultan especialmente relevantes para lenguajes fuertemente tipificados como Java, donde la serialización y deserialización de JSON se suele producir indirectamente. Por ejemplo, bibliotecas Jackson o JSON-P/JSON-B. Busque mecanismos del lenguaje que le permitan especificar un comportamiento más generoso, como pasar por alto atributos desconocidos o definir o filtrar los atributos que se deben serializar.
 
 ### Creación de versiones de API RESTful
 {: #version-api}
 
 Una de las ventajas principales de los microservicios es la posibilidad de permitir que evolucionen de forma independiente. Dado que los microservicios llaman a otros servicios, esta independencia conlleva una gran advertencia: no puede provocar cambios que rompan la API.
 
-Si se sigue el principio de solidez, puede pasar mucho tiempo hasta que se requiera un cambio de ruptura. Cuando finalmente se produzca dicho cambio de ruptura, puede optar por crear un servicio distinto por completo y retirar el original con el tiempo.
+Si se sigue el principio de solidez, puede pasar mucho tiempo hasta que se requiera un cambio de ruptura. Cuando finalmente se produzca el cambio de ruptura, puede optar por crear un servicio distinto por completo y retirar el original con el tiempo.
 
-En el caso de que necesite realizar cambios que rompan la API para un servicio existente, decida cómo gestionar dichos cambios: si el servicio gestionará todas las versiones de la API, si ha decidido mantener versiones independientes del servicio para dar soporte a cada versión de la API, o si el servicio solo admitirá la versión más reciente de la API y se basará en otras capas adaptativas para realizar la conversión entre esta versión de la API y la anterior.
+Si necesita realizar cambios que rompan la API para un servicio existente, decida cómo gestionar dichos cambios: si el servicio gestionará todas las versiones de la API, si ha decidido mantener versiones independientes del servicio para dar soporte a cada versión de la API, o si el servicio solo admitirá la versión más reciente de la API y se basará en otras capas adaptativas para realizar la conversión entre esta versión de la API y la anterior.
 
 Después de determinar cómo gestionar los cambios, otro problema a resolver, aunque esta vez mucho más fácil, es cómo reflejar la versión en la API. Generalmente hay tres maneras de indicar la versión de un recurso REST:
 

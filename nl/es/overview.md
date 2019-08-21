@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-05-20"
+lastupdated: "2019-07-16"
 
 ---
 
@@ -24,12 +24,12 @@ Los entornos de computación en la nube son dinámicos, con asignación y libera
 De acuerdo con [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"), los sistemas nativos de la nube tienen los atributos siguientes:
 
 - Las aplicaciones o procesos se ejecutan en contenedores de software como unidades aisladas.
-- Los procesos se gestionan mediante procesos de coordinación centrales para mejorar la utilización de recursos y reducir los costes de mantenimiento.
+- Los procesos se gestionan mediante procesos de coordinación centrales para mejorar el uso de recursos y reducir los costes de mantenimiento.
 - Las aplicaciones o servicios (microservicios) están débilmente acopladas con las dependencias descritas explícitamente.
 
 Estos atributos describen un sistema altamente dinámico compuesto por procesos independientes que trabajan de forma conjunta para proporcionar un valor empresarial: un sistema distribuido.
 
-La computación distribuida es un concepto con raíces que se remontan a décadas atrás. [Falacias del cómputo distribuido](https://www.simpleorientedarchitecture.com/8-fallacies-of-distributed-systems/){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") recoge las suposiciones siguientes hechas por arquitectos y diseñadores de sistemas distribuidos que han resultado ser erróneas con el paso del tiempo. 
+El cálculo distribuido es un concepto con raíces que se remontan a décadas atrás. [Falacias del cómputo distribuido](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo") recoge las suposiciones siguientes hechas por arquitectos y diseñadores de sistemas distribuidos que finalmente han resultado ser erróneas. 
 
 * La red es fiable.
 * La red es segura.
@@ -45,9 +45,9 @@ Las tecnologías de la nube como Kubernetes e Istio tienen como objetivo abordar
 ## Doce factores
 {: #twelve-factors}
 
-Los desarrolladores de Heroku han creado un borrador de la metodología de [aplicación en doce factores](https://12factor.net){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Las características mencionadas en los doce factores no son específicas de un proveedor de nube, plataforma o lenguaje. Los factores representan un conjunto de directrices o métodos recomendados para aplicaciones portables y resistentes que se desarrollan en entornos de nube (específicamente aplicaciones de software como servicio). Los doce factores se proporcionan en la lista siguiente:
+Los desarrolladores de Heroku han creado un borrador de la metodología de [aplicación en doce factores](https://12factor.net){: new_window} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo"). Las características mencionadas en los doce factores no son específicas de un proveedor de nube, plataforma o lenguaje. Los factores representan un conjunto de directrices o métodos recomendados para aplicaciones portables y resistentes que se desarrollan en entornos de nube (específicamente la aplicación de software como servicio). Los doce factores se proporcionan en la lista siguiente:
 
-1. Existe una asociación uno a uno entre un código base con versión, por ejemplo, un repositorio git, y un servicio desplegado. Se utiliza el mismo código base para muchos despliegues.
+1. Existe una asociación uno a uno entre un código base con versión, por ejemplo, un repositorio Git, y un servicio desplegado. Se utiliza el mismo código base para muchos despliegues.
 2. Los servicios declaran explícitamente todas las dependencias y no se basan en la presencia de bibliotecas ni herramientas a nivel del sistema.
 3. La configuración que varía entre entornos de despliegue se almacena en el entorno, específicamente en variables de entorno.
 4. Todos los servicios de respaldo se tratan como recursos conectados, que se gestionan (se conectan y se desconectan) por medio del entorno de ejecución.
@@ -60,47 +60,62 @@ Los desarrolladores de Heroku han creado un borrador de la metodología de [apli
 11. Las aplicaciones producen registros como secuencias de sucesos, por ejemplo, la escritura en `stdout` y `stderr`, y confían en el entorno de ejecución para agregar las secuencias.
 12. Si se necesitan tareas de administración únicas, se mantienen en el control de origen y se empaquetan junto con la aplicación para garantizar que se ejecutan con el mismo entorno que la aplicación.
 
-No tiene que seguir estos factores de manera estricta para conseguir un entorno de microservicios de calidad; no obstante, tenerlos en cuenta le permitirá crear y mantener aplicaciones portables o servicios en entornos de entrega continua.
+No tiene que seguir estos factores de manera estricta para conseguir un entorno de microservicios de calidad. No obstante, tenerlos en cuenta le permitirá crear y mantener aplicaciones portables o servicios en entornos de entrega continua.
+
+## Aplicaciones
+{: #apps-intro}
+
+Una app consta de código, datos, servicios y cadenas de herramientas. Por ejemplo, la app móvil de {{site.data.keyword.cloud_notm}} contiene código de fondo junto con lógica de fondo, almacenamiento de datos, analíticas y servicios de seguridad y, además, está configurado para una entrega continua.
+
+![Reutilizar](images/garage_reuse2.png "Con Experiencia del desarrollador, puede reutilizar para no tener que reinventar")
+
+Puede crear y gestionar una app utilizando cualquier portal de desarrollador de {{site.data.keyword.cloud_notm}} o {{site.data.keyword.dev_cli_notm}}.
+
+Puede crear apps sencillas vacías directamente o crear apps más complejas mediante kits de inicio. Si decide crear apps vacías sin la ayuda de un kit de inicio, puede hacerlo desde el [panel de control de {{site.data.keyword.cloud_notm}} ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo")](https://{DomainName}){: new_window} sin visitar ningún portal.
+
+Puede utilizar un patrón de código para crear rápidamente una app y desplegarla en {{site.data.keyword.cloud_notm}}. En el [sitio web de IBM Developer ![Icono de enlace externo](../icons/launch-glyph.svg "Icono de enlace externo")](https://developer.ibm.com/patterns/){:new_window}, elija un patrón de código. Puede ver el código en GitHub o crear y compilar una app en {{site.data.keyword.cloud_notm}}, donde puede utilizar una cadena de herramientas de DevOps para desplegar automáticamente la app.
 
 ## Microservicios
 {: #microservices}
 
-Un *microservicio* es un conjunto de componentes de arquitectura pequeños e independientes, cada uno con un único propósito, que se comunican a través de una API ligera común. Cada microservicio del ejemplo simple siguiente es una aplicación de doce factores que utiliza servicios de respaldo reemplazables para almacenar datos y pasar mensajes:
+Un *microservicio* es un conjunto de componentes de arquitectura pequeños e independientes que se comunican a través de una API ligera común. Cada microservicio del ejemplo simple siguiente es una aplicación de doce factores que utiliza servicios de respaldo reemplazables para almacenar datos y pasar mensajes:
 
 ![Una aplicación de microservicios](images/microservice.png "Una aplicación de microservicios")
 {: caption="Figura 1. Una aplicación de microservicios" caption-side="bottom"}
 
-Los microservicios son independientes. La agilidad es uno de los beneficios de las arquitecturas de microservicios, pero solo existe cuando existe la posibilidad de reescribir completamente los servicios sin que ello afecte a otros servicios. No es probable que esto ocurra con mucha frecuencia, pero explica el requisito. Unos límites de API claros proporcionan al equipo que trabaja en un servicio la máxima flexibilidad para desarrollar la implementación. Esta característica es lo que permite la persistencia y la programación políglota.
+Los microservicios son independientes. La agilidad es una de las ventajas de las arquitecturas de microservicios, pero solo existe cuando los servicios se pueden sobrescribir sin que ello afecte a otros servicios. 
 
-Los microservicios son resistentes. La estabilidad de la aplicación depende de la solidez de los servicios individuales frente a los errores. Esta es una gran diferencia con las arquitecturas tradicionales, en la que la infraestructura que la soporta gestiona los fallos automáticamente. Cada servicio necesita aplicar patrones de aislamiento, como interruptores y barreras, para contener errores y definir comportamientos de retroceso adecuados para proteger los servicios en sentido ascendente.
+Borrar límites de API ofrece a los equipos que trabajan en un servicio la mayor flexibilidad para mejorar la implementación. Esta característica es lo que permite la persistencia y la programación políglota.
 
-Los microservicios son procesos sin estado y transitorios. Esto no es lo mismo que decir que los microservicios no pueden tener estado. Significa que el estado se debe almacenar en servicios de nube de respaldo externos, como Redis, en lugar de en la memoria. El comportamiento de inicio rápido y cierre ordenado posibilita en mayor medida aún que los servicios funcionen bien en entornos automatizados que crean y destruyen instancias en respuesta a la carga o para mantener el estado de salud del sistema.
+Los microservicios son resistentes. La estabilidad de la aplicación depende de la solidez de los servicios individuales frente a los errores. Esta es una diferencia significativa con respecto a las arquitecturas tradicionales, en las que la infraestructura que les da soporte gestiona los errores automáticamente. Cada servicio necesita aplicar patrones de aislamiento, como interruptores y barreras, para contener errores y definir comportamientos de retroceso adecuados para proteger los servicios en sentido ascendente.
+
+Los microservicios no tienen estado y se almacenan en servicios de nube con respaldo externo, como Redis. El comportamiento de inicio rápido y cierre ordenado posibilita en mayor medida que los servicios funcionen bien en entornos automatizados que crean y eliminan instancias en respuesta a la carga o para mantener el buen estado del sistema.
 
 ### El significado de "pequeño"
 {: #small-microsvc}
 
-El uso de la palabra "pequeño", aplicada a un microservicio, significa básicamente que se centra en un propósito: debe hacer una sola cosa y hacerla bien. Muchas descripciones establecen paralelismos entre los roles de microservicios individuales y los mandatos encadenados en la línea de mandatos de Unix:
+El uso de la palabra "pequeño", aplicada a un microservicio, significa que se centra en un propósito. Muchas descripciones establecen paralelismos entre los roles de microservicios individuales y los mandatos encadenados en la línea de mandatos de Unix:
 
 ```
 ls | grep 'service' | sort -r
 ```
 {:pre}
 
-Estos mandatos de Unix realizan cada uno una tarea claramente distinta, y puede encadenarlos independientemente del lenguaje de programación o de la cantidad de código.
+Estos mandatos de UNIX realizan cada uno una tarea claramente distinta, y puede encadenarlos independientemente del lenguaje de programación o de la cantidad de código.
 
 ## Aplicaciones políglotas: elección de la herramienta adecuada para el trabajo
 {: #polyglot-apps}
 
-El poliglotismo es una ventaja frecuentemente mencionada de las arquitecturas basadas en microservicios. Por una parte, la posibilidad de elegir el lenguaje o el almacén de datos adecuado para la función que proporciona un servicio puede ser muy potente y puede aportar una gran mejora en la eficiencia. Por otra parte, el uso de tecnologías oscuras puede complicar el mantenimiento a largo plazo e inhibir el movimiento de desarrolladores entre equipos. 
+El poliglotismo es una ventaja frecuentemente mencionada de las arquitecturas basadas en microservicios. Cree un equilibrio entre las mismas mediante la creación de una lista de tecnologías admitidas entre las que elegir, con una política definida para ampliar la lista con nuevas tecnologías a lo largo del tiempo. Asegúrese de que se puedan cumplir requisitos no funcionales o de normativa como la capacidad de mantenimiento y de auditoría y la seguridad de los datos, mientras se conserva la agilidad y se da soporte a la innovación a través de la experimentación.
 
-Cree un equilibrio entre los dos mediante la creación de una lista de tecnologías con soporte a elegir desde el principio, con una política definida para ampliar la lista con nuevas tecnologías a lo largo del tiempo. Asegúrese de que se puedan cumplir requisitos no funcionales o de normativa como la mantenibilidad, la auditabilidad y la seguridad de datos, mientras se conserva la agilidad y se da soporte a la innovación a través de la experimentación.
+... :FIXME: unpack? Language table here?:...
 
 ## REST y JSON
 {: #rest-json}
 
 Las aplicaciones políglotas solo son posibles con protocolos independientes del lenguaje. Los patrones de arquitectura REST definen directrices para la creación de interfaces uniformes que separan la representación de datos en la red de la implementación del servicio.
 
-JSON ha surgido en las arquitecturas de microservicios como la elección de formato de cable para datos basados en texto, desplazando a XML por su simpleza y claridad. Como comparación, el ejemplo siguiente es un registro básico que contiene datos acerca de un empleado en JSON:
+JSON, en las arquitecturas de microservicios, es el formato de cableado adecuado para datos basados en texto, desplazando a XML por su simpleza y claridad. Como comparación, el ejemplo siguiente es un registro básico que contiene datos acerca de un empleado en JSON:
 
 ```json
 {

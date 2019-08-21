@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-02-10"
+lastupdated: "2019-07-19"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-02-10"
 日志消息是包含上下文信息的字符串，这些信息与创建日志条目时微服务的状态和活动相关。需要日志来诊断服务失败的方式和原因。在监视应用程序运行状况时，日志还可对度量值起到支持作用。
 {:shortdesc}
 
-确保将日志条目直接写入标准输出和错误流。这将使日志条目可通过命令行工具进行查看，并允许使用在基础架构级别配置的日志转发服务（如 Logstash、Filebeat 或 Fluentd）来管理日志收集和数据管理。
+确保将日志条目直接写入标准输出和错误流。这将使日志条目可通过命令行工具进行查看，并允许使用在基础架构级别配置的日志转发服务来管理日志收集和数据管理。
 
 如果容器化应用程序无法配置为将日志写入标准输出或标准错误，那么处理日志文件需要考虑更多方面。
 
@@ -52,7 +52,7 @@ kubectl logs trader-54b4d579f7-4zvzk -n stock-trader -c trader | \
 
 发送到标准输出和错误流的日志可以通过控制台或通过 `kubectl` 命令（格式为：`kubectl logs <podname>`）在 Kubernetes 中进行查看。
 
-如果使用定制名称空间（例如，stock-trader），请将其包含在命令中，例如 `kubectl logs -n stock-trader <podname>`。
+如果使用定制名称空间（例如，stock-trader），请将其包含在命令中：`kubectl logs -n stock-trader <podname>`。
 
 如果每个 Pod 有多个容器（正如在使用 Istio 侧柜时那样），那么还需要指定容器。在以下示例中，stock-trader 名称空间用于查看来自 `portfolio-54b4d579f7-4zvzk` Pod 中 `portfolio` 容器的日志：
 
@@ -68,5 +68,5 @@ kubectl logs trader-54b4d579f7-4zvzk -n stock-trader -c trader | grep message | 
 ```
 {: pre}
 
-日志条目通过 `grep` 进行管道传输，以确保 `jq` 仅对包含消息字段的行进行解析。
+日志条目通过 `grep` 进行管道传输，以确保 `jq` 对包含消息字段的行进行解析。
 {: note}
