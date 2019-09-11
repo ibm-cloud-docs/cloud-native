@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-16"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -21,7 +21,7 @@ lastupdated: "2019-07-16"
 Cloud-native applications produce and use APIs, whether in a microservices architecture or not. Some APIs are considered internal, or private, and some are considered external. 
 {:shortdesc}
 
-Internal APIs are used only within a firewalled environment for backend services to communicate with each other. External APIs present a unified entry point for consumers, and are often **managed** by tools like {{site.data.keyword.apiconnect_long}}, which can impose rate limits or other usage constraints. An example of this kind of API is the [GitHub Developer API](https://developer.github.com/v3/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"). It provides a unified API with consistent use of HTTP verbs, return codes, and pagination behavior without showing internal implementation details. This API can be backed by one large application, or it can be backed by a collection of microservices. That detail isn't shown to the consumer, so GitHub can evolve their internal systems as necessary.
+Internal APIs are used only within a firewalled environment for backend services to communicate with each other. External APIs present a unified entry point for consumers, and are often **managed** by tools like {{site.data.keyword.apiconnect_long}}, which can impose rate limits or other usage constraints. An example of this kind of API is the [GitHub Developer API](https://developer.github.com/v3/){: external}. It provides a unified API with consistent use of HTTP verbs, return codes, and pagination behavior without showing internal implementation details. This API can be backed by one large application, or it can be backed by a collection of microservices. That detail isn't shown to the consumer, so GitHub can evolve their internal systems as necessary.
 
 ## Best practices for RESTful APIs
 {: #bps-apis}
@@ -49,7 +49,7 @@ Use relevant and useful HTTP status codes, as described in the following table:
 | `409 (CONFLICT)` | Use when concurrent changes conflict |
 | `400 (BAD REQUEST)` | Use when parameters are malformed |
 
-For more information, see [Response status codes](https://tools.ietf.org/html/rfc7231#section-6){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"). 
+For more information, see [Response status codes](https://tools.ietf.org/html/rfc7231#section-6){: external}. 
 
 Consider what data to return in your responses to make communication efficient. For example, when a resource is created with a POST request, the response must include the location of the newly created resource in a Location header. The created resource is often included in the response body as well to eliminate the extra GET request to fetch the created resource. The same applies for PUT and PATCH requests.
 
@@ -67,14 +67,12 @@ There are varying opinions about some aspects of RESTful resource URIs. In gener
 
 Relationships are modeled by using hierarchical URIs, for example, ` /accounts/16/credentials` for managing credentials associated with an account.
 
-There is no single way to manage operations with a resource that doesn't fit within a typical structure. These operations: do what works best for the consumer of the API.
-
-<!-- Operation example -->
+There is no single way to manage operations with a resource that doesn't fit within a typical structure. For these operations, do what works best for the consumer of the API.
 
 ### Robustness and RESTful APIs
 {: #robust-api}
 
-The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") provides the best guidance: "Be liberal in what you accept, and conservative in what you send". Assume that APIs will evolve over time and be tolerant of data you do not understand.
+The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: external} provides the best guidance: "Be liberal in what you accept, and conservative in what you send". Assume that APIs will evolve over time and be tolerant of data you do not understand.
 
 #### Producing APIs
 {: #robust-producer}
@@ -119,7 +117,7 @@ After you determine how to manage the changes, the much easier problem to solve 
 
 The easiest way to specify a version is to include it in the path of the URI. There are advantages to this approach: it's obvious, it's easy to achieve when building the services in your application, and it's compatible with API browsing tools like Swagger and command-line tools like `curl`, and so on.
 
-If you're going to include the version in the path of the URI, the version should apply to your application as a whole, for example, `/api/v1/accounts` instead of `/api/accounts/v1`. Hypermedia as the Engine of Application State (HATEOAS) is one way of providing URIs to API consumers so they are not responsible for constructing URIs themselves. GitHub, for example, provides [hypermedia URLs](https://developer.github.com/v3/#hypermedia){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") in the responses for this reason. HATEOAS becomes difficult, if not impossible, to achieve if different backend services can have independently varying versions in their URIs.
+If you're going to include the version in the path of the URI, the version should apply to your application as a whole, for example, `/api/v1/accounts` instead of `/api/accounts/v1`. Hypermedia as the Engine of Application State (HATEOAS) is one way of providing URIs to API consumers so they are not responsible for constructing URIs themselves. GitHub, for example, provides [hypermedia URLs](https://developer.github.com/v3/#hypermedia){: external} in the responses for this reason. HATEOAS becomes difficult, if not impossible, to achieve if different backend services can have independently varying versions in their URIs.
 
 #### Modifying the Accept header to include the version
 {: #version-accept}
@@ -131,12 +129,12 @@ The Accept header is an obvious place to define a version, but is one of the mos
 
 You can add a custom request header to indicate the API version. As with the Accept header, you can also use custom headers to route traffic to specific backend instances. With this method, you encounter the same ease-of-use issues that you encounter with the Accept header method, with the additional requirement that consumers need to learn about this header.
 
-For more information, see [Your API versioning is wrong, which is why I decided to do it 3 different wrong ways](https://www.troyhunt.com/your-api-versioning-is-wrong-which-is/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+For more information, see [Your API versioning is wrong, which is why I decided to do it 3 different wrong ways](https://www.troyhunt.com/your-api-versioning-is-wrong-which-is/){: external}.
 
 ## Creating and generating APIs
 {: #create-api}
 
-[OpenAPI v3](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") is the official specification for RESTful services, governed by the [OpenAPI Initiative](https://www.openapis.org/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), an association of companies under the Linux Foundation.
+[OpenAPI v3](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md){: external} is the official specification for RESTful services, governed by the [OpenAPI Initiative](https://www.openapis.org/){: external}, an association of companies under the Linux Foundation.
 
 You can use either of the following ways to create an API:
 
@@ -148,20 +146,20 @@ In either case, working with an OpenAPI definition can help identify areas where
 ### Creating an API from an OpenAPI Definition
 {: #openapi-first}
 
-You can author your OpenAPI YAML file in whatever tool you choose. Using a plain text editor, however, can be error prone. Some editors have basic support for YAML, and some might have additional extensions to support OpenAPI definitions. For example, you can use Visual Studio Code extensions like [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") or [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to validate your OpenAPI definition against a specified spec version and render a web view in the preview pane:
+You can author your OpenAPI YAML file in whatever tool you choose. Using a plain text editor, however, can be error prone. Some editors have basic support for YAML, and some might have additional extensions to support OpenAPI definitions. For example, you can use Visual Studio Code extensions like [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: external} or [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: external} to validate your OpenAPI definition against a specified spec version and render a web view in the preview pane:
 
 ![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview"){: caption="Figure 1. OpenAPI Preview" caption-side="bottom"} 
 
 There are also a variety of browser-based, live-parsing editors that you can use either online or locally. Some examples include:
 
-* The [OpenAPI-GUI project](https://github.com/Mermade/openapi-gui){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") supports both v2 and v3 of the OpenAPI specification and can migrate an OpenAPI v2 definition to v3 for you.
-* [Swagger Editor from SmartBear](https://editor.swagger.io){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") also supports both v2 and v3 of OpenAPI.
-* [{{site.data.keyword.apiconnect_short}}](https://cloud.ibm.com/catalog/services/api-connect){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") provides a set of editors and tools for API modeling and creation.
+* The [OpenAPI-GUI project](https://github.com/Mermade/openapi-gui){: external} supports both v2 and v3 of the OpenAPI specification and can migrate an OpenAPI v2 definition to v3 for you.
+* [Swagger Editor from SmartBear](https://editor.swagger.io){: external} also supports both v2 and v3 of OpenAPI.
+* [{{site.data.keyword.apiconnect_short}}](https://cloud.ibm.com/catalog/services/api-connect){: external} provides a set of editors and tools for API modeling and creation.
 
 ### Generating the API implementation
 {: #code-first}
 
-You can use the open-source [OpenAPI generator](https://github.com/OpenAPITools/openapi-generator){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") to create a skeleton project for your service implementation from an OpenAPI definition. You can specify the language or framework for the skeleton from the command line. For example, to create a Java project for the sample PetStore API that uses generic JAX-RS method annotations, you specify the following command:
+You can use the open-source [OpenAPI generator](https://github.com/OpenAPITools/openapi-generator){: external} to create a skeleton project for your service implementation from an OpenAPI definition. You can specify the language or framework for the skeleton from the command line. For example, to create a Java project for the sample PetStore API that uses generic JAX-RS method annotations, you specify the following command:
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore

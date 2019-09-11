@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-19"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -34,7 +34,7 @@ Finally, the processor uses all of the aggregated data. Services like Grafana pr
 ## Automatic discovery of Prometheus endpoints in Kubernetes
 {: #prometheus-kubernetes}
 
-The pull-based model creates its own ecosystem. Other aggregators, like Sysdig, can also scrape metrics data from Prometheus endpoints. This might mean that some systems use Prometheus metrics without using the Prometheus server.
+The Prometheus pull-based model has fostered its own ecosystem. Other aggregators, like Sysdig, can also scrape metrics data from Prometheus endpoints, allowing systems to use Prometheus metrics without using the Prometheus server.
 
 In Kubernetes environments, annotations are used for Prometheus endpoint discovery. For example, a service that provides a `/metrics` endpoint over HTTP on port 8080 adds the following annotations to the service definition:
 
@@ -64,9 +64,9 @@ Which data points need to be gathered? With a cloud-native application, you can 
 
 These categories aren't sufficient on their own to really decide what you need to measure. In a distributed system, there are lots of things producing metrics. There are a few known methods that attempt to distill the vast pool of metrics down to the essential few that must be watched:
 
-* The [four golden signals](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/#xref_monitoring_golden-signals){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") are the essential metrics for monitoring a system. They are identified by the Google Site Reliability Engineering (SRE) team for service-level observability when monitoring. In their words, "If you can only measure four metrics of your user-facing system, focus on these four." The four metrics are latency, traffic, errors, and saturation.
-* The [Utilization Saturation and Errors (USE) method](http://www.brendangregg.com/usemethod.html){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") is designed as an emergency checklist to analyze the performance of a system. The USE method can be summarized in a sentence, "For every resource, check utilization, saturation, and errors." A resource, in this case, physical or logical resources with hard limits, like CPUs or disks. For each finite resource, you measure utilization, saturation, and errors. 
-* The [RED method](https://thenewstack.io/monitoring-microservices-red-method/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") is a mnemonic is derived from the four golden signals that defines three key metrics you measure for every microservice in your architecture. This method is request-centric, especially when compared to the USE method, which aligns well with the design and architecture of many cloud-native applications. The metrics are rate, errors, and duration. 
+* The [four golden signals](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/#xref_monitoring_golden-signals){: external} are the essential metrics for monitoring a system. They are identified by the Google Site Reliability Engineering (SRE) team for service-level observability when monitoring. In their words, "If you can only measure four metrics of your user-facing system, focus on these four." The four metrics are latency, traffic, errors, and saturation.
+* The [Utilization Saturation and Errors (USE) method](http://www.brendangregg.com/usemethod.html){: external} is designed as an emergency checklist to analyze the performance of a system. The USE method can be summarized in a sentence, "For every resource, check utilization, saturation, and errors." A resource, in this case, physical or logical resources with hard limits, like CPUs or disks. For each finite resource, you measure utilization, saturation, and errors. 
+* The [RED method](https://thenewstack.io/monitoring-microservices-red-method/){: external} is a mnemonic is derived from the four golden signals that defines three key metrics you measure for every microservice in your architecture. This method is request-centric, especially when compared to the USE method, which aligns well with the design and architecture of many cloud-native applications. The metrics are rate, errors, and duration. 
 
 The USE method focuses on infrastructure metrics. Cloud-native environments are designed to make better use of physical or virtual hardware. These infrastructure measurements look at whether your system is properly handling load. The RED method focuses entirely on request metrics that indicate problems with infrastructure and applications. The golden signals span both, bringing infrastructure and request metrics together into a holistic view.
 
@@ -83,17 +83,15 @@ With metrics systems that support dimensional data, you can associate identifyin
 
 Using the same stock trading example, the `stock.trades` metric is associated with several labels, like `{ instanceid=..., datacenter=... }`. This allows the aggregated value to be filtered or grouped by `instanceid` or `datacenter` without relying on wildcards. There is a balance between the named metric, `stock.trades`, and the associated labels. Each metric captures meaningful data, with labels for disambiguation.
 
-Define labels with caution. In Prometheus, every unique combination of key:value pairs are treated as a separate time series. A best practice to ensure that good query behavior and bounded data collection is to use labels with a finite number of allowed values. 
+Define labels with caution. In Prometheus, every unique combination of key:value pairs is treated as a separate time series. A best practice to ensure good query behavior and bounded data collection is to use labels with a finite number of allowed values. For example, if you count the number of errors encountered by an HTTP endpoint, the HTTP return code (401, 404, 409, 500, ... ) is a good label. The failed requst URL, on the other hand, should not be used as a label, as there is no limit to the number of permutations for invalid URLs.
 
-If you use a metric that counts the number of errors, you can use the return code as a label, where values are within a reasonable set. Don't label for the failed URL. It is an unbound set.
-
-For more information on best practices for naming metrics and labels, see [Metric and Label Naming](https://prometheus.io/docs/practices/naming/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+For more information on best practices for naming metrics and labels, see [Metric and Label Naming](https://prometheus.io/docs/practices/naming/){: external}.
 
 ## More considerations
 {: #metrics-considerations}
 
 A failure path is often wildly different than a success path. For example, an error response on an HTTP resource might take much longer than a successful response if the failure involved timeouts and stack trace collection. Count and treat error paths separately from successful requests.
 
-A distributed system has natural variations in certain measurements. Occasional errors are normal, as requests might be directed to processes in the middle of starting up or shutting down. Filter the raw data to catch when this natural variation exceeds a valid range. For example, split metrics into buckets. Categorize request duration into categories like 'smallest/quickest', 'medium/normal', and 'longest/largest', as observed within a sliding time window. If request durations are consistently landing in the "longest/largest" bucket, you can identify a problem. Histogram or summary metrics are usually used for this kind of data. For more information, see [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+A distributed system has natural variations in certain measurements. Occasional errors are normal, as requests might be directed to processes in the middle of starting up or shutting down. Filter the raw data to catch when this natural variation exceeds a valid range. For example, split metrics into buckets. Categorize request duration into categories like 'smallest/quickest', 'medium/normal', and 'longest/largest', as observed within a sliding time window. If request durations are consistently landing in the "longest/largest" bucket, you can identify a problem. Histogram or summary metrics are usually used for this kind of data. For more information, see [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: external}.
 
-Ensure that your applications and services emit metrics with names and labels that follow organization-wide conventions that support your business's monitoring efforts. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+Ensure that your applications and services emit metrics with names and labels that follow organization-wide conventions that support your business's monitoring efforts. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: external}.

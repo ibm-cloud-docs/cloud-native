@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-19"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -25,7 +25,7 @@ Make sure that you write log entries directly to standard output and error strea
 
 Handling log files requires more thought if a containerized application can't be configured to write logs to standard out or standard err.
 
-* One option is to use a volume for log data, whether a simple bind mount for local development and test, or a proper Persistent Volume as part of a Kubernetes deployment. A [dedicated sidecar or logging agent](https://kubernetes.io/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") can read from a shared volume to forward logs to a centralized aggregator. Log rotation must be configured explicitly to control the amount of log data stored on volumes.
+* One option is to use a volume for log data, whether a simple bind mount for local development and test, or a proper Persistent Volume as part of a Kubernetes deployment. A [dedicated sidecar or logging agent](https://kubernetes.io/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent){: external} can read from a shared volume to forward logs to a centralized aggregator. Log rotation must be configured explicitly to control the amount of log data stored on volumes.
 * Another option is using application libraries or agents to forward logs directly to aggregators. This option can carry some configuration complexity across deployment environments
 
 ## JSON logging

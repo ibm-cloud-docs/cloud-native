@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-19"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -54,7 +54,7 @@ Tuning timeouts in this way, all of the requests that are using the route have t
 
 An application defines what happens when a request to a backing service fails. There are a few options, but the goal is to degrade gracefully when these services don't respond in a timely manner. When a remote service fails, you might retry the request, try a different request, or return cached data instead.
 
-Retrying the request is the easiest fallback mechanism at first glance. What isn't so apparent is that retrying requests can contribute to cascading system failures ("retry storms", a variation of the [thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem)). Application-level code is not aware enough of system or network health, and exponential backoff algorithms are hard to get right.
+Retrying the request is the easiest fallback mechanism at first glance. What isn't so apparent is that retrying requests can contribute to cascading system failures ("retry storms", a variation of the [thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem){: external}). Application-level code is not aware enough of system or network health, and exponential backoff algorithms are hard to get right.
 
 Istio can perform retries much more effectively. It is already directly involved in request routing and it provides a consistent, language-agnostic implementation for retry policies. For example, you can define a policy like the following for our stock quote service:
 
@@ -76,11 +76,9 @@ spec:
 ```
 {: codeblock}
 
-With this simple configuration, requests that are made to the stock quote service through an Istio sidecar proxy or ingress gateway retry up to three times, with a five second timeout for each attempt. [Additional route matching rules](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest) might further restrict this retry policy to `GET` requests, for example.
+With this simple configuration, requests made to the stock quote service through an Istio sidecar proxy or ingress gateway will be retried up to 3 times, with a 5 second timeout for each attempt. [Additional route matching rules](https://istio.io/docs/reference/config/networking/#HTTPMatchRequest){: external} could further restrict this retry policy to `GET` requests, for example.
 
 There is a nuance here that is easy to miss: you are not specifying the retry interval. The sidecar determines the interval between retries, and deliberately introduces "jitter" between attempts to avoid bombarding overloaded services.
-
-<!-- Notes about other approaches here: -->
 
 ## Bulkheads
 {: #bulkheads-fault-tolerance}
@@ -137,20 +135,3 @@ This configuration puts constraints on requests that other services are making t
 
 For those familiar with other mechanisms of circuit breaking, Istio does not have a half-open state. It applies some simple math. An instance remains ejected from the pool for `baseInjectionTime * <number of times it has been ejected>`. This allows for instances to recover from transient failures and keep failing instances out of the pool.
 
-With this in place, the maximum number of concurrent calls to the stock-quote service are limited to 10. Any beyond that get a `503 -- Service Unavailable` response.
-
-### Istio -- Rate Limits
-{: #istio-rate-limits}
-
-You can also define **Rate Limits** with Istio. These are similar to bulkheads, but are defined over a time window, rather than only limiting concurrent calls that are processed at the same instant.
-
-For example, you don't want to allow more than one tweet per second. This is a real-world example. Twitter automatically locked out `@IBMStockTrader` account in the past when the stress tests ran against Stock Trader.
-
-<!-->
-*<Need example. Note that rate limits require us to introduce the concept of Mixer Adapters, like memquota or redisquota; there's more to them than the earlier policies.>*
-
-
-## Testing: Fault Injection with Istio
-
-You can use Istio to deliberately cause faults to see how your code would respond to them....
--->
