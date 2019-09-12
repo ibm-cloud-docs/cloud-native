@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-16"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -21,7 +21,7 @@ lastupdated: "2019-07-16"
 Cloud computing environments are dynamic, with on-demand allocation and release of resources from a virtualized, shared pool. These elastic environments enable more flexible scaling options when compared to the up-front resource allocation that is typically used in traditional on-premises data centers.
 {:shortdesc}
 
-According to the [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), cloud-native systems have the following attributes:
+According to the [Cloud Native Computing Foundation](https://github.com/cncf/foundation/blob/master/charter.md){: external}, cloud-native systems have the following attributes:
 
 - Applications or processes are run in software containers as isolated units.
 - Processes are managed by central orchestration processes to improve resource usage and reduce maintenance costs.
@@ -29,7 +29,7 @@ According to the [Cloud Native Computing Foundation](https://github.com/cncf/fou
 
 These attributes describe a highly dynamic system that is composed of independent processes that work together to provide business value: a distributed system.
 
-Distributed computing is a concept with roots that stretch back decades. [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") captures the following assumptions that are made by architects and designers of distributed systems that prove wrong in the end. 
+Distributed computing is a concept with roots that stretch back decades. [Fallacies of Distributed Computing](http://www.rgoarchitects.com/Files/fallacies.pdf){: external} captures the following assumptions that are made by architects and designers of distributed systems that prove wrong in the end.
 
 * The network is reliable.
 * The network is secure.
@@ -45,7 +45,7 @@ Cloud technologies like Kubernetes and Istio aim to address these concerns in th
 ## Twelve factors
 {: #twelve-factors}
 
-The [twelve-factor application](https://12factor.net){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") methodology was drafted by developers at Heroku. The characteristics that are mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service application). The twelve factors are provided in the following list:
+The [twelve-factor application](https://12factor.net){: external}methodology was drafted by developers at Heroku. The characteristics that are mentioned in the twelve factors are not specific to a cloud provider, platform, or language. The factors represent a set of guidelines or best practices for portable, resilient applications that thrive in cloud environments (specifically Software as a Service application). The twelve factors are provided in the following list:
 
 1. There is a one-to-one association between a versioned codebase, for example, a Git repository, and a deployed service. The same codebase is used for many deployments.
 2. Services explicitly declare all dependencies, and do not rely on the presence of system-level tools or libraries.
@@ -62,18 +62,6 @@ The [twelve-factor application](https://12factor.net){: new_window} ![External l
 
 You don't need to strictly follow these factors to achieve a quality microservice environment. But with them you can build and maintain portable applications or services in continuous delivery environments.
 
-## Applications
-{: #apps-intro}
-
-An app comprises code, data, services, and toolchains. For example, the {{site.data.keyword.cloud_notm}} mobile app contains device code, along with back-end logic, data storage, analytics and security services, and is set up for continuous delivery.
-
-![Reuse](images/garage_reuse2.png "With Developer Experience, you can reuse and avoid reinventing")
-
-You can create and manage an app by using any {{site.data.keyword.cloud_notm}} developer portal or the {{site.data.keyword.dev_cli_notm}}.
-
-You can create simple blank apps directly or create more complex apps by using starter kits. If you choose to create blank apps without the help of a starter kit, you can do so from the [{{site.data.keyword.cloud_notm}} dashboard ![External link icon](../icons/launch-glyph.svg "External link icon")](https://{DomainName}){: new_window} without visiting a portal.
-
-You can use a code pattern to quickly create your app and deploy it to {{site.data.keyword.cloud_notm}}. From the [IBM Developer website ![External link icon](../icons/launch-glyph.svg "External link icon")](https://developer.ibm.com/patterns/){:new_window}, choose a code pattern. You can either view the code in GitHub or create and build an app on {{site.data.keyword.cloud_notm}}, where you can use a DevOps toolchain to automatically deploy your app.
 
 ## Microservices
 {: #microservices}
@@ -105,9 +93,9 @@ These UNIX commands each perform distinctly different tasks, and you can chain t
 ## Polyglot applications: choosing the right tool for the job
 {: #polyglot-apps}
 
-Polyglot is a frequently cited benefit of microservice-based architectures. Create a balance between by creating a list of supported technologies to choose from, with a defined policy for extending the list with new technologies over time. Ensure that non-functional or regulatory requirements like maintainability, auditability, and data security can be satisfied, while preserving agility and supporting innovation through experimentation.
+Polyglot is a frequently cited benefit of microservice-based architectures. On one hand, the ability to choose the appropriate language or data store for the function a service is providing can be very powerful, and can bring a lot of efficiency. On the other hand, the use of obscure technologies can complicate long-term maintenance and inhibit the movement of developers between teams. 
 
-... :FIXME: unpack? Language table here?:...
+Create a balance between the two by creating a list of supported technologies to choose from at the outset, with a defined policy for extending the list with new technologies over time. Ensure that non-functional or regulatory requirements like maintainability, auditability, and data security can be satisfied, while preserving agility and supporting innovation through experimentation.
 
 ## REST and JSON
 {: #rest-json}

@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-18"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -42,7 +42,7 @@ What kinds of data should a service produce to be observable?
 
 Cloud-native applications rely on the environment for *telemetry*, which is the automatic collection and transmission of data to centralized locations for subsequent analysis. This is emphasized by one of the twelve factors that states treat logs as event streams, and extends to all data a microservice produces to ensure it can be observed.
 
-Kubernetes has some built-in telemetry capabilities, like Heapster, but it's more likely telemetry is provided by other systems that integrate with the Kubernetes control plane. As an example, two of Istio's components, Mixer and Envoy, act together to transparently [collect telemetry from deployed applications](https://istio.io/docs/concepts/policies-and-telemetry/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+Kubernetes has some built-in telemetry capabilities, like Heapster, but it's more likely telemetry is provided by other systems that integrate with the Kubernetes control plane. As an example, two of Istio's components, Mixer and Envoy, act together to transparently [collect telemetry from deployed applications](https://istio.io/docs/concepts/policies-and-telemetry/){: external}.
 
 Failures are no longer rare, disruptive occurrences. Breaking a monolithic application into microservices pushes more of the mainline path onto the network, increasing the impact of latency and other network issues. Requests also reach processes that are not ready for work for any number of reasons. Services are automatically restarted if they run out of resources, and fault tolerance strategies allow the system as a whole to keep functioning. Manual intervention for individual failures is not useful or feasible in this kind of environment.
 
@@ -56,9 +56,7 @@ For all of the reasons previously described, monitoring changes focus: instead o
 ## Tracing Versus Logging Versus Metrics
 {: #trace-log-metrics}
 
-:FIXME -- rephrase comparison as topic summary:
-
-Logging is used when the developer wants to explicitly output some message for someone to see. It is coded directly into the Java class, including passing along values of relevant variables. When problems occur, the logs are useful for debugging purposes, showing where a failure occurred, such as a stack trace for an exception that got thrown. You use *Kibana* to see a federated view of such logs across pods/microservices.
+Logging is used when the developer wants to explicitly output some message for someone to see. It is coded directly into the Java class, including passing along values of relevant variables. When problems occur, the logs are useful for debugging purposes, showing where a failure occurred, such as a stack trace for an exception that got thrown. As discussed above, you use *Kibana* to see a federated view of such logs across pods/microservices.
 
 Tracing happens automatically, so the developer doesn't take action. For example, you can configure Liberty to send trace records to an Open Tracing compliant trace server whenever any JAX-RS annotated method is invoked. This way that you have an audit record of what got called when, by whom, and how long it took. You can also augment that trace, like to include information about what private methods have been called in your code, by adding Open Tracing annotations to such methods that are traced. 
 

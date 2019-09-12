@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-19"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -31,7 +31,7 @@ Readiness and liveness probes are both defined by using a similar structure that
 ## Understanding and applying probes
 {: #kubernetes-probes}
 
-Fundamentally, cloud-native application development is founded on the principal that container processes do in fact fail, but these processes are readily replaced by a new container. This happens both in response to unexpected events like container or machine failure. It's also due to operational events like horizontal scaling and new application image rollouts. Readiness checks ensure that new container instances are ready to receive work before routing traffic. The same checks prevent traffic from being routed to instances that have exited or are being destroyed.
+Fundamentally, cloud-native application development is founded on the principal that container processes do in fact fail, but these processes are readily replaced by a new container. This happens both in response to unexpected events like container or machine failure or operational events like horizontal scaling and new application image rollouts. Readiness checks ensure that new container instances are ready to receive work before routing traffic. The same checks prevent traffic from being routed to instances that have exited or are being destroyed.
 
 When readiness checks aren't defined, Kubernetes has little insight into whether a container instance is ready to handle traffic, and routes traffic immediately after the container process is started. Without readiness checks, applications are more likely to experience connectivity timeouts and connection rejection responses when work is routed to an instance that is not ready to serve the request. Readiness checks reduce, but don't completely eliminate, client connectivity errors.
 
@@ -64,7 +64,7 @@ Health checks occur at frequent intervals, which can cause more overhead. Readin
 
 When configuring the initial time delay, a readiness probe uses the lowest likely value and a liveness check uses the largest likely time value. For instance, if an application server tends to start in 30 seconds, a typical readiness delay is 10 seconds. The liveness check uses a 60-second value to ensure that server start completes before terminable states are checked.
 
-The *periodSeconds* attribute for routing decisions is typically configured to a single digit value, if the probe implementation is relatively lightweight. For instance, an HTTP probe that returns a 200 OK status without substantial server-side processing has a minimal processor load and can be readily repeated every 1 - 5 seconds.
+The *periodSeconds* attribute for routing decisions is typically configured to a single digit value, if the probe implementation is relatively lightweight. For instance, an HTTP probe that returns a `200 OK` status without substantial server-side processing has a minimal processor load and can be readily repeated every 1 - 5 seconds.
 
 ## Configuring probes in Kubernetes
 {: #probe-config}
@@ -77,7 +77,8 @@ Declare liveness and readiness probes alongside your Kubernetes deployment in th
 | *periodSeconds* | How frequently the kubelet probes the service. The default is 1. |
 | *timeoutSeconds* | How quickly the probe times out. The default and minimum value is 1. |
 | *successThreshold* | The number of times the probe must be successful after a failure. The default and minimum value is 1. The value must be 1 for liveness probes. |
-| *failureThreshold* | The number of times that Kubernetes try to restart a Pod before giving up when the Pod starts and the probe fails. The minimum value is 1 and the default value is 3. |
+| *failureThreshold* | The number of times that Kubernetes will try to restart a Pod before "giving up" when the Pod starts and the probe fails (see note). The minimum value is 1 and the default value is 3. |
+{: caption="Table 2. Configuration parameters for Kubernetes probes." caption-side="bottom"}
 
   For a liveness probe, giving up means restarting the Pod. For a readiness probe, giving up means marking the Pod as unready.
   {: note}
@@ -107,4 +108,4 @@ spec:
 ```
 {: codeblock}
 
-For more information, see [Configure Liveness and Readiness Probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+For more information, see [Configure Liveness and Readiness Probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/){: external}.

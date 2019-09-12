@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-07-18"
+lastupdated: "2019-09-09"
 
 ---
 
-{:new_window: target="_blank"}
+{:external: target="_blank" .external}
 {:shortdesc: .shortdesc}
 {:screen: .screen}
 {:codeblock: .codeblock}
@@ -34,7 +34,7 @@ COPY server.xml /config/
 ```
 {: codeblock}
 
-After an image is built, it can be run. Container execution engines, like Docker or [containers](https://containerd.io/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), take that image definition and run the defined entrypoint as a resource-isolated process directly on top of the host operating system. This eliminates the overhead of virtual machines.
+After an image is built, it can be run. Container execution engines, like Docker or [containerd](https://containerd.io/){: external}, take that image definition and run the defined entrypoint as a resource-isolated process directly on top of the host operating system. This eliminates the overhead of virtual machines.
 
 Container images are stored in *registries*. The best known is the public Docker Hub registry. You push images into and pull images from access-controlled container registries, like {{site.data.keyword.registryshort_notm}}, that are more closely associated with your infrastructure and CI/CD pipelines.
 
@@ -55,14 +55,14 @@ IBM's cloud platforms use Kubernetes for container orchestration. Therefore, in 
 
 All resources are defined within the Kubernetes resource model, which can be configured either through the RESTful API or through configuration files that are submitted through the `kubectl` command line.
 
-For more information, see [Kubernetes basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"), [Kubernetes Object Model](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)![External link icon](../icons/launch-glyph.svg "External link icon"), and [`kubectl` command-line](https://kubernetes.io/docs/reference/kubectl/overview/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon"). 
+For more information, see [Kubernetes basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/){: external}, [Kubernetes Object Model](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)![External link icon](../icons/launch-glyph.svg "External link icon"), and [`kubectl` command line](https://kubernetes.io/docs/reference/kubectl/overview/){: external}. 
 
 ## Helm
 {: #helm}
 
 Helm is a package manager that provides an easy way to find, share, and use software built for Kubernetes. Helm also addresses a common user need: deploying the same application to multiple environments. Helm uses *charts*, which are collections of templates that produce valid Kubernetes objects (YAML) at installation time. These charts are built from a template language that includes support for variables, range operations, and other things that take a lot of labor out of maintaining Kubernetes deployment metadata.
 
-For more information, see [Helm](https://helm.sh/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon").
+For more information, see [Helm](https://helm.sh/){: external}.
 
 ## Istio Service Mesh
 {: #istio}
@@ -71,18 +71,18 @@ Istio is an open source platform for managing and securing microservices. It wor
 
 Istio operates by using a sidecar model. A sidecar (an Envoy proxy) is a separate process that sits alongside your application. The sidecar manages all communication to and from your service, and applies a common level of capability to all services independent of the programming language or framework the service with which it is built. In effect, Istio provides a mechanism to centrally configure routing and security policies, while having those policies applied by way of sidecars in a decentralized way.
 
-lt's recommended to use capabilities that are provided by Istio instead of the similar capabilities that are provided by individual programming languages or frameworks. Load balancing and other routing policies are more consistently defined, managed, and enforced by the infrastructure, as an example.
+Use capabilities that are provided by Istio instead of the similar capabilities that are provided by individual programming languages or frameworks. Load balancing and other routing policies are more consistently defined, managed, and enforced by the infrastructure, as an example.
 
-In some cases, as with distributed tracing, Istio, and application-level libraries are complementary. You can improve operations by using both together. In the case of distributed tracing, Istio can only ensure that trace headers are present; application libraries provide the important context about the relationships between requests. Your understanding of the system as a whole improves when both Istio and supporting libraries or framework libraries are used together.
+In some cases, as with distributed tracing, Istio and application-level libraries are complementary. You can improve operations by using both together. In the case of distributed tracing, Istio can only ensure that trace headers are present; application libraries provide the important context about the relationships between requests. Your understanding of the system as a whole improves when both Istio and supporting libraries or framework libraries are used together.
 
-At the highest level, Istio extends the Kubernetes platform, providing more management concepts, visibility, and security. The features of Istio can be broken down into the following four categories:
+At the highest level, Istio extends the Kubernetes platform, providing additional management concepts, visibility, and security. The features of Istio can be broken down into the following four categories:
 
 * Traffic management: Control the traffic between your microservices to perform traffic splitting, failure recovery, and canary releases.
 * Security: Provide strong identity-based authentication, authorization, and encryption between microservices.
 * Observability: Collect metrics and logs for better visibility into the applications that are running in your cluster.
 * Policies: Enforce access controls, rate limits, and quotas to protect your applications.
 
-See [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: new_window} ![External link icon](../icons/launch-glyph.svg "External link icon") for more information.
+See [What is Istio?](https://istio.io/docs/concepts/what-is-istio/){: external} for more information.
 
 
 
