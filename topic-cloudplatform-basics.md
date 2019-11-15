@@ -18,7 +18,7 @@ lastupdated: "2019-09-09"
 # Cloud platform concepts
 {: #platform}
 
-Here is a brief overview of the core technologies and concepts that developers interact with when building cloud-native applications, starting with Containers, Kubernetes, Helm, and Istio.
+Learn about the core technologies and concepts that developers interact with when you build cloud-native applications, starting with Containers, Kubernetes, Helm, and Istio.
 {:shortdesc}
 
 ## Containers
@@ -34,7 +34,7 @@ COPY server.xml /config/
 ```
 {: codeblock}
 
-After an image is built, it can be run. Container execution engines, like Docker or [containerd](https://containerd.io/){: external}, take that image definition and run the defined entrypoint as a resource-isolated process directly on top of the host operating system. This eliminates the overhead of virtual machines.
+After an image is built, it can be run. Container execution engines, like Docker or [containerd](https://containerd.io/){: external}, take that image definition and run the defined entrypoint as a resource-isolated process directly on the host operating system. This eliminates the overhead of virtual machines.
 
 Container images are stored in *registries*. The best known is the public Docker Hub registry. You push images into and pull images from access-controlled container registries, like {{site.data.keyword.registryshort_notm}}, that are more closely associated with your infrastructure and CI/CD pipelines.
 
@@ -45,7 +45,7 @@ IBM's cloud platforms use Kubernetes for container orchestration. Therefore, in 
 
 | Concept | Description |
 |---------|-------------|
-| Pod | A localized group of containers that are deployed together as a single unit. Pods are relatively immutable, requiring the original Pod to be replaced to modify various attributes of the Pod. A typical application has one container with core business logic and  additionalnal Pods that provide platform capabilities at the granular level. |
+| Pod | A localized group of containers that are deployed together as a single unit. Pods are relatively immutable, requiring the original Pod to be replaced to modify various attributes of the Pod. A typical application has one container with core business logic and additional Pods that provide platform capabilities at the granular level. |
 | Deployment | A repeatable template for a stateless Pod, adding a dimension of scale to the Pod concept. Additionally, the templated definition can be updated and the underlying Pod instances replaced. A Kubernetes Deployment configuration is monitored by a Kubernetes Deployment Controller to ensure that the declared number of Pods for a Deployment are maintained. A Deployment is displayed as `kind: Deployment` in `.yaml` files. |
 | Service | A well-known name that represents a set of relatively unstable Pod IP addresses. A Service can exist on the cluster private network only, or be exposed externally, by using a cloud provider-specific load balancer. A Service is displayed as `kind: Service` in `.yaml` files. |
 | Ingress | The ability to share a single network address with multiple services by way of virtual hosting or context-based routing. An Ingress can also perform network connection management activities like TLS termination. An Ingress is displayed as `kind: Ingress` in `.yaml` files. |
@@ -60,7 +60,7 @@ For more information, see [Kubernetes basics](https://kubernetes.io/docs/tutoria
 ## Helm
 {: #helm}
 
-Helm is a package manager that provides an easy way to find, share, and use software built for Kubernetes. Helm also addresses a common user need: deploying the same application to multiple environments. Helm uses *charts*, which are collections of templates that produce valid Kubernetes objects (YAML) at installation time. These charts are built from a template language that includes support for variables, range operations, and other things that take a lot of labor out of maintaining Kubernetes deployment metadata.
+Helm is a package manager that provides an easy way to find, share, and use software built for Kubernetes. Helm also addresses a common user need: deploying the same application to multiple environments. Helm uses *charts*, which are collections of templates that produce valid Kubernetes objects (YAML) at installation time. These charts are built from a template language that includes support for variables, range operations, and other things that take the labor out of maintaining Kubernetes deployment metadata.
 
 For more information, see [Helm](https://helm.sh/){: external}.
 
@@ -69,11 +69,11 @@ For more information, see [Helm](https://helm.sh/){: external}.
 
 Istio is an open source platform for managing and securing microservices. It works with orchestrators like Kubernetes, providing a way to manage and control communication between services.
 
-Istio operates by using a sidecar model. A sidecar (an Envoy proxy) is a separate process that sits alongside your application. The sidecar manages all communication to and from your service, and applies a common level of capability to all services independent of the programming language or framework the service with which it is built. In effect, Istio provides a mechanism to centrally configure routing and security policies, while having those policies applied by way of sidecars in a decentralized way.
+Istio operates by using a sidecar model. A sidecar (an Envoy proxy) is a separate process that sits alongside your application. The sidecar manages all communication to and from your service, and applies a common level of capability to all services independent of the programming language or framework the service with which they're built. In effect, Istio provides a mechanism to centrally configure routing and security policies, while having those policies applied by way of sidecars in a decentralized way.
 
 Use capabilities that are provided by Istio instead of the similar capabilities that are provided by individual programming languages or frameworks. Load balancing and other routing policies are more consistently defined, managed, and enforced by the infrastructure, as an example.
 
-In some cases, as with distributed tracing, Istio and application-level libraries are complementary. You can improve operations by using both together. In the case of distributed tracing, Istio can only ensure that trace headers are present; application libraries provide the important context about the relationships between requests. Your understanding of the system as a whole improves when both Istio and supporting libraries or framework libraries are used together.
+In some cases, as with distributed tracing, Istio and application-level libraries are complementary. You can improve operations by using both together. With distributed tracing, Istio can only ensure only that trace headers are present; application libraries provide the important context about the relationships between requests. Your understanding of the system as a whole improves when both Istio and supporting libraries or framework libraries are used together.
 
 At the highest level, Istio extends the Kubernetes platform, providing additional management concepts, visibility, and security. The features of Istio can be broken down into the following four categories:
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-09"
+lastupdated: "2019-11-14"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2019-09-09"
 Cloud-native applications must be portable. You can use the same fixed artifact to deploy to multiple environments without changing code or exercising otherwise untested code paths.
 {:shortdesc}
 
-Three factors from the [twelve factor methodology](https://12factor.net/){: external} directly relate to this practice:
+Three factors from the [twelve-factor methodology](https://12factor.net/){: external} directly relate to this practice:
 
 * The first factor recommends a 1-to-1 correlation between a running service and a versioned codebase. Create a fixed deployment artifact, like a Docker image, from a versioned codebase that can be deployed, unchanged, to multiple environments.
 * The third factor recommends a separation between application-specific configuration, which is be part of the fixed artifact, and environment-specific configuration, which is be provided to the service at deployment time.
@@ -48,7 +48,7 @@ Many languages and frameworks provide standard libraries to aid applications in 
 
 The management of service configuration and credentials (service bindings) varies between platforms. Cloud Foundry stores service binding details in a stringified JSON object that is passed to the application as a `VCAP_SERVICES` environment variable. Kubernetes stores service bindings as stringified JSON or flat `ConfigMaps` or `Secrets` attributes in, which can be passed to the containerized application as environment variables or mounted as a temporary volume. Local development often uses a simplified version of whatever is running in the cloud. Working across these variations in a portable way without having environment-specific code paths can be challenging.
 
-In Cloud Foundry and Kubernetes environments, you can use[service brokers](https://cloud.ibm.com/apidocs/ibm-cloud-osb-api){: external} to manage binding to a backing service and injecting the associated credentials into the application's environment. This can impact application portability as credentials might not be provided to the application the same way in different environments.
+In Cloud Foundry and Kubernetes environments, you can use [service brokers](https://cloud.ibm.com/apidocs/ibm-cloud-osb-api){: external} to manage binding to a backing service and injecting the associated credentials into the application's environment. This can impact application portability as credentials might not be provided to the application the same way in different environments.
 
 {{site.data.keyword.IBM}} has several open source libraries that work with a `mappings.json` file to map the key that the application uses to retrieve credential information to an ordered list of possible sources. It supports three search pattern types:
 

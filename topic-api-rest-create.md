@@ -31,7 +31,7 @@ REST APIs use standard HTTP verbs for Create, Retrieve, Update, and Delete (CRUD
 * POST operations can be used to create or update resources. POST operations can't be invoked repeatedly. For example, if a POST request is used to create resources, and it is invoked multiple times, a new, unique resource is created as a result of each invocation.
 * GET operations must be able to be invoked repeatedly and must not cause side effects. They're to be used to retrieve information. GET requests with query parameters are not to be used to change or update information. Use the POST, PUT, or PATCH operations instead.
 * PUT operations can be used to update resources. PUT operations usually include a complete copy of the resource to be updated, making it possible to invoke the operation multiple times.
-* PATCH operations allow partial update of resources. They can be invoked repeatedly depending on how the delta is specified and then applied to the resource. For example, if a PATCH operation indicates that a value should be changed from A to B, it can be invoked repeatedly. There is no effect if it is invoked multiple times and the value is already B.
+* PATCH operations allow partial update of resources. They can be invoked repeatedly depending on how the delta is specified and then applied to the resource. For example, if a PATCH operation indicates to change a value from A to B, it can be invoked repeatedly. The operation has no effect if it is invoked multiple times and the value is already B.
 * DELETE operations can be invoked multiple times, as a resource can be deleted only once. However, the return code varies, as the first operation succeeds (`200` or `204`), while subsequent invocations do not find the resource (`404` or `410`).
 
 ### Machine-friendly, descriptive results
@@ -56,7 +56,7 @@ Consider what data to return in your responses to make communication efficient. 
 ### RESTful resource URIs
 {: #rest-uris}
 
-There are varying opinions about some aspects of RESTful resource URIs. In general, there is agreement that resources must be nouns, not verbs, and endpoints must be plural. This results in a clear structure for CRUD operations:
+There are varying opinions about some aspects of RESTful resource URIs. In general, it is agreed that resources must be nouns, not verbs, and endpoints must be plural. This model results in a clear structure for CRUD operations:
 
 * `POST /accounts`: Create a new account.
 * `GET /accounts`: Retrieve a list of accounts.
@@ -77,7 +77,7 @@ The [Robustness Principle](https://tools.ietf.org/html/rfc1122#page-12){: extern
 #### Producing APIs
 {: #robust-producer}
 
-When providing an API to external clients, there are two things you must do when you accept requests and return responses: 
+When you provide an API to external clients, there are two things you must do when you accept requests and return responses: 
 
 * Accept unknown attributes as part of the request.
     > If a service calls your API with unnecessary attributes, throw those values away. Returning an error in this scenario can cause unnecessary failures, negatively impacting the user.
@@ -95,7 +95,7 @@ When consuming APIs:
 * Accept unknown attributes as part of the response.
     > Do not issue an exception if you receive an unexpected variable. If the response contains the information you need, it doesn't matter what else comes along for the ride.
 
-These guidelines are especially relevant for strongly typed languages like Java, where JSON serialization and deserialization often occurs indirectly. For example, the Jackson libraries, or JSON-P/JSON-B. Look for language mechanisms that let you specify more generous behavior like ignoring unknown attributes, or to define or filter which attributes must be serialized.
+These guidelines are especially relevant for strongly typed languages like Java, where JSON serialization and deserialization often occur indirectly. For example, the Jackson libraries, or JSON-P/JSON-B. Look for language mechanisms that let you specify more generous behavior like ignoring unknown attributes, or to define or filter which attributes must be serialized.
 
 ### Versioning RESTful APIs
 {: #version-api}
@@ -104,7 +104,7 @@ One of the major benefits of microservices is the ability to allow services to e
 
 If the robustness principle is followed, it can take a long while before a breaking change is required. When that breaking change happens, you can opt to build a different service entirely and retire the original over time.
 
-If you do need to make breaking API changes for an existing service, decide how to manage those changes: will the service handle all versions of the API, will you maintain independent versions of the service to support each version of the API, or will your service support only the newest version of the API and rely on other adaptive layers to convert to and from the older API?
+If you do need to make breaking API changes for an existing service, decide how to manage those changes: Does the service handle all versions of the API, do you maintain independent versions of the service to support each version of the API, or does your service support only the newest version of the API and rely on other adaptive layers to convert to and from the older API?
 
 After you determine how to manage the changes, the much easier problem to solve is how to reflect the version in your API. There are generally three ways to version a REST resource:
 
@@ -115,7 +115,7 @@ After you determine how to manage the changes, the much easier problem to solve 
 #### Including the version in the URI path
 {: #version-path}
 
-The easiest way to specify a version is to include it in the path of the URI. There are advantages to this approach: it's obvious, it's easy to achieve when building the services in your application, and it's compatible with API browsing tools like Swagger and command-line tools like `curl`, and so on.
+The easiest way to specify a version is to include it in the path of the URI. This approach has advantages: it's obvious, it's easy to achieve when you build the services in your application, and it's compatible with API-browsing tools like Swagger, command-line tools like `curl`, and so on.
 
 If you're going to include the version in the path of the URI, the version should apply to your application as a whole, for example, `/api/v1/accounts` instead of `/api/accounts/v1`. Hypermedia as the Engine of Application State (HATEOAS) is one way of providing URIs to API consumers so they are not responsible for constructing URIs themselves. GitHub, for example, provides [hypermedia URLs](https://developer.github.com/v3/#hypermedia){: external} in the responses for this reason. HATEOAS becomes difficult, if not impossible, to achieve if different backend services can have independently varying versions in their URIs.
 
@@ -134,12 +134,12 @@ For more information, see [Your API versioning is wrong, which is why I decided 
 ## Creating and generating APIs
 {: #create-api}
 
-[OpenAPI v3](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md){: external} is the official specification for RESTful services, governed by the [OpenAPI Initiative](https://www.openapis.org/){: external}, an association of companies under the Linux Foundation.
+[OpenAPI v3](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md){: external} is the official specification for RESTful services and is governed by the [OpenAPI Initiative](https://www.openapis.org/){: external}, an association of companies under the Linux Foundation.
 
 You can use either of the following ways to create an API:
 
   * Start with an OpenAPI Definition (top-down): In this approach, you begin by creating an OpenAPI definition in a language independent format (usually YAML). You then use a code generator to create a skeleton, and build your service implementation from there. This pattern is usually adopted by companies that have a central API design team, and allows for development and test to progress in parallel.
-  * Start with code (bottom-up): Your code is the source of your API definition. This approach works well for new applications with an experimental aspect to them, as your API defintion evolves as you gain a better understanding of what your service needs to do. This approach also works better in some languages than others, as it relies on tools that generate an OpenAPI definition from your code. Java, for example, has excellent support for generating OpenAPI documents from annotation-based REST frameworks.
+  * Start with code (bottom-up): Your code is the source of your API definition. This approach works well for new applications with an experimental aspect to them, as your API definition evolves as you gain a better understanding of what your service needs to do. This approach also works better in some languages than others, as it relies on tools that generate an OpenAPI definition from your code. Java, for example, has excellent support for generating OpenAPI documents from annotation-based REST frameworks.
 
 In either case, working with an OpenAPI definition can help identify areas where the API is inconsistent or difficult to understand from a consumer point of view. Published or version-controlled OpenAPI definitions can also be used by build tools to help flag breaking changes that would impact consumers.
 
@@ -150,7 +150,7 @@ You can author your OpenAPI YAML file in whatever tool you choose. Using a plain
 
 ![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview"){: caption="Figure 1. OpenAPI Preview" caption-side="bottom"} 
 
-There are also a variety of browser-based, live-parsing editors that you can use either online or locally. Some examples include:
+There are also many browser-based, live-parsing editors that you can use either online or locally. Some examples include:
 
 * The [OpenAPI-GUI project](https://github.com/Mermade/openapi-gui){: external} supports both v2 and v3 of the OpenAPI specification and can migrate an OpenAPI v2 definition to v3 for you.
 * [Swagger Editor from SmartBear](https://editor.swagger.io){: external} also supports both v2 and v3 of OpenAPI.
@@ -159,7 +159,7 @@ There are also a variety of browser-based, live-parsing editors that you can use
 ### Generating the API implementation
 {: #code-first}
 
-You can use the open-source [OpenAPI generator](https://github.com/OpenAPITools/openapi-generator){: external} to create a skeleton project for your service implementation from an OpenAPI definition. You can specify the language or framework for the skeleton from the command line. For example, to create a Java project for the sample PetStore API that uses generic JAX-RS method annotations, you specify the following command:
+You can use the open source [OpenAPI generator](https://github.com/OpenAPITools/openapi-generator){: external} to create a skeleton project for your service implementation from an OpenAPI definition. You can specify the language or framework for the skeleton from the command line. For example, to create a Java project for the sample PetStore API that uses generic JAX-RS method annotations, you specify the following command:
 
 ```bash
 openapi-generator generate -g jaxrs-cxf-cdi -i ./petstore.yaml -o petstore --api-package=com.ibm.petstore

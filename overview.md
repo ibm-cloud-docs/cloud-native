@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-09"
+lastupdated: "2019-11-14"
 
 ---
 
@@ -62,7 +62,6 @@ The [twelve-factor application](https://12factor.net){: external}methodology was
 
 You don't need to strictly follow these factors to achieve a quality microservice environment. But with them you can build and maintain portable applications or services in continuous delivery environments.
 
-
 ## Microservices
 {: #microservices}
 
@@ -74,14 +73,14 @@ Microservices are independent. Agility is one of the benefits of microservice ar
 
 Clear API boundaries give teams that work on a service the most flexibility to evolve the implementation. This characteristic is what enables polyglot programming and persistence.
 
-Microservices are resilient. Application stability depends on individual microservices being robust to failure. This is a significant difference from traditional architectures, where the supporting infrastructure handles failures for you. Each service needs to apply isolation patterns, such as circuit breakers and bulkheads, to contain failures and define appropriate fallback behaviors to protect upstream services.
+Microservices are resilient. Application stability depends on individual microservices being robust to failure. This model is a significant difference from traditional architectures, where the supporting infrastructure handles failures for you. Each service needs to apply isolation patterns, such as circuit breakers and bulkheads, to contain failures and define appropriate fallback behaviors to protect upstream services.
 
 Microservices are stateless and are stored in external backing cloud services, like Redis. Fast startup and graceful shutdown behavior further allow microservices to work well in automated environments that create and remove instances in response to load or to maintain system health.
 
 ### The meaning of "small"
 {: #small-microsvc}
 
-The use of the word "small", as applied to a microservice, means that it is focused in purpose. Many descriptions make parallels between the roles of individual microservices and chained commands on the Unix command line:
+The use of the word "small", as applied to a microservice, means that it is focused in purpose. Many descriptions make parallels between the roles of individual microservices and chained commands on the UNIX command line:
 
 ```
 ls | grep 'service' | sort -r
@@ -90,10 +89,10 @@ ls | grep 'service' | sort -r
 
 These UNIX commands each perform distinctly different tasks, and you can chain them together regardless of programming language or quantity of code.
 
-## Polyglot applications: choosing the right tool for the job
+## Polyglot applications - Choosing the right tool for the job
 {: #polyglot-apps}
 
-Polyglot is a frequently cited benefit of microservice-based architectures. On one hand, the ability to choose the appropriate language or data store for the function a service is providing can be very powerful, and can bring a lot of efficiency. On the other hand, the use of obscure technologies can complicate long-term maintenance and inhibit the movement of developers between teams. 
+Polyglot is a frequently cited benefit of microservice-based architectures. On one hand, the ability to choose the appropriate language or data store for the function a service is providing can be powerful and can bring increased efficiency. On the other hand, the use of obscure technologies can complicate long-term maintenance and inhibit the movement of developers between teams. 
 
 Create a balance between the two by creating a list of supported technologies to choose from at the outset, with a defined policy for extending the list with new technologies over time. Ensure that non-functional or regulatory requirements like maintainability, auditability, and data security can be satisfied, while preserving agility and supporting innovation through experimentation.
 
