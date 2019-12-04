@@ -16,4 +16,5 @@ Cloud-native development
         topic-logging.md
         topic-metrics.md
         topic-fault-tolerance.md
+        [Learn more about cloud native applications](https://www.ibm.com/cloud/learn/cloud-native)
     {: .navgroup-end}
