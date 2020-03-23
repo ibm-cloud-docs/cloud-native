@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-11-14"
+  years: 2019, 2020
+lastupdated: "2020-03-23"
 
 ---
 
@@ -48,7 +48,7 @@ spec:
 
 Requests made to the stock quote service through the sidecar proxy or ingress gateway wait for 30 seconds before the request fails, rather than the default 15 seconds.
 
-Tuning timeouts in this way, all of the requests that are using the route have the applied timeout. This is a base layer of safety provided by Istio. Even if an application framework or library doesn't impose a timeout, it doesn't wait forever because Istio does. However, application-level timeouts still apply. The infrastructure-level timeout for the stock-quote service was extended to 30 seconds. If the application library sets a timeout for 5 seconds, the application's request still fail with a timeout.
+Tuning timeouts in this way, all of the requests that are using the route have the applied timeout. This is a base layer of safety that is provided by Istio. Even if an application framework or library doesn't impose a timeout, it doesn't wait forever because Istio does. However, application-level timeouts still apply. The infrastructure-level timeout for the stock-quote service was extended to 30 seconds. If the application library sets a timeout for 5 seconds, the application's request still fail with a timeout.
 
 ## Fallbacks
 
@@ -133,5 +133,5 @@ spec:
 
 This configuration puts constraints on requests that other services are making to the stock quote service. The specified `outlierDetection` traffic policy is applied to each individual instance. To phrase the preceding configuration as a sentence, "Eject any stock-quote-service instance that fails three times in 5 seconds for at least 5 minutes. All instances can be ejected". The latter `maxEjectionPercent` setting is related to load-balancing. Istio maintains a load-balancing pool, and ejects failing instances from that pool. By default, it ejects a maximum of 10% of all available instance from the load-balancing pool.
 
-For those familiar with other mechanisms of circuit breaking, Istio does not have a half-open state. It applies some simple math. An instance remains ejected from the pool for `baseInjectionTime * <number of times it has been ejected>`. This allows for instances to recover from transient failures and keep failing instances out of the pool.
+If you are familiar with other mechanisms of circuit breaking, Istio does not have a half-open state. It applies some simple math. An instance remains ejected from the pool for `baseInjectionTime * <number of times it has been ejected>`. This allows for instances to recover from transient failures and keep failing instances out of the pool.
 

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-09-09"
+  years: 2019, 2020
+lastupdated: "2020-03-23"
 
 ---
 
@@ -23,7 +23,7 @@ Health checks provide a simple mechanism within automated systems to examine the
 
 Kubernetes defines two integral mechanisms for checking the health of a container:
 
-* A readiness probe is used to indicate whether the process can handle requests that are is routable. Kubernetes don't route work to a container with a failing readiness probe. A readiness probe fails if a service is busy, doesn't finish initializing, overloaded, or unable to process requests. 
+* A readiness probe is used to indicate whether the process can handle requests that are is routable. Kubernetes don't route work to a container with a failing readiness probe. A readiness probe fails if a service is busy, doesn't finish initializing, is overloaded, or unable to process requests. 
 * A liveness probe is used to indicate whether the process should be restarted. Kubernetes stops and restarts a container with a failing liveness probe to ensure that Pods in a defunct state are terminated and replaced. A liveness probe fails if the service is in an unrecoverable state, for example, if an out of memory condition occurs. Simple liveness checks that always return an OK response can identify containers in an inconsistent state, which can happen when the process that serves the requests crashes but the container is still running.
 
 Readiness and liveness probes are both defined by using a similar structure that includes time delay and retry intervals, failure tolerance periods, timeouts and the definition of the probe implementation. The probe can be implemented by running a command, checking a TCP endpoint for connectivity, or performing an HTTP invocation. The same probe implementation can often be used for both readiness or liveness purposes, but the time delay and retry intervals need to be adjusted for the particular purpose.
@@ -108,4 +108,4 @@ spec:
 ```
 {: codeblock}
 
-For more information, see [Configure Liveness and Readiness Probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/){: external}.
+For more information, see [Configure Liveness and Readiness Probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/){: external}.

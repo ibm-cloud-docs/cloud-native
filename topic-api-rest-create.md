@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-09-09"
+  years: 2019, 2020
+lastupdated: "2020-03-23"
 
 ---
 
@@ -138,7 +138,7 @@ For more information, see [Your API versioning is wrong, which is why I decided 
 
 You can use either of the following ways to create an API:
 
-  * Start with an OpenAPI Definition (top-down): In this approach, you begin by creating an OpenAPI definition in a language independent format (usually YAML). You then use a code generator to create a skeleton, and build your service implementation from there. This pattern is usually adopted by companies that have a central API design team, and allows for development and test to progress in parallel.
+  * Start with an OpenAPI Definition (top-down): In this approach, you begin by creating an OpenAPI definition in a language-independent format (usually YAML). You then use a code generator to create a skeleton, and build your service implementation from there. This pattern is usually adopted by companies that have a central API design team, and allows for development and test to progress in parallel.
   * Start with code (bottom-up): Your code is the source of your API definition. This approach works well for new applications with an experimental aspect to them, as your API definition evolves as you gain a better understanding of what your service needs to do. This approach also works better in some languages than others, as it relies on tools that generate an OpenAPI definition from your code. Java, for example, has excellent support for generating OpenAPI documents from annotation-based REST frameworks.
 
 In either case, working with an OpenAPI definition can help identify areas where the API is inconsistent or difficult to understand from a consumer point of view. Published or version-controlled OpenAPI definitions can also be used by build tools to help flag breaking changes that would impact consumers.
@@ -146,11 +146,11 @@ In either case, working with an OpenAPI definition can help identify areas where
 ### Creating an API from an OpenAPI Definition
 {: #openapi-first}
 
-You can author your OpenAPI YAML file in whatever tool you choose. Using a plain text editor, however, can be error prone. Some editors have basic support for YAML, and some might have additional extensions to support OpenAPI definitions. For example, you can use Visual Studio Code extensions like [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: external} or [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: external} to validate your OpenAPI definition against a specified spec version and render a web view in the preview pane:
+You can author your OpenAPI YAML file in whatever tool you choose. However, using a plain text editor can be error prone. Some editors have basic support for YAML, and some might have more extensions to support OpenAPI definitions. For example, you can use Visual Studio Code extensions like [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer){: external} or [OpenAPI Preview](https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview){: external} to validate your OpenAPI definition against a specified spec version and render a web view in the preview pane:
 
 ![OpenAPI Preview](images/create-api-image1.png "OpenAPI Preview"){: caption="Figure 1. OpenAPI Preview" caption-side="bottom"} 
 
-There are also many browser-based, live-parsing editors that you can use either online or locally. Some examples include:
+You can use many browser-based, live-parsing editors either online or locally. Some examples include:
 
 * The [OpenAPI-GUI project](https://github.com/Mermade/openapi-gui){: external} supports both v2 and v3 of the OpenAPI specification and can migrate an OpenAPI v2 definition to v3 for you.
 * [Swagger Editor from SmartBear](https://editor.swagger.io){: external} also supports both v2 and v3 of OpenAPI.

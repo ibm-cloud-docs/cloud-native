@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-09-09"
+  years: 2019, 2020
+lastupdated: "2020-03-23"
 
 ---
 
@@ -34,7 +34,7 @@ COPY server.xml /config/
 ```
 {: codeblock}
 
-After an image is built, it can be run. Container execution engines, like Docker or [containerd](https://containerd.io/){: external}, take that image definition and run the defined entrypoint as a resource-isolated process directly on the host operating system. This eliminates the overhead of virtual machines.
+After an image is built, it can be run. Container execution engines, like Docker or [containerd](https://containerd.io/){: external}, take that image definition and run the defined entrypoint as a resource-isolated process directly on the host operating system. The overhead of virtual machines is eliminatedd.
 
 Container images are stored in *registries*. The best known is the public Docker Hub registry. You push images into and pull images from access-controlled container registries, like {{site.data.keyword.registryshort_notm}}, that are more closely associated with your infrastructure and CI/CD pipelines.
 
@@ -45,7 +45,7 @@ IBM's cloud platforms use Kubernetes for container orchestration. Therefore, in 
 
 | Concept | Description |
 |---------|-------------|
-| Pod | A localized group of containers that are deployed together as a single unit. Pods are relatively immutable, requiring the original Pod to be replaced to modify various attributes of the Pod. A typical application has one container with core business logic and additional Pods that provide platform capabilities at the granular level. |
+| Pod | A localized group of containers that are deployed together as a single unit. Pods are relatively immutable, requiring the original Pod to be replaced to modify various attributes of the Pod. A typical application has one container with core business logic and more Pods that provide platform capabilities at the granular level. |
 | Deployment | A repeatable template for a stateless Pod, adding a dimension of scale to the Pod concept. Additionally, the templated definition can be updated and the underlying Pod instances replaced. A Kubernetes Deployment configuration is monitored by a Kubernetes Deployment Controller to ensure that the declared number of Pods for a Deployment are maintained. A Deployment is displayed as `kind: Deployment` in `.yaml` files. |
 | Service | A well-known name that represents a set of relatively unstable Pod IP addresses. A Service can exist on the cluster private network only, or be exposed externally, by using a cloud provider-specific load balancer. A Service is displayed as `kind: Service` in `.yaml` files. |
 | Ingress | The ability to share a single network address with multiple services by way of virtual hosting or context-based routing. An Ingress can also perform network connection management activities like TLS termination. An Ingress is displayed as `kind: Ingress` in `.yaml` files. |
@@ -73,9 +73,9 @@ Istio operates by using a sidecar model. A sidecar (an Envoy proxy) is a separat
 
 Use capabilities that are provided by Istio instead of the similar capabilities that are provided by individual programming languages or frameworks. Load balancing and other routing policies are more consistently defined, managed, and enforced by the infrastructure, as an example.
 
-In some cases, as with distributed tracing, Istio and application-level libraries are complementary. You can improve operations by using both together. With distributed tracing, Istio can only ensure only that trace headers are present; application libraries provide the important context about the relationships between requests. Your understanding of the system as a whole improves when both Istio and supporting libraries or framework libraries are used together.
+In some cases, as with distributed tracing, Istio, and application-level libraries are complementary. You can improve operations by using both together. With distributed tracing, Istio can ensure only that trace headers are present; application libraries provide the important context about the relationships between requests. Your understanding of the system as a whole improves when both Istio and supporting libraries or framework libraries are used together.
 
-At the highest level, Istio extends the Kubernetes platform, providing additional management concepts, visibility, and security. The features of Istio can be broken down into the following four categories:
+At the highest level, Istio extends the Kubernetes platform, providing more management concepts, visibility, and security. The features of Istio can be broken down into the following four categories:
 
 * Traffic management: Control the traffic between your microservices to perform traffic splitting, failure recovery, and canary releases.
 * Security: Provide strong identity-based authentication, authorization, and encryption between microservices.

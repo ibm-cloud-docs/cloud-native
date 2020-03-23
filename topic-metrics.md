@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-09-09"
+  years: 2019, 2020
+lastupdated: "2020-03-23"
 
 ---
 
@@ -94,4 +94,4 @@ A failure path is often wildly different than a success path. For example, an er
 
 A distributed system has natural variations in certain measurements. Occasional errors are normal, as requests might be directed to processes in the middle of starting up or shutting down. Filter the raw data to catch when this natural variation exceeds a valid range. For example, split metrics into buckets. Categorize request duration into categories like 'smallest/quickest', 'medium/normal', and 'longest/largest', as observed within a sliding time window. If request durations are consistently landing in the "longest/largest" bucket, you can identify a problem. Histogram or summary metrics are usually used for this kind of data. For more information, see [Histograms and Summaries](https://prometheus.io/docs/practices/histograms/){: external}.
 
-Ensure that your applications and services emit metrics with names and labels that follow organization-wide conventions that support your business's monitoring efforts. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems){: external}.
+Ensure that your applications and services emit metrics with names and labels that follow organization-wide conventions that support your business's monitoring efforts. For more information, see [Monitoring distributed systems](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/){: external}.
