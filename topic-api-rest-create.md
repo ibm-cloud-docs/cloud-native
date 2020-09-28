@@ -32,7 +32,7 @@ REST APIs use standard HTTP verbs for Create, Retrieve, Update, and Delete (CRUD
 * GET operations must be able to be invoked repeatedly and must not cause side effects. They're to be used to retrieve information. GET requests with query parameters are not to be used to change or update information. Use the POST, PUT, or PATCH operations instead.
 * PUT operations can be used to update resources. PUT operations usually include a complete copy of the resource to be updated, making it possible to invoke the operation multiple times.
 * PATCH operations allow partial update of resources. They can be invoked repeatedly depending on how the delta is specified and then applied to the resource. For example, if a PATCH operation indicates to change a value from A to B, it can be invoked repeatedly. The operation has no effect if it is invoked multiple times and the value is already B.
-* DELETE operations can be invoked multiple times, as a resource can be deleted only once. However, the return code varies, as the first operation succeeds (`200` or `204`), while subsequent invocations do not find the resource (`404` or `410`).
+* DELETE operations can't be invoked multiple times, as a resource can be deleted only once. However, the return code varies, as the first operation succeeds (`200` or `204`), while subsequent invocations do not find the resource (`404` or `410`).
 
 ### Machine-friendly, descriptive results
 {: #rest-results}
